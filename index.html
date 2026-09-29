@@ -1,6 +1,7 @@
 <html style="margin:0;padding:0;">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Public+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
 (function(){
   var s = document.createElement('style');
@@ -91,6 +92,20 @@ input[type="date"]::-webkit-calendar-picker-indicator,input[type="time"]::-webki
 .pay-row{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--card2);padding:14px 16px;border-radius:10px;margin-bottom:10px;border:1px solid var(--border)}
 .pay-row .acct{font-family:monospace;font-size:15px;letter-spacing:.04em;color:var(--text);font-weight:600}
 .pay-row .acct-name{font-size:12px;color:var(--muted)}
+.fare-box{margin-top:18px;border:1px solid rgba(212,175,55,.35);border-radius:14px;background:linear-gradient(160deg,rgba(212,175,55,.08),var(--card2));padding:18px;display:none;animation:fadeSlide .4s ease}
+.fare-box.show{display:block}
+.fare-box .fare-title{display:flex;align-items:center;gap:8px;font-weight:700;color:var(--gold-light);font-size:15px;letter-spacing:.04em;text-transform:uppercase;margin-bottom:12px}
+.fare-line{display:flex;justify-content:space-between;padding:7px 0;font-size:14px;border-bottom:1px dotted rgba(255,255,255,.1)}
+.fare-line:last-of-type{border-bottom:none}
+.fare-line .fl{color:var(--muted)}
+.fare-line .fv{font-weight:600}
+.fare-total{display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding-top:12px;border-top:2px solid var(--gold)}
+.fare-total .ftl{font-weight:700;font-size:15px}
+.fare-total .ftv{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:700;color:var(--gold-light)}
+.fare-note{font-size:12px;color:var(--muted);margin-top:10px;line-height:1.5}
+.fare-calc{font-size:11px;color:#6a6c82;font-style:italic}
+.pdf-btn{display:inline-flex;align-items:center;gap:8px;background:var(--card2);border:1px solid var(--gold);color:var(--gold-light);padding:12px 20px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;margin-top:14px}
+.pdf-btn:hover{background:var(--gold-soft);transform:translateY(-1px)}
 @media (max-width:640px){
   body{font-size:16px}
   .nav-link{font-size:15px}
@@ -114,7 +129,7 @@ input[type="date"]::-webkit-calendar-picker-indicator,input[type="time"]::-webki
     <div class="flex items-center gap-4">
       <img src="https://i.imgur.com/DWfEGWv.png" alt="GoCav" style="height:60px;border-radius:10px" onerror="this.style.display='none'">
       <div>
-        <div class="serif font-bold" style="font-size:24px;line-height:1.1">GoCav Transport Services</div>
+        <div class="serif font-bold" style="font-size:24px;line-height:1.1">GoCav Transport</div>
         <div style="font-size:11px;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;font-weight:700;margin-top:2px">Premium Chauffeur Service</div>
       </div>
     </div>
@@ -142,7 +157,7 @@ input[type="date"]::-webkit-calendar-picker-indicator,input[type="time"]::-webki
       Travel in <span class="gold-text">Premium Comfort</span><br>Arrive in Style
     </h1>
     <p style="color:var(--muted);font-size:18px;max-width:580px;margin:0 auto 32px">
-      Professional chauffeur service from Cavite, Laguna &amp; Batangas to NAIA — plus Tagaytay and Manila day tours. Fuel-included airport transfers, transparent pricing.
+      Professional chauffeur service from Cavite, Laguna &amp; Batangas to NAIA. Live fare estimates + instant PDF quotation.
     </p>
     <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
       <button class="gold-btn px-8 py-3.5 rounded-xl text-base pulse" data-scroll="#booking">Book Your Ride Now</button>
@@ -161,7 +176,7 @@ input[type="date"]::-webkit-calendar-picker-indicator,input[type="time"]::-webki
   <div class="reveal text-center mb-10">
     <div class="step-label mb-2">Our Fleet &amp; Rates</div>
     <h2 class="serif" style="font-size:38px;font-weight:700;margin:0 0 8px">Choose Your <span class="gold-text">Ride</span></h2>
-    <p style="color:var(--muted);max-width:540px;margin:0 auto;font-size:16px">Tap any vehicle or destination to pre-fill your booking. Professional driver included — no self-drive.</p>
+    <p style="color:var(--muted);max-width:540px;margin:0 auto;font-size:16px">Accent ₱35/km · Avanza ₱45/km · Montero ₱50/km — fuel included. Live estimate + PDF quotation.</p>
   </div>
 
   <div class="reveal mb-4" style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
@@ -176,7 +191,7 @@ input[type="date"]::-webkit-calendar-picker-indicator,input[type="time"]::-webki
         <h3 class="serif" style="font-size:22px;font-weight:700;margin:0">Hyundai Accent</h3>
         <span class="tag tag-comfort">1–3 pax</span>
       </div>
-      <p style="color:var(--muted);font-size:13px;margin:4px 0 12px">Black Sedan · Max 4 pax · 2 large bags</p>
+      <p style="color:var(--muted);font-size:13px;margin:4px 0 12px">Black Sedan · Max 4 pax · 2 large bags · ₱35/km custom routes</p>
       <div style="display:flex;justify-content:space-between;font-size:14px;padding:6px 0"><span style="color:var(--muted)">One-Way</span><strong>₱1,500</strong></div>
       <div style="display:flex;justify-content:space-between;font-size:14px;padding:6px 0;color:var(--gold-light)"><span>Round Trip</span><strong>₱2,500</strong></div>
       <div style="margin-top:10px;font-size:12px;color:var(--green)">✓ Fuel Included · Professional Driver</div>
@@ -187,7 +202,7 @@ input[type="date"]::-webkit-calendar-picker-indicator,input[type="time"]::-webki
         <h3 class="serif" style="font-size:22px;font-weight:700;margin:0">Toyota Avanza</h3>
         <span class="tag tag-comfort">1–5 pax</span>
       </div>
-      <p style="color:var(--muted);font-size:13px;margin:4px 0 12px">Black MPV · Max 6 pax · 4 large bags</p>
+      <p style="color:var(--muted);font-size:13px;margin:4px 0 12px">Black MPV · Max 6 pax · 4 large bags · ₱45/km custom routes</p>
       <div style="display:flex;justify-content:space-between;font-size:14px;padding:6px 0"><span style="color:var(--muted)">One-Way</span><strong>₱1,800</strong></div>
       <div style="display:flex;justify-content:space-between;font-size:14px;padding:6px 0;color:var(--gold-light)"><span>Round Trip</span><strong>₱3,500</strong></div>
       <div style="margin-top:10px;font-size:12px;color:var(--green)">✓ Fuel Included · Professional Driver</div>
@@ -198,49 +213,48 @@ input[type="date"]::-webkit-calendar-picker-indicator,input[type="time"]::-webki
         <h3 class="serif" style="font-size:22px;font-weight:700;margin:0">Montero Sport Gen 2</h3>
         <span class="tag tag-premium">Premium SUV</span>
       </div>
-      <p style="color:var(--muted);font-size:13px;margin:4px 0 12px">Brown SUV · Max 6 pax · Spacious cargo</p>
+      <p style="color:var(--muted);font-size:13px;margin:4px 0 12px">Brown SUV · Max 6 pax · Spacious cargo · ₱50/km custom routes</p>
       <div style="display:flex;justify-content:space-between;font-size:14px;padding:6px 0"><span style="color:var(--muted)">One-Way</span><strong>₱2,100</strong></div>
       <div style="display:flex;justify-content:space-between;font-size:14px;padding:6px 0;color:var(--gold-light)"><span>Round Trip</span><strong>₱4,000</strong></div>
       <div style="margin-top:10px;font-size:12px;color:var(--green)">✓ Fuel Included · Professional Driver</div>
     </div>
   </div>
 
-  <!-- OUT-OF-CAVITE AIRPORT TRANSFERS -->
   <div class="reveal mb-4" style="display:flex;align-items:center;gap:10px;margin-bottom:16px;margin-top:24px">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-    <span style="font-size:13px;color:var(--muted)">Laguna &amp; Batangas ↔ NAIA — <strong style="color:var(--text)">Custom Quotation</strong> · Rate sent to your email after booking</span>
+    <span style="font-size:13px;color:var(--muted)">Laguna &amp; Batangas ↔ NAIA — <strong style="color:var(--text)">Live Fare Estimate</strong> · ₱35–50/km by vehicle · Fuel included</span>
   </div>
   <div class="grid md:grid-cols-2 gap-5 mb-10">
     <div class="card-el service-card reveal p-6 text-center" data-service="LAGUNA_TO_NAIA|Laguna → NAIA Airport|CUSTOM_QUOTE">
       <img src="https://i.imgur.com/guyqo1r.jpeg" alt="Laguna" style="width:100%;height:180px;object-fit:cover;border-radius:12px;margin-bottom:14px" onerror="this.style.display='none'">
       <h3 class="serif" style="font-size:24px;font-weight:700;margin:0 0 4px">Laguna ↔ NAIA Airport</h3>
-      <p style="color:var(--muted);font-size:14px;margin:0 0 10px">Santa Rosa · Calamba · San Pablo · Biñan · One-way or round-trip · Flight tracking included</p>
-      <div style="color:var(--gold-light);font-weight:700;font-size:15px">Custom Quotation — rate sent after booking</div>
+      <p style="color:var(--muted);font-size:14px;margin:0 0 10px">Santa Rosa · Calamba · San Pablo · Biñan · Live estimate + PDF quote</p>
+      <div style="color:var(--gold-light);font-weight:700;font-size:15px">₱35/km Accent · ₱45/km Avanza · ₱50/km Montero</div>
     </div>
     <div class="card-el service-card reveal p-6 text-center" data-service="BATANGAS_TO_NAIA|Batangas → NAIA Airport|CUSTOM_QUOTE">
       <img src="https://i.imgur.com/ucWawno.jpeg" alt="Batangas" style="width:100%;height:180px;object-fit:cover;border-radius:12px;margin-bottom:14px" onerror="this.style.display='none'">
       <h3 class="serif" style="font-size:24px;font-weight:700;margin:0 0 4px">Batangas ↔ NAIA Airport</h3>
-      <p style="color:var(--muted);font-size:14px;margin:0 0 10px">Lipa · Tanauan · Batangas City · Nasugbu · One-way or round-trip · Flight tracking included</p>
-      <div style="color:var(--gold-light);font-weight:700;font-size:15px">Custom Quotation — rate sent after booking</div>
+      <p style="color:var(--muted);font-size:14px;margin:0 0 10px">Lipa · Tanauan · Batangas City · Nasugbu · Live estimate + PDF quote</p>
+      <div style="color:var(--gold-light);font-weight:700;font-size:15px">₱35/km Accent · ₱45/km Avanza · ₱50/km Montero</div>
     </div>
   </div>
 
   <div class="reveal mb-4" style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-    <span style="font-size:13px;color:var(--muted)">Day Tours — <strong style="color:var(--text)">8–10 hours</strong> · Fuel, Toll &amp; Parking charged to client · Custom quotation</span>
+    <span style="font-size:13px;color:var(--muted)">Day Tours — <strong style="color:var(--text)">8–10 hours</strong> · Flat day rates · Fuel &amp; toll/parking charged to client</span>
   </div>
   <div class="grid md:grid-cols-2 gap-5">
-    <div class="card-el service-card reveal p-6 text-center" data-service="TAGAYTAY_TOUR|Tagaytay Day Tour|CUSTOM_QUOTE">
+    <div class="card-el service-card reveal p-6 text-center" data-service="TAGAYTAY_TOUR|Tagaytay Day Tour|TOUR_FLAT">
       <img src="https://i.imgur.com/ZdGsCdY.jpeg" alt="Tagaytay Day Tour" style="width:100%;height:180px;object-fit:cover;border-radius:12px;margin-bottom:14px" onerror="this.style.display='none'">
       <h3 class="serif" style="font-size:24px;font-weight:700;margin:0 0 4px">Tagaytay Day Tour</h3>
       <p style="color:var(--muted);font-size:14px;margin:0 0 10px">Cool climate, Taal Lake view, Sky Ranch, picnic groves</p>
-      <div style="color:var(--gold-light);font-weight:700">Custom Quotation — details sent to your email</div>
+      <div style="color:var(--gold-light);font-weight:700;font-size:15px">From ₱5,000/day · Fuel &amp; toll/parking charged to client</div>
     </div>
-    <div class="card-el service-card reveal p-6 text-center" data-service="MANILA_TOUR|Manila Day Tour|CUSTOM_QUOTE">
+    <div class="card-el service-card reveal p-6 text-center" data-service="MANILA_TOUR|Manila Day Tour|TOUR_FLAT">
       <img src="https://i.imgur.com/BJWSNNF.jpeg" alt="Manila Day Tour" style="width:100%;height:180px;object-fit:cover;border-radius:12px;margin-bottom:14px" onerror="this.style.display='none'">
       <h3 class="serif" style="font-size:24px;font-weight:700;margin:0 0 4px">Manila Day Tour</h3>
       <p style="color:var(--muted);font-size:14px;margin:0 0 10px">Intramuros, Rizal Park, National Museum, Binondo food trip</p>
-      <div style="color:var(--gold-light);font-weight:700">Custom Quotation — details sent to your email</div>
+      <div style="color:var(--gold-light);font-weight:700;font-size:15px">From ₱5,000/day · Fuel &amp; toll/parking charged to client</div>
     </div>
   </div>
 </section>
@@ -268,9 +282,9 @@ input[type="date"]::-webkit-calendar-picker-indicator,input[type="time"]::-webki
         <p style="color:var(--muted);font-size:14px;margin:0">Flight tracking for airport pickups. We monitor delays so you don't wait.</p>
       </div>
       <div class="reveal card-el p-6">
-        <div class="feature-icon mb-4"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
-        <h3 style="font-weight:700;margin:0 0 6px;font-size:17px">Transparent Pricing</h3>
-        <p style="color:var(--muted);font-size:14px;margin:0">No hidden fees. Cavite airport rates include fuel. Custom quotes itemize every cost.</p>
+        <div class="feature-icon mb-4"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8M16 17H8M10 9H8"/></svg></div>
+        <h3 style="font-weight:700;margin:0 0 6px;font-size:17px">Instant PDF Quotation</h3>
+        <p style="color:var(--muted);font-size:14px;margin:0">Branded quotation with full fare breakdown, generated instantly after booking.</p>
       </div>
     </div>
   </div>
@@ -280,7 +294,7 @@ input[type="date"]::-webkit-calendar-picker-indicator,input[type="time"]::-webki
   <div class="reveal text-center mb-8">
     <div class="step-label mb-2">Reservations</div>
     <h2 class="serif" style="font-size:36px;font-weight:700;margin:0 0 8px">Book Your <span class="gold-text">Trip</span></h2>
-    <p style="color:var(--muted);max-width:500px;margin:0 auto;font-size:16px">Three simple steps. Your details auto-save so you never retype them.</p>
+    <p style="color:var(--muted);max-width:520px;margin:0 auto;font-size:16px">Three simple steps. Live fare estimate + PDF quotation generated instantly.</p>
   </div>
 
   <div style="display:grid;grid-template-columns:1fr;gap:24px" class="lg:grid-cols-[1fr_320px]">
@@ -311,22 +325,24 @@ input[type="date"]::-webkit-calendar-picker-indicator,input[type="time"]::-webki
             <option value="NAIA_TO_CAVITE|NAIA Terminal to Cavite|AIRPORT_ONE_WAY">NAIA Terminal to Cavite (One-Way)</option>
             <option value="ROUND_TRIP|Cavite ↔ NAIA Round Trip|AIRPORT_ROUND">Cavite ↔ NAIA Round Trip</option>
           </optgroup>
-          <optgroup label="Laguna / Batangas ↔ NAIA (Custom Quote)">
+          <optgroup label="Laguna / Batangas ↔ NAIA (Live Estimate)">
             <option value="LAGUNA_TO_NAIA|Laguna → NAIA Airport|CUSTOM_QUOTE">Laguna to NAIA Airport (One-Way)</option>
             <option value="NAIA_TO_LAGUNA|NAIA Airport → Laguna|CUSTOM_QUOTE">NAIA Airport to Laguna (One-Way)</option>
             <option value="BATANGAS_TO_NAIA|Batangas → NAIA Airport|CUSTOM_QUOTE">Batangas to NAIA Airport (One-Way)</option>
             <option value="NAIA_TO_BATANGAS|NAIA Airport → Batangas|CUSTOM_QUOTE">NAIA Airport to Batangas (One-Way)</option>
           </optgroup>
-          <optgroup label="Day Tours &amp; Custom">
-            <option value="TAGAYTAY_TOUR|Tagaytay Day Tour|CUSTOM_QUOTE">Tagaytay Day Tour (8–10 hrs)</option>
-            <option value="MANILA_TOUR|Manila Day Tour|CUSTOM_QUOTE">Manila Day Tour (8–10 hrs)</option>
+          <optgroup label="Day Tours (Flat Rate — fuel &amp; toll/parking extra)">
+            <option value="TAGAYTAY_TOUR|Tagaytay Day Tour|TOUR_FLAT">Tagaytay Day Tour (8–10 hrs) — from ₱5,000</option>
+            <option value="MANILA_TOUR|Manila Day Tour|TOUR_FLAT">Manila Day Tour (8–10 hrs) — from ₱5,000</option>
+          </optgroup>
+          <optgroup label="Custom Destination (Live Estimate)">
             <option value="CUSTOM|Other Service / Custom Route|CUSTOM_QUOTE">Other / Custom Destination</option>
           </optgroup>
         </select>
         <div class="err-msg" id="err_service">Please select a service type.</div>
 
         <div id="customNotice" style="display:none;background:var(--gold-soft);border-left:3px solid var(--gold);padding:12px 16px;border-radius:0 10px 10px 0;margin:14px 0;font-size:14px;color:var(--gold-light)">
-          A formal quotation including rates, fuel, toll, parking and other expenses will be sent to your email or via call after we receive your booking details.
+          Live fare estimate appears in Step 2. A branded PDF quotation is generated after booking.
         </div>
 
         <div class="grid grid-cols-2 gap-4 mt-4">
@@ -351,7 +367,7 @@ input[type="date"]::-webkit-calendar-picker-indicator,input[type="time"]::-webki
 
       <div class="step-pane" id="step2">
         <h3 class="serif" style="font-size:26px;font-weight:700;margin:0 0 4px">Trip Details</h3>
-        <p style="color:var(--muted);font-size:15px;margin:0 0 20px">When and where shall we pick you up?</p>
+        <p style="color:var(--muted);font-size:15px;margin:0 0 20px">Enter your locations — your fare estimate appears automatically.</p>
 
         <div class="grid grid-cols-2 gap-4">
           <div>
@@ -373,7 +389,7 @@ input[type="date"]::-webkit-calendar-picker-indicator,input[type="time"]::-webki
             <option>NAIA Terminal 1</option><option>NAIA Terminal 2</option>
             <option>NAIA Terminal 3</option><option>NAIA Terminal 4</option>
           </select>
-          <input type="text" id="f_pickup_text" placeholder="Enter pickup address or landmark">
+          <input type="text" id="f_pickup_text" placeholder="e.g. Santa Rosa, Laguna / SM Lipa / Dasmariñas">
           <div class="err-msg" id="err_pickup">Please enter pickup location.</div>
         </div>
 
@@ -384,8 +400,21 @@ input[type="date"]::-webkit-calendar-picker-indicator,input[type="time"]::-webki
             <option>NAIA Terminal 1</option><option>NAIA Terminal 2</option>
             <option>NAIA Terminal 3</option><option>NAIA Terminal 4</option>
           </select>
-          <input type="text" id="f_dropoff_text" placeholder="Enter destination">
+          <input type="text" id="f_dropoff_text" placeholder="e.g. NAIA Terminal 3 / Tagaytay / Manila">
           <div class="err-msg" id="err_dropoff">Please enter destination.</div>
+        </div>
+
+        <div class="fare-box" id="fareBox">
+          <div class="fare-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            Live Fare Estimate
+          </div>
+          <div id="fareBreakdown"></div>
+          <div class="fare-total">
+            <span class="ftl">Estimated Total Fare</span>
+            <span class="ftv" id="fareTotal">—</span>
+          </div>
+          <div class="fare-note" id="fareNote"></div>
         </div>
 
         <div class="mt-4" id="flightField" style="display:none">
@@ -481,7 +510,7 @@ input[type="date"]::-webkit-calendar-picker-indicator,input[type="time"]::-webki
           <span style="font-weight:700;font-size:15px">Estimated Rate</span>
           <span id="s_price" class="serif" style="font-size:28px;font-weight:700;color:var(--gold-light)">—</span>
         </div>
-        <p style="font-size:12px;color:var(--muted);margin:8px 0 0">Cavite airport: fuel included. Laguna/Batangas &amp; tours: custom quote sent after booking.</p>
+        <p style="font-size:12px;color:var(--muted);margin:8px 0 0">Accent ₱35/km · Avanza ₱45/km · Montero ₱50/km. PDF quotation after booking. Day tours: flat rate, fuel &amp; toll/parking charged to client.</p>
       </div>
     </div>
   </div>
@@ -494,8 +523,12 @@ input[type="date"]::-webkit-calendar-picker-indicator,input[type="time"]::-webki
     </div>
     <h2 class="serif" style="font-size:32px;font-weight:700;margin:0 0 8px">Booking Request Sent!</h2>
     <p style="color:var(--muted);font-size:16px;margin:0 0 6px">Your messaging app should open automatically — just tap <strong style="color:var(--text)">SEND</strong>.</p>
-    <p id="followUpNote" style="color:var(--gold-light);font-size:15px;margin:0 0 24px"></p>
-    <div style="display:inline-flex;align-items:center;gap:12px;background:var(--card2);padding:12px 20px;border-radius:12px;margin-bottom:24px;border:1px solid var(--border2);flex-wrap:wrap;justify-content:center">
+    <p id="followUpNote" style="color:var(--gold-light);font-size:15px;margin:0 0 16px"></p>
+    <button class="pdf-btn" id="dlQuote">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M12 18v-6m-3 3 3 3 3-3"/></svg>
+      Download Quotation PDF
+    </button>
+    <div style="display:inline-flex;align-items:center;gap:12px;background:var(--card2);padding:12px 20px;border-radius:12px;margin:20px 0 24px;border:1px solid var(--border2);flex-wrap:wrap;justify-content:center">
       <span style="color:var(--muted);font-size:14px;font-weight:600">Reference No.</span>
       <span id="refNo" style="font-family:monospace;font-size:20px;font-weight:700;color:var(--gold-light);letter-spacing:.1em"></span>
       <button class="copy-btn" id="copyRef">Copy</button>
@@ -580,9 +613,10 @@ input[type="date"]::-webkit-calendar-picker-indicator,input[type="time"]::-webki
     <h2 class="serif" style="font-size:32px;font-weight:700;margin:0">Frequently Asked Questions</h2>
   </div>
   <div class="reveal">
-    <div class="faq-item"><div class="faq-q">Do you serve Laguna and Batangas?<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div><div class="faq-a">Yes! We offer airport transfers from Laguna (Santa Rosa, Calamba, San Pablo, Biñan) and Batangas (Lipa, Tanauan, Batangas City, Nasugbu) to NAIA and vice versa. These are custom-quoted — submit a booking and we'll send the rate to your email.</div></div>
-    <div class="faq-item"><div class="faq-q">How do I confirm my booking?<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div><div class="faq-a">After you send your booking via Email, WhatsApp, or Viber, our team will confirm within 24 hours. You'll receive a reference number — keep it for your records.</div></div>
-    <div class="faq-item"><div class="faq-q">Are toll fees and parking included?<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div><div class="faq-a">For Cavite airport transfers, fuel is included but toll fees and parking are paid by the client (actual cost). For Laguna/Batangas transfers and day tours, fuel, toll, and parking are itemized in your custom quotation.</div></div>
+    <div class="faq-item"><div class="faq-q">How is the fare calculated for Laguna &amp; Batangas?<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div><div class="faq-a">Accent = ₱35/km, Avanza = ₱45/km, Montero = ₱50/km, fuel included. For pickups outside Cavite, a 50% vehicle-positioning fee covers the drive to your pickup. Toll fees are added at estimated cost. A branded PDF quotation is generated instantly after booking.</div></div>
+    <div class="faq-item"><div class="faq-q">How much are the Tagaytay &amp; Manila day tours?<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div><div class="faq-a">Day tours are flat-rate: 8–10 hours with driver. Accent = ₱5,000/day, Avanza = ₱6,500/day, Montero = ₱7,000/day. Fuel, toll fees and parking are charged to the client at actual cost, not included in the flat rate.</div></div>
+    <div class="faq-item"><div class="faq-q">Do you serve Laguna and Batangas?<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div><div class="faq-a">Yes! We offer airport transfers from Laguna (Santa Rosa, Calamba, San Pablo, Biñan) and Batangas (Lipa, Tanauan, Batangas City, Nasugbu) to NAIA and vice versa, with instant live fare estimates.</div></div>
+    <div class="faq-item"><div class="faq-q">Are toll fees and parking included?<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div><div class="faq-a">Fuel is included in the per-km rate for airport transfers. Toll fees and parking are paid by the client at actual cost and shown as a separate line in your estimate and PDF quotation. For day tours, fuel, toll and parking are all charged to the client at actual cost.</div></div>
     <div class="faq-item"><div class="faq-q">What if my flight is delayed?<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div><div class="faq-a">No problem. Include your flight number in the booking and we monitor arrival times. We wait for delayed flights at no extra charge within reasonable windows.</div></div>
     <div class="faq-item"><div class="faq-q">Do you offer child seats?<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div><div class="faq-a">Child seats can be arranged upon request — just mention it in the Notes field of your booking. Children count as one passenger regardless of age.</div></div>
     <div class="faq-item"><div class="faq-q">What is your cancellation policy?<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div><div class="faq-a">Free cancellation up to 24 hours before pickup. Last-minute changes may incur a small fee. Contact us via WhatsApp or Viber for the fastest response.</div></div>
@@ -602,13 +636,51 @@ input[type="date"]::-webkit-calendar-picker-indicator,input[type="time"]::-webki
 
 <script>
 (function(){
+  var GOOGLE_MAPS_KEY = "";
   var WA = "639760465134", VB = "639760465134", EM = "gocav.transport@gmail.com";
   var VEHICLES = {
-    accent:  { name:'Hyundai Accent',       oneWay:1500, roundTrip:2500, comfortPax:3, maxPax:4, comfortBags:2, maxBags:3, tag:'comfort' },
-    avanza:  { name:'Toyota Avanza',        oneWay:1800, roundTrip:3500, comfortPax:5, maxPax:6, comfortBags:4, maxBags:5, tag:'comfort' },
-    montero: { name:'Montero Sport Gen 2',  oneWay:2100, roundTrip:4000, comfortPax:5, maxPax:6, comfortBags:4, maxBags:5, tag:'premium' }
+    accent:  { name:'Hyundai Accent',       oneWay:1500, roundTrip:2500, comfortPax:3, maxPax:4, comfortBags:2, maxBags:3, tag:'comfort', class:'sedan',  perKm:35, tourFlat:5000 },
+    avanza:  { name:'Toyota Avanza',        oneWay:1800, roundTrip:3500, comfortPax:5, maxPax:6, comfortBags:4, maxBags:5, tag:'comfort', class:'mpv',    perKm:45, tourFlat:6500 },
+    montero: { name:'Montero Sport Gen 2',  oneWay:2100, roundTrip:4000, comfortPax:5, maxPax:6, comfortBags:4, maxBags:5, tag:'premium', class:'mpv',    perKm:50, tourFlat:7000 }
   };
-  var state = { step:1, sendMethod:'Email', selectedVehicle:null };
+  var FARE = {
+    sedan: { min:600 },
+    mpv:   { min:800 },
+    positioningPct: 0.5,
+    baseCoords: { lat:14.3137, lng:120.8814 } // Home base: Brgy. San Francisco, General Trias, Cavite
+  };
+  var GEO = [
+    { k:['naia','airport','terminal'], lat:14.5080, lng:121.0194, name:'NAIA Airport' },
+    { k:['santa rosa','sta rosa','sta. rosa'], lat:14.3110, lng:121.1160, name:'Santa Rosa, Laguna' },
+    { k:['calamba'], lat:14.2089, lng:121.1710, name:'Calamba, Laguna' },
+    { k:['san pablo'], lat:14.0700, lng:121.3200, name:'San Pablo, Laguna' },
+    { k:['biñan','binan'], lat:14.3333, lng:121.0833, name:'Biñan, Laguna' },
+    { k:['cabuyao'], lat:14.2750, lng:121.1219, name:'Cabuyao, Laguna' },
+    { k:['san pedro'], lat:14.3611, lng:121.0578, name:'San Pedro, Laguna' },
+    { k:['los baños','los banos'], lat:14.1794, lng:121.2467, name:'Los Baños, Laguna' },
+    { k:['lipa'], lat:13.9418, lng:121.1647, name:'Lipa, Batangas' },
+    { k:['tanauan'], lat:14.0833, lng:121.1500, name:'Tanauan, Batangas' },
+    { k:['batangas city','batangas port'], lat:13.7561, lng:121.0583, name:'Batangas City' },
+    { k:['nasugbu'], lat:14.0700, lng:120.6300, name:'Nasugbu, Batangas' },
+    { k:['lemery'], lat:13.8822, lng:120.9119, name:'Lemery, Batangas' },
+    { k:['tagaytay'], lat:14.1167, lng:120.9833, name:'Tagaytay' },
+    { k:['manila','intramuros','rizal park','binondo'], lat:14.5995, lng:120.9842, name:'Manila' },
+    { k:['makati','bgc','taguig','bonifacio'], lat:14.5547, lng:121.0244, name:'Makati/BGC' },
+    { k:['bacoor'], lat:14.4583, lng:120.9375, name:'Bacoor, Cavite' },
+    { k:['dasmarinas','dasmariñas'], lat:14.3250, lng:120.9375, name:'Dasmariñas, Cavite' },
+    { k:['imus'], lat:14.4278, lng:120.9367, name:'Imus, Cavite' },
+    { k:['silang'], lat:14.2250, lng:120.9764, name:'Silang, Cavite' },
+    { k:['general trias','gen trias','gentri'], lat:14.3137, lng:120.8814, name:'General Trias, Cavite' },
+    { k:['carmona'], lat:14.3167, lng:121.0500, name:'Carmona, Cavite' },
+    { k:['trece','trece martires'], lat:14.2828, lng:120.8647, name:'Trece Martires, Cavite' },
+    { k:['kawit'], lat:14.4444, lng:120.9083, name:'Kawit, Cavite' },
+    { k:['pasay','paranaque'], lat:14.5378, lng:121.0014, name:'Pasay/Paranaque' }
+  ];
+  // Home base = Le Rica Homes, Begonia St, Brgy. San Francisco, General Trias, Cavite.
+  // Only pickups matching this area waive the 50% positioning fee; everything else is charged from the garage.
+  var BASE_KEYWORDS = ['general trias','gen trias','gentri','le rica'];
+
+  var state = { step:1, sendMethod:'Email', selectedVehicle:null, lastFare:null, lastBooking:null };
   var $ = function(id){ return document.getElementById(id); };
 
   function showErr(id, show){
@@ -616,6 +688,174 @@ input[type="date"]::-webkit-calendar-picker-indicator,input[type="time"]::-webki
     if(el) el.classList.toggle('field-error', show);
     var em = $('err_'+id);
     if(em) em.classList.toggle('show', show);
+  }
+
+  function findGeo(text){
+    var t = (text||'').toLowerCase();
+    for(var i=0;i<GEO.length;i++){ for(var j=0;j<GEO[i].k.length;j++){ if(t.indexOf(GEO[i].k[j])>=0) return GEO[i]; } }
+    return null;
+  }
+  function isBaseZone(text){
+    var t = (text||'').toLowerCase();
+    for(var i=0;i<BASE_KEYWORDS.length;i++){ if(t.indexOf(BASE_KEYWORDS[i])>=0) return true; }
+    return false;
+  }
+  function haversineKm(a,b){
+    var R=6371, dLat=(b.lat-a.lat)*Math.PI/180, dLng=(b.lng-a.lng)*Math.PI/180;
+    var la1=a.lat*Math.PI/180, la2=b.lat*Math.PI/180;
+    var h=Math.sin(dLat/2)*Math.sin(dLat/2)+Math.cos(la1)*Math.cos(la2)*Math.sin(dLng/2)*Math.sin(dLng/2);
+    return 2*R*Math.asin(Math.sqrt(h));
+  }
+  function roadKm(a,b){ return haversineKm(a,b)*1.35; }
+  function estimateToll(pickupTxt, dropoffTxt, vclass){
+    var t = (pickupTxt+' '+dropoffTxt).toLowerCase();
+    var mult = vclass==='mpv' ? 1.2 : 1;
+    var base = 85;
+    if(t.indexOf('lipa')>=0 || t.indexOf('batangas city')>=0 || t.indexOf('lemery')>=0) base = 210;
+    else if(t.indexOf('nasugbu')>=0) base = 180;
+    else if(t.indexOf('calamba')>=0 || t.indexOf('san pablo')>=0 || t.indexOf('los baños')>=0 || t.indexOf('los banos')>=0) base = 130;
+    else if(t.indexOf('santa rosa')>=0 || t.indexOf('sta rosa')>=0 || t.indexOf('cabuyao')>=0 || t.indexOf('biñan')>=0 || t.indexOf('binan')>=0 || t.indexOf('san pedro')>=0) base = 105;
+    else if(t.indexOf('tagaytay')>=0) base = 120;
+    else if(t.indexOf('manila')>=0 || t.indexOf('makati')>=0) base = 95;
+    return Math.round(base*mult);
+  }
+
+  function getPickupRaw(){ return $('f_pickup_naia').style.display!=='none' ? $('f_pickup_naia').value : $('f_pickup_text').value; }
+  function getDropoffRaw(){ return $('f_dropoff_naia').style.display!=='none' ? $('f_dropoff_naia').value : $('f_dropoff_text').value; }
+
+  function computeFare(){
+    var box = $('fareBox'), bd = $('fareBreakdown'), tot = $('fareTotal'), note = $('fareNote');
+    var svc = $('f_service').value, svcType = (svc.split('|')[2])||'';
+    if(!svc){ box.classList.remove('show'); state.lastFare=null; updateSummary(); return; }
+    if(svcType.indexOf('TOUR')>=0){
+      var vkey = state.selectedVehicle || 'accent';
+      var v = VEHICLES[vkey];
+      var flat = v.tourFlat;
+      var lines = [{ label:'Day Tour Flat Rate (8–10 hrs) — '+v.name, val:flat }];
+      bd.innerHTML = '<div class="fare-line"><span class="fl">Day Tour Flat Rate (8–10 hrs) — '+v.name+'</span><span class="fv">P'+flat.toLocaleString()+'</span></div>';
+      tot.textContent = 'P'+flat.toLocaleString();
+      note.innerHTML = '<strong style="color:var(--gold-light)">Not included:</strong> fuel, toll fees and parking — charged to client at actual cost. <span class="fare-calc">Rate changes with vehicle selection.</span>';
+      box.classList.add('show');
+      state.lastFare = { total:flat, lines:lines, tour:true, vclass:v.class };
+      updateSummary();
+      return;
+    }
+    if(svcType.indexOf('CUSTOM')<0){ box.classList.remove('show'); state.lastFare=null; updateSummary(); return; }
+    var pickupTxt = getPickupRaw(), dropoffTxt = getDropoffRaw();
+    if(!pickupTxt.trim() || !dropoffTxt.trim()){ box.classList.remove('show'); state.lastFare=null; updateSummary(); return; }
+    var pg = findGeo(pickupTxt), dg = findGeo(dropoffTxt);
+    if(!pg || !dg){
+      box.classList.add('show');
+      bd.innerHTML = '<div style="color:var(--muted);font-size:14px;padding:8px 0">Location not yet in our route map — we\'ll quote you exactly within 24 hours. A PDF quotation is generated after booking.</div>';
+      tot.textContent = 'Quote';
+      note.textContent = 'Tip: include the city name (e.g. "Santa Rosa, Laguna" or "Lipa, Batangas") for an instant estimate.';
+      state.lastFare = { custom:true };
+      updateSummary();
+      return;
+    }
+    var vclass = state.selectedVehicle ? VEHICLES[state.selectedVehicle].class : (parseInt($('f_pax').value)>3 ? 'mpv':'sedan');
+    var perKm = state.selectedVehicle ? VEHICLES[state.selectedVehicle].perKm : (parseInt($('f_pax').value)>3 ? 45 : 35);
+    var minFare = FARE[vclass].min;
+    var tripKm = roadKm(pg, dg);
+    if(svc.indexOf('ROUND')>=0 || svc.indexOf('TOUR')>=0) tripKm = tripKm*2;
+    var baseFare = Math.max(tripKm*perKm, minFare);
+    var lines = [];
+    lines.push({ label:'Trip distance (~'+tripKm.toFixed(0)+' km) x P'+perKm+'/km', val:baseFare });
+    var pickupOutOfBase = !isBaseZone(pickupTxt);
+    var posFee = 0;
+    if(pickupOutOfBase && svc.indexOf('TOUR')<0 && svc.indexOf('ROUND')<0){
+      var posKm = roadKm(FARE.baseCoords, pg);
+      posFee = posKm * perKm * FARE.positioningPct;
+      lines.push({ label:'Vehicle positioning (~'+posKm.toFixed(0)+' km @ 50% rate)', val:posFee });
+    }
+    var toll = estimateToll(pickupTxt, dropoffTxt, vclass);
+    if(pickupOutOfBase && svc.indexOf('TOUR')<0 && svc.indexOf('ROUND')<0) toll = Math.round(toll*1.5);
+    lines.push({ label:'Toll fees (estimated)', val:toll });
+    var total = baseFare + posFee + toll;
+    var html = '';
+    lines.forEach(function(l){ html += '<div class="fare-line"><span class="fl">'+l.label+'</span><span class="fv">P'+Math.round(l.val).toLocaleString()+'</span></div>'; });
+    bd.innerHTML = html;
+    tot.textContent = 'P'+Math.round(total).toLocaleString();
+    note.innerHTML = '✓ Fuel included in per-km rate · ⚠ Toll is estimate, charged at actual · <span class="fare-calc">Matched: '+pg.name+' → '+dg.name+'</span>';
+    box.classList.add('show');
+    state.lastFare = { total:Math.round(total), lines:lines, pg:pg.name, dg:dg.name, vclass:vclass };
+    updateSummary();
+  }
+  var fareTimer=null;
+  function scheduleFare(){ clearTimeout(fareTimer); fareTimer=setTimeout(computeFare, 400); }
+
+  function generatePDF(){
+    try {
+      var b = state.lastBooking; if(!b) return;
+      var jsPDF = window.jspdf.jsPDF;
+      var doc = new jsPDF({ unit:'pt', format:'a4' });
+      var W = doc.internal.pageSize.getWidth();
+      doc.setFillColor(212,175,55); doc.rect(0,0,W,70,'F');
+      doc.setTextColor(26,20,5);
+      doc.setFont('helvetica','bold'); doc.setFontSize(22);
+      doc.text('GoCav Transport Services', 40, 38);
+      doc.setFont('helvetica','normal'); doc.setFontSize(10);
+      doc.text('Premium Chauffeur Service · Cavite · Laguna · Batangas', 40, 54);
+      doc.setFontSize(9);
+      doc.text('0976-046-5134 / 0995-435-5514 · gocav.transport@gmail.com', 40, 66);
+      doc.setTextColor(26,20,5); doc.setFontSize(11); doc.setFont('helvetica','bold');
+      doc.text('QUOTATION', W-40, 38, {align:'right'});
+      doc.setFont('helvetica','normal'); doc.setFontSize(9);
+      doc.text('Ref: '+b.ref, W-40, 54, {align:'right'});
+      doc.text('Date: '+b.date, W-40, 66, {align:'right'});
+      var y = 100;
+      doc.setTextColor(30,30,30);
+      doc.setFont('helvetica','bold'); doc.setFontSize(12);
+      doc.text('Client Details', 40, y); y+=18;
+      doc.setFont('helvetica','normal'); doc.setFontSize(10);
+      doc.text('Name: '+b.name, 40, y); y+=15;
+      doc.text('Email: '+b.email, 40, y); y+=15;
+      doc.text('Phone: '+b.phone, 40, y); y+=22;
+      doc.setFont('helvetica','bold'); doc.setFontSize(12);
+      doc.text('Trip Details', 40, y); y+=18;
+      doc.setFont('helvetica','normal'); doc.setFontSize(10);
+      doc.text('Service: '+b.service, 40, y); y+=15;
+      doc.text('Vehicle: '+b.vehicle, 40, y); y+=15;
+      doc.text('Date & Time: '+b.datetime, 40, y); y+=15;
+      doc.text('From: '+b.from, 40, y); y+=15;
+      doc.text('To: '+b.to, 40, y); y+=15;
+      if(b.flight){ doc.text('Flight: '+b.flight, 40, y); y+=15; }
+      doc.text('Passengers: '+b.pax+' · Bags: '+b.bags, 40, y); y+=22;
+      doc.setFont('helvetica','bold'); doc.setFontSize(12);
+      doc.text('Fare Breakdown', 40, y); y+=18;
+      doc.setDrawColor(212,175,55); doc.setLineWidth(1);
+      doc.line(40, y-8, W-40, y-8);
+      doc.setFont('helvetica','normal'); doc.setFontSize(10);
+      var total = 0;
+      if(b.fareLines && b.fareLines.length){
+        b.fareLines.forEach(function(l){
+          doc.text(l.label, 40, y);
+          doc.text('P '+Math.round(l.val).toLocaleString()+'.00', W-40, y, {align:'right'});
+          total += l.val; y+=16;
+        });
+      } else {
+        doc.text(b.rateText, 40, y); y+=16;
+      }
+      y+=6;
+      doc.setDrawColor(212,175,55); doc.line(40, y, W-40, y); y+=18;
+      doc.setFont('helvetica','bold'); doc.setFontSize(13);
+      doc.setTextColor(168,134,42);
+      doc.text('ESTIMATED TOTAL FARE', 40, y);
+      doc.text('P '+(b.fareTotal?b.fareTotal.toLocaleString():'—')+'.00', W-40, y, {align:'right'});
+      y+=28;
+      doc.setTextColor(90,90,90); doc.setFont('helvetica','normal'); doc.setFontSize(9);
+      doc.text('Payment: '+b.payment, 40, y); y+=14;
+      doc.text('Account Name: Tuhamie A. Dimanang · GCash/Maya: 0995-435-5514 · BPI: 0489-7200-78 · BDO: 0048 2022 1372', 40, y); y+=18;
+      doc.setFontSize(8);
+      if(b.tour){
+        doc.text('[!] Flat day rate EXCLUDES fuel, toll fees and parking - charged to client at actual cost. Quotation valid 48 hrs.', 40, y);
+      } else {
+        doc.text('✓ Fuel included in per-km rate. ⚠ Toll & parking fees charged at actual cost. This quotation is valid for 48 hours.', 40, y);
+      }
+      y+=12;
+      doc.text('Non-VAT Reg. 940-158-988-0000 · Le Rica Homes, Begonia St B19 L68, Brgy. San Francisco, General Trias, Cavite', 40, y);
+      doc.save('GoCav-Quotation-'+b.ref+'.pdf');
+    } catch(e){ alert('PDF generation needs an internet connection to load. Please try again.'); }
   }
 
   try {
@@ -719,7 +959,14 @@ input[type="date"]::-webkit-calendar-picker-indicator,input[type="time"]::-webki
     var goingToAirport = val.indexOf('TO_NAIA')>=0;
     var fromAirport = val.indexOf('NAIA_TO_')===0;
     $('flightField').style.display = (goingToAirport || fromAirport) ? 'block' : 'none';
-    $('customNotice').style.display = type.indexOf('CUSTOM')>=0 ? 'block' : 'none';
+    var isTourSvc = type.indexOf('TOUR')>=0;
+    if(isTourSvc){
+      $('customNotice').style.display='block';
+      $('customNotice').innerHTML = 'Flat day rate applies (8–10 hrs). <strong>Fuel, toll fees and parking are charged to client at actual cost</strong> — not included in the flat rate.';
+    } else {
+      $('customNotice').style.display = type.indexOf('CUSTOM')>=0 ? 'block' : 'none';
+      $('customNotice').innerHTML = 'Live fare estimate appears in Step 2. A branded PDF quotation is generated after booking.';
+    }
     if(goingToAirport){
       lblP.innerHTML='Pickup Location <span style="color:var(--red)">*</span>';
       lblD.innerHTML='Drop-off — NAIA Terminal <span style="color:var(--red)">*</span>';
@@ -732,6 +979,7 @@ input[type="date"]::-webkit-calendar-picker-indicator,input[type="time"]::-webki
       lblP.innerHTML='Pickup Location <span style="color:var(--red)">*</span>';
       lblD.innerHTML='Drop-off / Destination <span style="color:var(--red)">*</span>';
     }
+    computeFare();
   }
   $('f_service').addEventListener('change', function(){ onServiceChange(); renderVehicles(); updateSummary(); });
 
@@ -741,6 +989,7 @@ input[type="date"]::-webkit-calendar-picker-indicator,input[type="time"]::-webki
     if(!pax || pax<1){ container.innerHTML=''; return; }
     var svcType = (($('f_service').value).split('|')[2])||'';
     var isCustom = svcType.indexOf('CUSTOM')>=0;
+    var isTour = svcType.indexOf('TOUR')>=0;
     var opts = [];
     Object.keys(VEHICLES).forEach(function(k){
       var v = VEHICLES[k];
@@ -759,15 +1008,16 @@ input[type="date"]::-webkit-calendar-picker-indicator,input[type="time"]::-webki
     var html = '<p style="font-size:13px;color:var(--muted);margin:0 0 10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase">Recommended Vehicles — tap to select</p>';
     html += '<div style="display:grid;gap:10px">';
     opts.forEach(function(o){
-      var v = o.v, price = isCustom ? null : (svcType.indexOf('ROUND')>=0 ? v.roundTrip : v.oneWay);
+      var v = o.v;
+      var rateLabel = isTour ? 'P'+v.tourFlat.toLocaleString()+'/day' : (isCustom ? 'P'+v.perKm+'/km' : 'P'+(svcType.indexOf('ROUND')>=0?v.roundTrip:v.oneWay).toLocaleString());
+      var subNote = isTour ? '8–10 hrs · fuel & toll/parking extra' : (isCustom ? 'per km, fuel included' : (svcType.indexOf('ROUND')>=0?'Round Trip':'One-Way'));
       var tagHtml = o.comfort ? '<span class="tag tag-comfort">Comfort Fit</span>' : '<span class="tag tag-max">Max Capacity</span>';
       if(o.key==='montero') tagHtml = '<span class="tag tag-premium">Premium SUV</span> ' + (o.comfort?'<span class="tag tag-comfort">Comfort</span>':'<span class="tag tag-max">Max</span>');
       var sel = state.selectedVehicle===o.key ? ' selected' : '';
       html += '<div class="vehicle-opt'+sel+'" data-veh="'+o.key+'">' +
         '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">' +
         '<div><strong style="font-size:16px">'+v.name+'</strong> <span style="font-size:13px;color:var(--muted)">· '+v.maxPax+' pax max · '+v.maxBags+' bags</span></div>'+tagHtml+'</div>' +
-        (price!==null ? '<div style="margin-top:6px;font-size:14px;color:var(--gold-light);font-weight:700">₱'+price.toLocaleString()+' <span style="color:var(--muted);font-weight:400;font-size:12px">— '+(svcType.indexOf('ROUND')>=0?'Round Trip':'One-Way')+'</span></div>'
-                    : '<div style="margin-top:6px;font-size:14px;color:var(--gold-light);font-weight:700">Custom Quotation</div>') +
+        '<div style="margin-top:6px;font-size:14px;color:var(--gold-light);font-weight:700">'+rateLabel+' <span style="color:var(--muted);font-weight:400;font-size:12px">— '+subNote+'</span></div>' +
         '</div>';
     });
     html += '</div>';
@@ -776,17 +1026,17 @@ input[type="date"]::-webkit-calendar-picker-indicator,input[type="time"]::-webki
       el.addEventListener('click', function(){
         state.selectedVehicle = el.getAttribute('data-veh');
         renderVehicles();
+        computeFare();
         updateSummary();
       });
     });
+    computeFare();
     updateSummary();
   }
   $('f_pax').addEventListener('input', function(){ renderVehicles(); updateSummary(); });
   $('f_luggage').addEventListener('input', function(){ renderVehicles(); updateSummary(); });
 
   function valOrDash(v){ return (v&&String(v).trim()) ? v : '—'; }
-  function getPickup(){ return $('f_pickup_naia').style.display!=='none' ? $('f_pickup_naia').value : $('f_pickup_text').value; }
-  function getDropoff(){ return $('f_dropoff_naia').style.display!=='none' ? $('f_dropoff_naia').value : $('f_dropoff_text').value; }
   function updateSummary(){
     var svc = $('f_service').value, svcName = svc ? svc.split('|')[1] : '';
     $('s_service').textContent = valOrDash(svcName);
@@ -795,26 +1045,30 @@ input[type="date"]::-webkit-calendar-picker-indicator,input[type="time"]::-webki
     $('s_pax').textContent = pax ? pax + ' pax' + (bags&&bags>0 ? ' · '+bags+' bags' : '') : '—';
     var dt = $('f_date').value, tm = $('f_time').value;
     $('s_datetime').textContent = (dt||tm) ? (dt?dt:'—')+' '+(tm?tm:'') : '—';
-    $('s_from').textContent = valOrDash(getPickup());
-    $('s_to').textContent = valOrDash(getDropoff());
+    $('s_from').textContent = valOrDash(getPickupRaw());
+    $('s_to').textContent = valOrDash(getDropoffRaw());
     $('s_payment').textContent = valOrDash($('f_payment').value);
     var priceEl = $('s_price');
     var svcType = (svc.split('|')[2])||'';
-    if(state.selectedVehicle && svc && svcType.indexOf('CUSTOM')<0){
+    var newText;
+    if(state.lastFare && state.lastFare.custom){ newText = 'Quote'; }
+    else if(state.lastFare && state.lastFare.total){ newText = 'P'+state.lastFare.total.toLocaleString(); }
+    else if(state.selectedVehicle && svc && svcType.indexOf('CUSTOM')<0 && svcType.indexOf('TOUR')<0){
       var v = VEHICLES[state.selectedVehicle];
       var p = svcType.indexOf('ROUND')>=0 ? v.roundTrip : v.oneWay;
-      priceEl.textContent = '₱'+p.toLocaleString();
-    } else if(svc && svcType.indexOf('CUSTOM')>=0){
-      priceEl.textContent = 'Quote';
-    } else {
-      priceEl.textContent = '—';
+      newText = 'P'+p.toLocaleString();
+    } else if(svc && svcType.indexOf('CUSTOM')>=0){ newText = 'Estimate'; }
+    else if(svc && svcType.indexOf('TOUR')>=0){ newText = 'From P5,000'; }
+    else { newText = '—'; }
+    if(priceEl.textContent !== newText){
+      priceEl.textContent = newText;
+      priceEl.classList.remove('price-pop'); void priceEl.offsetWidth; priceEl.classList.add('price-pop');
     }
-    priceEl.classList.remove('price-pop'); void priceEl.offsetWidth; priceEl.classList.add('price-pop');
   }
   ['f_date','f_time','f_pickup_text','f_dropoff_text','f_pickup_naia','f_dropoff_naia','f_payment','f_flight'].forEach(function(id){
     var el = $(id); if(!el) return;
-    el.addEventListener('input', updateSummary);
-    el.addEventListener('change', updateSummary);
+    el.addEventListener('input', function(){ updateSummary(); scheduleFare(); });
+    el.addEventListener('change', function(){ updateSummary(); scheduleFare(); });
   });
 
   function goToStep(n){
@@ -827,6 +1081,7 @@ input[type="date"]::-webkit-calendar-picker-indicator,input[type="time"]::-webki
     });
     $('line1').classList.toggle('done', n>1);
     $('line2').classList.toggle('done', n>2);
+    if(n===2) setTimeout(computeFare, 100);
     if(n===3) updateSummary();
   }
 
@@ -842,8 +1097,8 @@ input[type="date"]::-webkit-calendar-picker-indicator,input[type="time"]::-webki
     var d = $('f_date').value;
     if(!d || d < ($('f_date').min||'')){ showErr('date',true); ok=false; } else showErr('date',false);
     if(!$('f_time').value){ showErr('time',true); ok=false; } else showErr('time',false);
-    if(!String(getPickup()).trim()){ showErr('pickup',true); ok=false; } else showErr('pickup',false);
-    if(!String(getDropoff()).trim()){ showErr('dropoff',true); ok=false; } else showErr('dropoff',false);
+    if(!String(getPickupRaw()).trim()){ showErr('pickup',true); ok=false; } else showErr('pickup',false);
+    if(!String(getDropoffRaw()).trim()){ showErr('dropoff',true); ok=false; } else showErr('dropoff',false);
     if(!$('f_payment').value){ showErr('payment',true); ok=false; } else showErr('payment',false);
     return ok;
   }
@@ -887,12 +1142,22 @@ input[type="date"]::-webkit-calendar-picker-indicator,input[type="time"]::-webki
     var svcName = parts[1]||'Custom', svcType = parts[2]||'CUSTOM';
     var vname = state.selectedVehicle ? VEHICLES[state.selectedVehicle].name : 'To be assigned';
     var rateText = 'See quotation';
-    if(state.selectedVehicle && svcType.indexOf('CUSTOM')<0){
+    if(state.lastFare && state.lastFare.total){ rateText = 'Estimated P'+state.lastFare.total.toLocaleString()+(state.lastFare.tour?' (flat day rate; fuel/toll/parking extra)':' (computed from distance)'); }
+    else if(state.selectedVehicle && svcType.indexOf('CUSTOM')<0 && svcType.indexOf('TOUR')<0){
       var v = VEHICLES[state.selectedVehicle];
-      rateText = (svcType.indexOf('ROUND')>=0 ? 'Round Trip: ₱'+v.roundTrip.toLocaleString() : 'One-Way: ₱'+v.oneWay.toLocaleString());
+      rateText = (svcType.indexOf('ROUND')>=0 ? 'Round Trip: P'+v.roundTrip.toLocaleString() : 'One-Way: P'+v.oneWay.toLocaleString());
     }
     var ref = 'GC'+Date.now().toString().slice(-10);
     var flight = $('f_flight').value.trim();
+    var fareDetail = '';
+    if(state.lastFare && state.lastFare.lines){
+      fareDetail = 'Fare Breakdown:\n';
+      state.lastFare.lines.forEach(function(l){ fareDetail += '  '+l.label+': P'+Math.round(l.val).toLocaleString()+'\n'; });
+      fareDetail += '  ESTIMATED TOTAL: P'+state.lastFare.total.toLocaleString()+'\n';
+    }
+    if(state.lastFare && state.lastFare.tour){
+      fareDetail += '  Note: fuel, toll & parking charged to client at actual cost (not included above).\n';
+    }
     var msg = 'NEW BOOKING — REF: '+ref+'\n' +
       '══════════════════════\n' +
       'Client: '+$('f_name').value.trim()+'\n' +
@@ -901,11 +1166,12 @@ input[type="date"]::-webkit-calendar-picker-indicator,input[type="time"]::-webki
       'Passengers: '+$('f_pax').value+' · Bags: '+($('f_luggage').value||'0')+'\n' +
       'Vehicle: '+vname+'\n' +
       'Rate: '+rateText+'\n' +
+      fareDetail +
       'Service: '+svcName+'\n' +
       'Date: '+$('f_date').value+' · Time: '+$('f_time').value+'\n' +
       (flight?'Flight: '+flight+'\n':'') +
-      'From: '+getPickup()+'\n' +
-      'To: '+getDropoff()+'\n' +
+      'From: '+getPickupRaw()+'\n' +
+      'To: '+getDropoffRaw()+'\n' +
       'Payment: '+$('f_payment').value+'\n' +
       'Notes: '+($('f_notes').value.trim()||'None')+'\n' +
       'Sent via: '+state.sendMethod+'\n' +
@@ -916,10 +1182,23 @@ input[type="date"]::-webkit-calendar-picker-indicator,input[type="time"]::-webki
     var waLink = 'https://wa.me/'+WA+'?text='+encodeURIComponent(msg);
     var vbLink = 'viber://chat?number='+VB+'&text='+encodeURIComponent(msg);
 
+    state.lastBooking = {
+      ref: ref, date: new Date().toLocaleDateString('en-PH'),
+      name: $('f_name').value.trim(), email: em, phone: $('f_phone').value.trim(),
+      service: svcName, vehicle: vname,
+      datetime: $('f_date').value+' '+$('f_time').value,
+      from: getPickupRaw(), to: getDropoffRaw(), flight: flight,
+      pax: $('f_pax').value, bags: $('f_luggage').value||'0',
+      payment: $('f_payment').value, rateText: rateText,
+      tour: !!(state.lastFare && state.lastFare.tour),
+      fareLines: state.lastFare && state.lastFare.lines ? state.lastFare.lines : null,
+      fareTotal: state.lastFare && state.lastFare.total ? state.lastFare.total : null
+    };
+
     $('refNo').textContent = ref;
-    $('followUpNote').textContent = svcType.indexOf('CUSTOM')>=0
-      ? 'A formal quotation including rates, fuel, toll, parking and other expenses will be sent to your email or via call.'
-      : 'Thank you! We will confirm your booking shortly.';
+    $('followUpNote').textContent = (svcType.indexOf('CUSTOM')>=0 || svcType.indexOf('TOUR')>=0)
+      ? 'Your estimated fare is shown above. Tap below to download your branded PDF quotation.'
+      : 'Thank you! Tap below to download your branded PDF quotation.';
     $('resendEm').href = emLink;
     $('resendWa').href = waLink;
     $('resendVb').href = vbLink;
@@ -935,14 +1214,17 @@ input[type="date"]::-webkit-calendar-picker-indicator,input[type="time"]::-webki
     }, 700);
   });
 
+  $('dlQuote').addEventListener('click', generatePDF);
+
   $('newBooking').addEventListener('click', function(){
     $('successScreen').style.display='none';
     $('booking').style.display='block';
     $('bkForm').reset();
-    state.selectedVehicle=null; state.sendMethod='Email'; state.step=1;
+    state.selectedVehicle=null; state.sendMethod='Email'; state.step=1; state.lastFare=null; state.lastBooking=null;
     document.querySelectorAll('.send-opt').forEach(function(o,i){ o.classList.toggle('selected', i===0); });
     document.querySelectorAll('.service-card').forEach(function(c){ c.classList.remove('selected'); });
     $('vehicleOptions').innerHTML='';
+    $('fareBox').classList.remove('show');
     var sb=$('submitBtn'); if(sb){ sb.disabled=false; sb.textContent='Confirm & Send Booking'; }
     onServiceChange(); updateSummary(); goToStep(1);
     $('booking').scrollIntoView({behavior:'smooth'});
