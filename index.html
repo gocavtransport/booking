@@ -25,7 +25,7 @@
 html{scroll-behavior:smooth}
 body{font-family:'Public Sans',sans-serif;background:var(--bg);color:var(--text);margin:0;line-height:1.6;font-size:15px}
 h1,h2,h3,.serif{font-family:'Cormorant Garamond',serif;letter-spacing:-.01em}
-.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.reveal{opacity:1;transform:none}
 .reveal.in{opacity:1;transform:translateY(0)}
 .gold-text{background:linear-gradient(100deg,var(--gold-dark),var(--gold-light));-webkit-background-clip:text;background-clip:text;color:transparent}
 .gold-btn{background:linear-gradient(135deg,var(--gold-dark),var(--gold));color:#1a1405;font-weight:700;transition:all .25s;cursor:pointer;border:none;font-size:15px}
@@ -76,6 +76,29 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
 @keyframes floatUp{0%{transform:translateY(0) translateX(0);opacity:0}10%{opacity:.8}90%{opacity:.4}100%{transform:translateY(-320px) translateX(30px);opacity:0}}
 @keyframes pulseGlow{0%,100%{box-shadow:0 0 0 0 rgba(212,175,55,.4)}50%{box-shadow:0 0 0 12px rgba(212,175,55,0)}}
 .pulse{animation:pulseGlow 2s infinite}
+
+.svc-slider{position:relative;border-radius:16px;overflow:hidden;border:1px solid rgba(212,175,55,.3);margin:0 0 20px;height:280px}
+.svc-slide{position:absolute;inset:0;opacity:0;transition:opacity .7s ease;cursor:pointer}
+.svc-slide.on{opacity:1;z-index:1}
+.svc-slide img{width:100%;height:280px;object-fit:cover;object-position:center top;display:block}
+.svc-dots{position:absolute;bottom:12px;left:0;right:0;z-index:2;display:flex;justify-content:center;gap:8px}
+.svc-dot{width:9px;height:9px;border-radius:50%;border:0;background:rgba(255,255,255,.35);cursor:pointer;padding:0}
+.svc-dot.on{background:var(--gold-light);box-shadow:0 0 8px rgba(212,175,55,.8)}
+@media(min-width:768px){.svc-slider{height:340px}.svc-slide img{height:340px}}
+
+
+.partner-flash{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;padding:10px 16px;background:linear-gradient(90deg,rgba(212,175,55,.18),rgba(212,175,55,.06),rgba(212,175,55,.18));border-bottom:1px solid rgba(212,175,55,.35);cursor:pointer;animation:corpGlow 2.4s ease-in-out infinite}
+.partner-flash:hover{filter:brightness(1.08)}
+.partner-flash strong{color:var(--gold-light)}
+.city-slot{border:1px solid var(--border);border-radius:12px;padding:12px 14px;background:var(--card2)}
+.city-slot.open{border-color:rgba(52,211,153,.35)}
+.city-slot.full{border-color:rgba(239,68,68,.75);background:linear-gradient(135deg,rgba(239,68,68,.16),rgba(239,68,68,.04));box-shadow:0 0 8px rgba(239,68,68,.35),0 0 18px rgba(239,68,68,.18);animation:cityFullGlow 1.8s ease-in-out infinite}
+.city-slot.full .city-name{color:#fca5a5}
+.city-slot.full .city-meta{color:#f87171}
+@keyframes cityFullGlow{0%,100%{box-shadow:0 0 6px rgba(239,68,68,.3),0 0 14px rgba(239,68,68,.12)}50%{box-shadow:0 0 14px rgba(239,68,68,.7),0 0 28px rgba(239,68,68,.28)}}
+.city-slot .city-name{font-weight:700;font-size:14px}
+.city-slot .city-meta{font-size:12px;color:var(--muted);margin-top:4px}
+
 .summary-row{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px dotted var(--border);font-size:14px}
 .summary-row:last-child{border-bottom:none}
 .summary-label{color:var(--muted)}
@@ -150,24 +173,31 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
 <div style="background:radial-gradient(900px 500px at 85% -5%,rgba(212,175,55,.10),transparent 60%),var(--bg);min-height:100%;">
 <nav class="sticky-nav">
   <div class="max-w-6xl mx-auto px-5 py-4 flex items-center justify-between">
-    <div class="flex items-center gap-4">
+    <a id="logoHome" href="#home" class="flex items-center gap-4" style="text-decoration:none;color:inherit;cursor:pointer">
       <img src="https://i.imgur.com/DWfEGWv.png" alt="GoCav" style="height:60px;border-radius:10px" onerror="this.style.display='none'">
       <div>
         <div class="serif font-bold" style="font-size:24px;line-height:1.1">GoCav Transport</div>
         <div style="font-size:11px;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;font-weight:700;margin-top:2px">Premium Chauffeur Service</div>
       </div>
-    </div>
+    </a>
     <div class="hidden md:flex items-center gap-6">
       <a class="nav-link" data-scroll="#services">Services</a>
       <a class="nav-link" data-scroll="#corporate">Corporate</a>
       <a class="nav-link" data-scroll="#booking">Book Now</a>
+      <a class="nav-link" data-scroll="#partners">Partners</a>
       <a class="nav-link" data-scroll="#faq">FAQ</a>
       <button type="button" class="gold-btn px-5 py-2.5 rounded-lg text-sm" data-scroll="#booking">Reserve a Ride</button>
     </div>
     <button type="button" class="gold-btn px-4 py-2.5 rounded-lg text-sm md:hidden" data-scroll="#booking">Book</button>
   </div>
 </nav>
-<section style="position:relative;overflow:hidden;padding:80px 24px 60px;text-align:center">
+
+<div class="partner-flash" data-scroll="#partners" role="link">
+  <span style="width:8px;height:8px;border-radius:50%;background:var(--gold-light);display:inline-block" class="pulse"></span>
+  <span style="font-size:13px;color:var(--text)">Open for <strong>driver partnership</strong> — we need about 2 units per city in NCR and nearby areas. <strong style="text-decoration:underline">See open cities →</strong></span>
+</div>
+
+<section id="home" style="position:relative;overflow:hidden;padding:80px 24px 60px;text-align:center">
   <div class="hero-glow" style="width:400px;height:400px;background:var(--gold);top:-100px;left:10%"></div>
   <div class="hero-glow" style="width:300px;height:300px;background:var(--teal);bottom:-80px;right:10%;opacity:.3"></div>
   <div id="particles" style="position:absolute;inset:0;pointer-events:none"></div>
@@ -187,10 +217,10 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
       <button type="button" class="ghost-btn px-8 py-3.5 rounded-xl text-base" data-scroll="#services">View Rates &amp; Fleet</button>
     </div>
     <div style="display:flex;gap:28px;justify-content:center;flex-wrap:wrap;margin-top:40px">
-      <div><div class="serif" style="font-size:30px;font-weight:700;color:var(--gold-light)" data-count="7">0</div><div style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em">Years Serving</div></div>
-      <div><div class="serif" style="font-size:30px;font-weight:700;color:var(--gold-light)" data-count="3">0</div><div style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em">Vehicle Classes</div></div>
-      <div><div class="serif" style="font-size:30px;font-weight:700;color:var(--gold-light)" data-count="5000">0</div><div style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em">Trips Completed</div></div>
-      <div><div class="serif" style="font-size:30px;font-weight:700;color:var(--gold-light)" data-count="24">0</div><div style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em">Hr Response</div></div>
+      <div><div class="serif" style="font-size:30px;font-weight:700;color:var(--gold-light)" data-count="7">7</div><div style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em">Years Serving</div></div>
+      <div><div class="serif" style="font-size:30px;font-weight:700;color:var(--gold-light)" data-count="3">3</div><div style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em">Vehicle Classes</div></div>
+      <div><div class="serif" style="font-size:30px;font-weight:700;color:var(--gold-light)" data-count="5000">5,000+</div><div style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em">Trips Completed</div></div>
+      <div><div class="serif" style="font-size:30px;font-weight:700;color:var(--gold-light)" data-count="24">24</div><div style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em">Hr Response</div></div>
     </div>
   </div>
 </section>
@@ -206,34 +236,34 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
   </div>
   <div class="grid md:grid-cols-3 gap-5 mb-10">
     <div class="card-el service-card reveal p-5" data-service="ONEWAY|One-Way Transfer|TRANSFER_ONEWAY" data-vehicle="accent">
-      <img src="https://i.imgur.com/xbQhOQU.jpeg" alt="Hyundai Accent" style="width:100%;height:180px;object-fit:cover;border-radius:12px;margin-bottom:14px" onerror="this.style.display='none'">
+      <img src="https://i.imgur.com/xbQhOQU.jpeg" alt="Sedan" style="width:100%;height:180px;object-fit:cover;border-radius:12px;margin-bottom:14px" onerror="this.style.display='none'">
       <div style="display:flex;justify-content:space-between;align-items:start">
-        <h3 class="serif" style="font-size:22px;font-weight:700;margin:0">Hyundai Accent</h3>
+        <h3 class="serif" style="font-size:22px;font-weight:700;margin:0">Sedan</h3>
         <span class="tag tag-comfort">Sedan · 1–3 pax</span>
       </div>
-      <p style="color:var(--muted);font-size:13px;margin:4px 0 12px">Black Sedan · Max 4 pax · 3 large bags</p>
+      <p style="color:var(--muted);font-size:13px;margin:4px 0 8px">Accent, Mirage or similar · Max 4 pax · 3 large bags</p>
       <div style="display:flex;justify-content:space-between;font-size:14px;padding:6px 0"><span style="color:var(--muted)">Loaded rate</span><strong>₱28/km</strong></div>
       <div style="display:flex;justify-content:space-between;font-size:14px;padding:6px 0;color:var(--gold-light)"><span>Base charge</span><strong>₱150 · Min ₱550</strong></div>
       <div style="margin-top:10px;font-size:12px;color:var(--green)">✓ Fuel Included · Professional Driver</div>
     </div>
     <div class="card-el service-card reveal p-5" data-service="ONEWAY|One-Way Transfer|TRANSFER_ONEWAY" data-vehicle="avanza">
-      <img src="https://i.imgur.com/8lpLbVA.jpeg" alt="Toyota Avanza" style="width:100%;height:180px;object-fit:cover;border-radius:12px;margin-bottom:14px" onerror="this.style.display='none'">
+      <img src="https://i.imgur.com/8lpLbVA.jpeg" alt="6-Seater" style="width:100%;height:180px;object-fit:cover;border-radius:12px;margin-bottom:14px" onerror="this.style.display='none'">
       <div style="display:flex;justify-content:space-between;align-items:start">
-        <h3 class="serif" style="font-size:22px;font-weight:700;margin:0">Toyota Avanza</h3>
+        <h3 class="serif" style="font-size:22px;font-weight:700;margin:0">6-Seater</h3>
         <span class="tag tag-comfort">6-Seater · 1–5 pax</span>
       </div>
-      <p style="color:var(--muted);font-size:13px;margin:4px 0 12px">Black MPV · Max 6 pax · 5 large bags</p>
+      <p style="color:var(--muted);font-size:13px;margin:4px 0 8px">Avanza, Xpander or similar · Max 6 pax · 5 large bags</p>
       <div style="display:flex;justify-content:space-between;font-size:14px;padding:6px 0"><span style="color:var(--muted)">Loaded rate</span><strong>₱34/km</strong></div>
       <div style="display:flex;justify-content:space-between;font-size:14px;padding:6px 0;color:var(--gold-light)"><span>Base charge</span><strong>₱200 · Min ₱700</strong></div>
       <div style="margin-top:10px;font-size:12px;color:var(--green)">✓ Fuel Included · Professional Driver</div>
     </div>
     <div class="card-el service-card reveal p-5" data-service="ONEWAY|One-Way Transfer|TRANSFER_ONEWAY" data-vehicle="montero">
-      <img src="https://i.imgur.com/XR0EhsT.jpeg" alt="Montero Sport" style="width:100%;height:180px;object-fit:cover;border-radius:12px;margin-bottom:14px" onerror="this.style.display='none'">
+      <img src="https://i.imgur.com/XR0EhsT.jpeg" alt="SUV" style="width:100%;height:180px;object-fit:cover;border-radius:12px;margin-bottom:14px" onerror="this.style.display='none'">
       <div style="display:flex;justify-content:space-between;align-items:start">
-        <h3 class="serif" style="font-size:22px;font-weight:700;margin:0">Montero Sport Gen 2</h3>
+        <h3 class="serif" style="font-size:22px;font-weight:700;margin:0">SUV</h3>
         <span class="tag tag-premium">SUV · Premium</span>
       </div>
-      <p style="color:var(--muted);font-size:13px;margin:4px 0 12px">Brown SUV · Max 6 pax · Spacious cargo</p>
+      <p style="color:var(--muted);font-size:13px;margin:4px 0 8px">Montero or similar SUV · Max 6 pax · spacious cargo</p>
       <div style="display:flex;justify-content:space-between;font-size:14px;padding:6px 0"><span style="color:var(--muted)">Loaded rate</span><strong>₱40/km</strong></div>
       <div style="display:flex;justify-content:space-between;font-size:14px;padding:6px 0;color:var(--gold-light)"><span>Base charge</span><strong>₱250 · Min ₱850</strong></div>
       <div style="margin-top:10px;font-size:12px;color:var(--green)">✓ Fuel Included · Professional Driver</div>
@@ -243,21 +273,27 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
     <span style="font-size:13px;color:var(--muted)">Full-Day &amp; Multi-Day Site Visits — <strong style="color:var(--text)">8 hrs / 100 km per day</strong> · Flat day rate by zone · 2-way toll · Corporate multi-day loyalty</span>
   </div>
+  <div class="svc-slider reveal" id="svcSlider">
+    <div class="svc-slide on" data-service="DAYRENTAL|Full-Day Rental / Site Visit|DAYRENTAL"><img src="https://i.imgur.com/FFXAIo9.jpeg" alt="Full-Day Rental / Site Visit"></div>
+    <div class="svc-slide" data-service="DAYRENTAL_MULTI|Multi-Day Site Visit - Same Route Daily|DAYRENTAL_MULTI"><img src="https://i.imgur.com/4goIJsc.jpeg" alt="Multi-Day Site Visit"></div>
+    <div class="svc-slide" data-service="ROUND_SAMEDAY|Round Trip - Same-Day Return|TRANSFER_ROUND_SAMEDAY"><img src="https://i.imgur.com/iPuV1j2.jpeg" alt="Airport Transfer"></div>
+    <div class="svc-dots" id="svcDots"></div>
+  </div>
   <div class="grid md:grid-cols-3 gap-5">
     <div class="card-el service-card reveal p-6 text-center" data-service="DAYRENTAL|Full-Day Rental / Site Visit|DAYRENTAL">
-      <img src="https://i.imgur.com/ZdGsCdY.jpeg" alt="Day Rental" style="width:100%;height:180px;object-fit:cover;border-radius:12px;margin-bottom:14px" onerror="this.style.display='none'">
+      <img src="https://i.imgur.com/FFXAIo9.jpeg" alt="Full-Day Rental / Site Visit" style="width:100%;height:200px;object-fit:cover;object-position:center top;border-radius:12px;margin-bottom:14px" onerror="this.style.display='none'">
       <h3 class="serif" style="font-size:24px;font-weight:700;margin:0 0 4px">Full-Day Rental / Site Visit</h3>
       <p style="color:var(--muted);font-size:14px;margin:0 0 10px">Pickup → multiple stops → returned to original pickup point. Corporate accounts welcome.</p>
       <div style="color:var(--gold-light);font-weight:700;font-size:15px">Sedan ₱4,500 · 6-Seater ₱5,500 · SUV ₱6,000 / day</div>
     </div>
     <div class="card-el service-card reveal p-6 text-center" data-service="DAYRENTAL_MULTI|Multi-Day Site Visit - Same Route Daily|DAYRENTAL_MULTI">
-      <img src="https://i.imgur.com/ZdGsCdY.jpeg" alt="Multi-Day Site Visit" style="width:100%;height:180px;object-fit:cover;border-radius:12px;margin-bottom:14px" onerror="this.style.display='none'">
+      <img src="https://i.imgur.com/4goIJsc.jpeg" alt="Multi-Day Site Visit" style="width:100%;height:200px;object-fit:cover;object-position:center top;border-radius:12px;margin-bottom:14px" onerror="this.style.display='none'">
       <h3 class="serif" style="font-size:24px;font-weight:700;margin:0 0 4px">Multi-Day Site Visit</h3>
       <p style="color:var(--muted);font-size:14px;margin:0 0 10px">Same route over consecutive days (audits, plant visits). Returned to pickup daily. Corporate · 2–7 days.</p>
       <div style="color:var(--gold-light);font-weight:700;font-size:15px">From ₱4,500–₱6,000/day · 5%/8% corporate loyalty</div>
     </div>
     <div class="card-el service-card reveal p-6 text-center" data-service="ROUND_SAMEDAY|Round Trip - Same-Day Return|TRANSFER_ROUND_SAMEDAY">
-      <img src="https://i.imgur.com/BJWSNNF.jpeg" alt="Round Trip" style="width:100%;height:180px;object-fit:cover;border-radius:12px;margin-bottom:14px" onerror="this.style.display='none'">
+      <img src="https://i.imgur.com/iPuV1j2.jpeg" alt="Airport Round Trip" style="width:100%;height:200px;object-fit:cover;object-position:center top;border-radius:12px;margin-bottom:14px" onerror="this.style.display='none'">
       <h3 class="serif" style="font-size:24px;font-weight:700;margin:0 0 4px">Airport Round Trip</h3>
       <p style="color:var(--muted);font-size:14px;margin:0 0 10px">Same-day or multi-day returns. Corporate accounts get 8% off when you return the same day.</p>
       <div style="color:var(--gold-light);font-weight:700;font-size:15px">Dynamic fare · NAIA &amp; Clark served</div>
@@ -404,6 +440,15 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
           <input type="text" id="f_dropoff" placeholder="e.g. NAIA Terminal 3 / BGC / Clark Airport / Quezon City">
           <div class="err-msg" id="err_dropoff">Please enter destination.</div>
         </div>
+        <div class="mt-4" id="partnerSuggestBox" style="display:none;padding:14px 16px;border-radius:12px;border:1px solid rgba(212,175,55,.35);background:rgba(212,175,55,.06)">
+          <p style="font-weight:700;font-size:13px;letter-spacing:.05em;text-transform:uppercase;color:var(--gold-light);margin:0 0 8px">Suggested partner units</p>
+          <div id="partnerSuggestList" style="font-size:14px;line-height:1.55;color:var(--text)"></div>
+          <div class="mt-3">
+            <label for="f_pref_partner" class="block mb-1.5 font-semibold" style="font-size:14px">Preferred partner <span style="color:var(--muted);font-weight:400">(optional)</span></label>
+            <select id="f_pref_partner"><option value="">— Auto-assign nearest open unit —</option></select>
+          </div>
+          <p style="font-size:12px;color:var(--muted);margin:8px 0 0">Final driver and plate are confirmed the day before pickup.</p>
+        </div>
         <div class="mt-4" id="multiDayFields" style="display:none">
           <div>
             <label for="f_days" class="block mb-1.5 font-semibold" style="font-size:15px">Number of Consecutive Days <span style="color:var(--red)">*</span></label>
@@ -491,6 +536,23 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
           <input type="tel" id="f_phone" placeholder="09XX-XXX-XXXX" required>
           <div class="err-msg" id="err_phone">Please enter a valid PH mobile (e.g. 09XX-XXX-XXXX, 11 digits).</div>
         </div>
+        <div id="corpCompanyFields" style="display:none;margin-top:16px;padding:16px;border-radius:12px;border:1px solid rgba(212,175,55,.35);background:rgba(212,175,55,.06)">
+          <p style="font-weight:700;font-size:14px;color:var(--gold-light);margin:0 0 12px;letter-spacing:.04em;text-transform:uppercase">Company billing details</p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label for="f_company" class="block mb-1.5 font-semibold" style="font-size:15px">Company Name</label>
+              <input type="text" id="f_company" placeholder="e.g. ABC Manufacturing Inc.">
+            </div>
+            <div>
+              <label for="f_bill_email" class="block mb-1.5 font-semibold" style="font-size:15px">Billing Email</label>
+              <input type="email" id="f_bill_email" placeholder="accounts@company.com">
+            </div>
+          </div>
+          <div class="mt-4">
+            <label for="f_tin" class="block mb-1.5 font-semibold" style="font-size:15px">TIN <span style="color:var(--muted);font-weight:400">(optional)</span></label>
+            <input type="text" id="f_tin" placeholder="e.g. 000-000-000-000">
+          </div>
+        </div>
         <div class="mt-5">
           <label class="block mb-2 font-semibold" style="font-size:15px">Send Booking Via <span style="color:var(--red)">*</span></label>
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -508,10 +570,14 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
             </div>
           </div>
         </div>
-        <div style="margin-top:28px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
+        <div style="margin-top:28px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center">
           <button type="button" class="ghost-btn px-6 py-3.5 rounded-xl" id="backStep2">← Back</button>
-          <button type="submit" class="gold-btn px-8 py-3.5 rounded-xl" id="submitBtn">Confirm &amp; Send Booking</button>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button type="button" class="ghost-btn px-6 py-3.5 rounded-xl" id="quoteBtn">Request Quotation Only</button>
+            <button type="submit" class="gold-btn px-8 py-3.5 rounded-xl" id="submitBtn">Confirm &amp; Send Booking</button>
+          </div>
         </div>
+        <p style="font-size:12px;color:var(--muted);margin:10px 0 0;text-align:right">Quotation only = PDF estimate, no dispatch yet. Confirm &amp; Send = booking request.</p>
       </div>
       </form>
     </div>
@@ -552,6 +618,7 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
     <h2 class="serif" style="font-size:32px;font-weight:700;margin:0 0 8px">Booking Request Sent!</h2>
     <p style="color:var(--muted);font-size:16px;margin:0 0 6px">Your messaging app should open automatically — just tap <strong style="color:var(--text)">SEND</strong>.</p>
     <p id="followUpNote" style="color:var(--gold-light);font-size:15px;margin:0 0 16px"></p>
+    <a id="saveSheetBtn" href="#" target="_blank" rel="noopener" class="ghost-btn px-5 py-2.5 rounded-lg text-sm" style="text-decoration:none;margin:0 8px 12px;display:inline-block">Save to Google Sheet</a>
     <button type="button" class="pdf-btn" id="dlQuote">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M12 18v-6m-3 3 3 3 3-3"/></svg>
       Download Quotation PDF
@@ -600,8 +667,43 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
         <div><div style="font-weight:700;color:#60a5fa;font-size:15px">BDO</div><div class="acct-name">Tuhamie A. Dimanang</div><div class="acct">0048 2022 1372</div></div>
         <button type="button" class="copy-btn" data-copy="BDO — Tuhamie A. Dimanang — 004820221372">Copy</button>
       </div>
-      <p style="font-size:12px;color:var(--muted);margin:12px 0 0">Corporate accounts: select "Corporate Billing (Invoice)" for weekly/monthly invoicing. Please send proof of payment via WhatsApp or Viber after transfer.</p>
+      <p style="font-size:12px;color:var(--muted);margin:12px 0 0">Corporate accounts: BPI / BDO preferred. Select "Corporate Billing (Invoice)" for weekly invoicing. Send proof via WhatsApp or Viber after transfer.</p>
     </div>
+  </div>
+  <div class="reveal card-el p-6 mt-5" style="border-color:rgba(212,175,55,.35);background:linear-gradient(160deg,rgba(212,175,55,.08),var(--card))">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+      <div class="feature-icon" style="width:40px;height:40px">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+      </div>
+      <div>
+        <div class="step-label" style="margin:0">Corporate accounts</div>
+        <h3 style="font-weight:700;margin:2px 0 0;font-size:18px">Payment terms by service</h3>
+      </div>
+    </div>
+    <p style="color:var(--muted);font-size:14px;margin:0 0 14px">Corporate bookings are billed by service type. BPI or BDO is preferred. GCash or Maya is fine for smaller or urgent trips. Toll and parking, if any, are billed at actual cost on top of the estimate.</p>
+    <div class="grid md:grid-cols-2 gap-3" style="font-size:14px">
+      <div style="background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:14px 16px">
+        <div style="font-weight:700;color:var(--gold-light);margin-bottom:6px">One-way transfer</div>
+        <div style="color:var(--text);line-height:1.6">Airport and point-to-point drops are billed after the ride. Please settle within <strong>3 days</strong>. Fuel is included; toll and parking are added at actual cost.</div>
+      </div>
+      <div style="background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:14px 16px">
+        <div style="font-weight:700;color:var(--gold-light);margin-bottom:6px">Same-day return</div>
+        <div style="color:var(--text);line-height:1.6">Pickup and return on the same day. Corporate accounts get <strong>8% off when you return the same day</strong>. Please settle within <strong>3 days</strong> after the trip.</div>
+      </div>
+      <div style="background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:14px 16px">
+        <div style="font-weight:700;color:var(--gold-light);margin-bottom:6px">Multi-day round trip</div>
+        <div style="color:var(--text);line-height:1.6">For drop-off now and pickup on a later date. A <strong>50% reservation</strong> holds the vehicle. The remaining balance is due after the return trip, plus actual toll and parking.</div>
+      </div>
+      <div style="background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:14px 16px">
+        <div style="font-weight:700;color:var(--gold-light);margin-bottom:6px">Full-day / site visit</div>
+        <div style="color:var(--text);line-height:1.6">Covers 8 hours and 100 km, with the client returned to pickup. We send the invoice after the visit. Payment is due within <strong>7 days</strong>. Extra hours, extra km, toll, and parking are billed separately at actual.</div>
+      </div>
+      <div style="background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:14px 16px" class="md:col-span-2">
+        <div style="font-weight:700;color:var(--gold-light);margin-bottom:6px">Multi-day site visit (2–7 days)</div>
+        <div style="color:var(--text);line-height:1.6">Same route each day for audits or plant visits, returned to pickup daily. You receive <strong>one invoice for the full block</strong>, due within <strong>7 days</strong>. Corporate loyalty is 5% for 2 days and 8% for 3–7 days. New clients: <strong>50% before Day 1</strong>, remainder after the last day. Repeat accounts may use weekly invoicing.</div>
+      </div>
+    </div>
+    <p style="font-size:13px;color:var(--muted);margin:14px 0 0">Please send proof of payment via WhatsApp or Viber after transfer. Booking is confirmed once we reply on your chosen channel.</p>
   </div>
 </section>
 <section class="py-16" style="background:linear-gradient(180deg,transparent,rgba(212,175,55,.04),transparent)">
@@ -610,12 +712,12 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
       <div class="step-label mb-2">Client Stories</div>
       <h2 class="serif" style="font-size:32px;font-weight:700;margin:0">What Our Riders Say</h2>
     </div>
-    <div class="grid md:grid-cols-3 gap-5">
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
       <div class="reveal testi-card">
         <div class="stars" style="margin-bottom:10px;font-size:16px">★★★★★</div>
         <p style="font-size:15px;color:var(--text);margin:0 0 14px;line-height:1.7">"Booked a round-trip to NAIA for our family of 5. Driver was 15 minutes early, car was spotless, and he helped with our luggage. Will definitely book again!"</p>
         <div style="font-weight:700;font-size:15px">The Reyes Family</div>
-        <div style="font-size:13px;color:var(--muted)">NAIA Round Trip · Toyota Avanza</div>
+        <div style="font-size:13px;color:var(--muted)">NAIA Round Trip · 6-Seater</div>
       </div>
       <div class="reveal testi-card">
         <div class="stars" style="margin-bottom:10px;font-size:16px">★★★★★</div>
@@ -627,7 +729,31 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
         <div class="stars" style="margin-bottom:10px;font-size:16px">★★★★★</div>
         <p style="font-size:15px;color:var(--text);margin:0 0 14px;line-height:1.7">"As a senior traveler, I appreciate the patience and professionalism. They tracked my delayed flight and waited without extra charge. Highly recommended."</p>
         <div style="font-weight:700;font-size:15px">Atty. Ramon Cruz</div>
-        <div style="font-size:13px;color:var(--muted)">NAIA to Cavite · Hyundai Accent</div>
+        <div style="font-size:13px;color:var(--muted)">NAIA to Cavite · Sedan</div>
+      </div>
+      <div class="reveal testi-card">
+        <div class="stars" style="margin-bottom:10px;font-size:16px">★★★★★</div>
+        <p style="font-size:15px;color:var(--text);margin:0 0 14px;line-height:1.7">"We needed the same car for a 4-day plant audit in Laguna. Pickup was on time every morning and they brought us back each night. One invoice for the whole week — accounting loved it."</p>
+        <div style="font-weight:700;font-size:15px">Engr. Paolo Villanueva</div>
+        <div style="font-size:13px;color:var(--muted)">Multi-Day Site Visit · SUV</div>
+      </div>
+      <div class="reveal testi-card">
+        <div class="stars" style="margin-bottom:10px;font-size:16px">★★★★★</div>
+        <p style="font-size:15px;color:var(--text);margin:0 0 14px;line-height:1.7">"3:00 AM Clark departure. Driver messaged the night before with the plate number, arrived early, and the sedan was clean. Easy booking and a fair quote."</p>
+        <div style="font-weight:700;font-size:15px">Kim Dela Peña</div>
+        <div style="font-size:13px;color:var(--muted)">Clark Airport · Sedan</div>
+      </div>
+      <div class="reveal testi-card">
+        <div class="stars" style="margin-bottom:10px;font-size:16px">★★★★★</div>
+        <p style="font-size:15px;color:var(--text);margin:0 0 14px;line-height:1.7">"Alabang to Makati and back the same day for a board meeting. Corporate 8% showed on the estimate. WhatsApp reply was fast and the 6-seater was comfortable for three of us plus bags."</p>
+        <div style="font-weight:700;font-size:15px">Lia Mendoza</div>
+        <div style="font-size:13px;color:var(--muted)">Same-Day Return · 6-Seater</div>
+      </div>
+      <div class="reveal testi-card">
+        <div class="stars" style="margin-bottom:10px;font-size:16px">★★★★★</div>
+        <p style="font-size:15px;color:var(--text);margin:0 0 14px;line-height:1.7">"Booked from Las Piñas for my parents. The driver was respectful, helped them into the car, and sent me a message when they arrived. That peace of mind is why we stay with GoCav."</p>
+        <div style="font-weight:700;font-size:15px">Carlo Bautista</div>
+        <div style="font-size:13px;color:var(--muted)">Family transfer · Sedan</div>
       </div>
     </div>
   </div>
@@ -645,9 +771,78 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
     <div class="faq-item"><div class="faq-q">What is Multi-Day Site Visit?<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div><div class="faq-a">For corporate clients who need the same route over consecutive days (e.g. audits or plant visits). Each day is a full-day package (8 hrs / 100 km), and the client is returned to the original pickup point every day. Book 2–7 days. Corporate loyalty: 5% off day rates for 2 days, 8% for 3–7 days. Two-way toll × number of days is estimated; excess km/hours billed if you exceed the daily package. Same driver/vehicle preferred subject to availability.</div></div>
     <div class="faq-item"><div class="faq-q">Are toll fees and parking included?<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div><div class="faq-a">Fuel is included. Toll fees are estimated in your live quote and charged at actual cost. For full-day and multi-day site visits, toll is estimated two-way (and × days for multi-day). Parking is paid by the client at actual cost. Both are shown as separate line items in your estimate and PDF quotation.</div></div>
     <div class="faq-item"><div class="faq-q">What if my flight is delayed?<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div><div class="faq-a">No problem. Include your flight number and we monitor arrival times. We wait for delayed flights at no extra charge within reasonable windows.</div></div>
+    <div class="faq-item"><div class="faq-q">What about waiting time and flight delays?<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div><div class="faq-a">Airport pickups: 45 minutes free waiting from the time we notify you that the driver is on stand. Extra waiting is billed per 30 minutes. If you give a flight number, we track the flight and adjust pickup for delays at no extra charge within a reasonable window. Full-day / site visit: 8 hours included; time beyond that is billed at the vehicle excess-hour rate. Night trips (22:00–06:00) have a +12% surcharge.</div></div>
     <div class="faq-item"><div class="faq-q">What is your cancellation policy?<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div><div class="faq-a">Free cancellation up to 24 hours before pickup. 12–24 hours before: 25% of estimated fare (minimum ₱500). Less than 12 hours or no-show: 50%–100% of estimated fare. Multi-day corporate site visits: free cancel of the whole block until 24 hours before Day 1; after Day 1 starts, unused later days can be dropped free if you notify us before 8:00 PM the evening before (otherwise 50% of that day may apply). Reschedules with 12+ hours notice are usually free once. Flight delays with a given flight number are monitored at no extra charge within reasonable windows. Contact us via WhatsApp or Viber for the fastest response.</div></div>
   </div>
 </section>
+
+<section id="partners" class="max-w-6xl mx-auto px-5 py-16">
+  <div class="reveal text-center mb-8">
+    <div class="step-label mb-2">Drive with GoCav</div>
+    <h2 class="serif" style="font-size:32px;font-weight:700;margin:0 0 8px">Driver Partnership</h2>
+    <p style="color:var(--muted);font-size:15px;max-width:640px;margin:0 auto">We keep about <strong style="color:var(--text)">2 partner units per city</strong> (or a nearby city) across NCR and adjoining Cavite / Laguna. Apply only where a slot is still open. Clean unit, valid papers, and a professional chauffeur required.</p><p style="color:var(--muted);font-size:15px;max-width:640px;margin:12px auto 0">GoCav invoices the client. Partners are paid weekly. Coordination fee is <strong style="color:var(--gold-light)">20%</strong> of the trip fare. Toll and parking are billed at actual cost and are not part of the 20%.</p>
+  </div>
+  <div id="partnerCityGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 mb-10"></div>
+  <div class="card-el p-6 md:p-8 reveal">
+    <h3 class="serif" style="font-size:24px;font-weight:700;margin:0 0 6px">Partner application</h3>
+    <p style="color:var(--muted);font-size:14px;margin:0 0 18px">Tell us your unit and base city. We will reply on WhatsApp or Viber.</p>
+    <div class="grid md:grid-cols-2 gap-4">
+      <div>
+        <label for="p_name" class="block mb-1.5 font-semibold" style="font-size:15px">Full Name <span style="color:var(--red)">*</span></label>
+        <input type="text" id="p_name" placeholder="Your name">
+        <div class="err-msg" id="err_pname">Please enter your name.</div>
+      </div>
+      <div>
+        <label for="p_phone" class="block mb-1.5 font-semibold" style="font-size:15px">Mobile <span style="color:var(--red)">*</span></label>
+        <input type="tel" id="p_phone" placeholder="09XX-XXX-XXXX">
+        <div class="err-msg" id="err_pphone">Please enter a valid 11-digit mobile.</div>
+      </div>
+    </div>
+    <div class="grid md:grid-cols-2 gap-4 mt-4">
+      <div>
+        <label for="p_city" class="block mb-1.5 font-semibold" style="font-size:15px">Base city <span style="color:var(--red)">*</span></label>
+        <select id="p_city"><option value="">— Select open city —</option></select>
+        <div class="err-msg" id="err_pcity">Please choose an open city.</div>
+      </div>
+      <div>
+        <label for="p_vehicle" class="block mb-1.5 font-semibold" style="font-size:15px">Vehicle <span style="color:var(--red)">*</span></label>
+        <select id="p_vehicle">
+          <option value="">— Select —</option>
+          <option>Hyundai Accent / similar sedan</option>
+          <option>Toyota Avanza / similar 6-seater</option>
+          <option>Montero / Fortuner / similar SUV</option>
+          <option>Other (describe in notes)</option>
+        </select>
+        <div class="err-msg" id="err_pvehicle">Please select your vehicle type.</div>
+      </div>
+    </div>
+    <div class="grid grid-cols-2 gap-4 mt-4">
+      <div>
+        <label for="p_year" class="block mb-1.5 font-semibold" style="font-size:15px">Year model</label>
+        <input type="number" id="p_year" min="2008" max="2026" placeholder="e.g. 2018">
+      </div>
+      <div>
+        <label for="p_plate" class="block mb-1.5 font-semibold" style="font-size:15px">Plate no. <span style="color:var(--muted);font-weight:400">(optional)</span></label>
+        <input type="text" id="p_plate" placeholder="ABC 1234">
+      </div>
+    </div>
+    <label class="corp-box" style="margin-top:16px">
+      <input type="checkbox" id="p_with_driver" checked>
+      <span>I will drive the unit myself (chauffeur + car)</span>
+    </label>
+    <div class="mt-4">
+      <label for="p_notes" class="block mb-1.5 font-semibold" style="font-size:15px">Notes</label>
+      <textarea id="p_notes" rows="3" placeholder="Other cities you can cover, availability, airport or full-day preferred…"></textarea>
+    </div>
+    <div style="margin-top:22px;display:flex;gap:10px;flex-wrap:wrap">
+      <button type="button" class="gold-btn px-6 py-3 rounded-xl" id="p_send_wa">Send via WhatsApp</button>
+      <button type="button" class="ghost-btn px-6 py-3 rounded-xl" id="p_send_vb">Viber</button>
+      <button type="button" class="ghost-btn px-6 py-3 rounded-xl" id="p_send_em">Email</button>
+    </div>
+    <p id="p_ok" style="display:none;margin-top:12px;color:var(--green);font-size:14px">Application ready — send the message that opened, then wait for our reply.</p>
+  </div>
+</section>
+
 <footer style="border-top:1px solid var(--border);padding:40px 24px;text-align:center">
   <div class="max-w-4xl mx-auto">
     <img src="https://i.imgur.com/DWfEGWv.png" alt="GoCav" style="height:56px;border-radius:10px;margin:0 auto 16px" onerror="this.style.display='none'">
@@ -660,11 +855,14 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
 <script>
 (function(){
   var WA = "639760465134", VB = "639760465134", EM = "gocav.transport@gmail.com";
+  // Paste your Google Apps Script web-app URL after you deploy (see gocav-sheet-setup.txt)
+  var SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbzDKQQy0XcKvip6WQ22Fd6CsKoVYCp5lXyfFme3WkkAHjs_3j6uzOGbRbbQJvBgxFFdNQ/exec";
+  var SHEET_TOKEN = "gocav-2026";
   // VEHICLE TIERS — rates cover fuel, driver allowance, maintenance, insurance, depreciation.
   var VEHICLES = {
-    accent:  { name:'Hyundai Accent',      tier:'Sedan',     maxPax:4, comfortPax:3, maxBags:3, comfortBags:2, base:150, perKm:28, repositionKm:14, minFare:550, naiaFee:150, clarkFee:350, homeDiscount:200, dayExcessKm:20, dayExcessHr:450 },
-    avanza:  { name:'Toyota Avanza',       tier:'6-Seater',  maxPax:6, comfortPax:5, maxBags:5, comfortBags:4, base:200, perKm:34, repositionKm:18, minFare:700, naiaFee:180, clarkFee:400, homeDiscount:250, dayExcessKm:24, dayExcessHr:500 },
-    montero: { name:'Montero Sport Gen 2', tier:'SUV',       maxPax:6, comfortPax:5, maxBags:5, comfortBags:4, base:250, perKm:40, repositionKm:22, minFare:850, naiaFee:200, clarkFee:450, homeDiscount:300, dayExcessKm:28, dayExcessHr:550 }
+    accent:  { name:'Sedan',      tier:'Sedan',     maxPax:4, comfortPax:3, maxBags:3, comfortBags:2, base:150, perKm:28, repositionKm:14, minFare:550, naiaFee:150, clarkFee:350, homeDiscount:200, dayExcessKm:20, dayExcessHr:450 },
+    avanza:  { name:'6-Seater',       tier:'6-Seater',  maxPax:6, comfortPax:5, maxBags:5, comfortBags:4, base:200, perKm:34, repositionKm:18, minFare:700, naiaFee:180, clarkFee:400, homeDiscount:250, dayExcessKm:24, dayExcessHr:500 },
+    montero: { name:'SUV', tier:'SUV',       maxPax:6, comfortPax:5, maxBags:5, comfortBags:4, base:250, perKm:40, repositionKm:22, minFare:850, naiaFee:200, clarkFee:450, homeDiscount:300, dayExcessKm:28, dayExcessHr:550 }
   };
   // Full-day rental flat rates by pickup zone (8 hrs / 100 km included).
   var DAY_RATES = {
@@ -717,6 +915,37 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
   ];
   var BASE_KEYWORDS = ['general trias','gen trias','gentri','le rica'];
   var state = { step:1, sendMethod:'Email', selectedVehicle:null, lastFare:null, lastBooking:null, corporate:false };
+  try {
+    if(window.location.hash === '#booking'){
+      history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+    if('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    window.scrollTo(0, 0);
+  } catch(e){}
+
+  function sheetQuery(row){
+    var keys = ['token','ref','type','service','vehicle','pickup','dropoff','date','time','days','pax','bags','flight','fare','gocav20','partner80','corporate','company','name','phone','email','payment','partner','channel','notes'];
+    row = row || {};
+    row.token = SHEET_TOKEN;
+    return keys.map(function(k){
+      var v = row[k] == null ? '' : String(row[k]);
+      if(v.length>180) v = v.slice(0,180);
+      return encodeURIComponent(k)+'='+encodeURIComponent(v);
+    }).join('&');
+  }
+  function sheetLogUrl(row){
+    return SHEET_WEBAPP_URL + '?' + sheetQuery(row);
+  }
+  function postBookingToSheet(row){
+    if(!SHEET_WEBAPP_URL) return;
+    try {
+      var url = sheetLogUrl(row);
+      window.__gocavSheetUrl = url;
+      var img = new Image();
+      img.src = url;
+      fetch(url, {mode:'no-cors'}).catch(function(){});
+    } catch(e){}
+  }
   var $ = function(id){ return document.getElementById(id); };
   function showErr(id, show){
     var el = $('f_'+id) || $(id);
@@ -916,6 +1145,24 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
   }
   var fareTimer=null;
   function scheduleFare(){ clearTimeout(fareTimer); fareTimer=setTimeout(computeFare, 400); }
+  function getPayTerms(svcType, corporate){
+    if(!corporate){
+      return 'Pay by cash, GCash, Maya, or bank transfer. Fuel is included. Toll and parking, if any, are billed at actual cost.';
+    }
+    if(svcType==='DAYRENTAL_MULTI'){
+      return 'Multi-day site visit: one invoice for the full block, due within 7 days (BPI/BDO preferred). New clients: 50% before Day 1, remainder after the last day. Corporate loyalty 5% (2 days) or 8% (3-7 days) on the day rate. Toll and parking billed at actual cost.';
+    }
+    if(svcType==='DAYRENTAL'){
+      return 'Full-day / site visit: invoice sent after the visit, due within 7 days (BPI/BDO preferred). Includes 8 hrs / 100 km; extra time, distance, toll, and parking billed at actual cost.';
+    }
+    if(svcType==='TRANSFER_ROUND_MULTIDAY'){
+      return 'Multi-day round trip: 50% reservation to hold the vehicle; remaining balance due after the return trip (BPI/BDO preferred). Toll and parking billed at actual cost.';
+    }
+    if(svcType==='TRANSFER_ROUND_SAMEDAY'){
+      return 'Same-day return: due within 3 days after the trip (BPI/BDO preferred). Corporate accounts receive 8% off when you return the same day. Toll and parking billed at actual cost.';
+    }
+    return 'One-way transfer: due within 3 days after the trip (BPI/BDO preferred). Fuel included. Toll and parking billed at actual cost.';
+  }
   function generatePDF(){
     try {
       var b = state.lastBooking; if(!b) return;
@@ -925,30 +1172,31 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
           var jsPDF = window.jspdf.jsPDF;
           var doc = new jsPDF({ unit:'pt', format:'a4' });
           var W = doc.internal.pageSize.getWidth();
-          doc.setFillColor(212,175,55); doc.rect(0,0,W,78,'F');
+          var headerH = 108;
+          doc.setFillColor(212,175,55); doc.rect(0,0,W,headerH,'F');
           var textLeft = 40;
           if(logoDataUrl){
             try {
-              doc.addImage(logoDataUrl, 'PNG', 36, 14, 48, 48);
-              textLeft = 96;
+              // Logo sized to sit with the 5-line header block
+              doc.addImage(logoDataUrl, 'PNG', 28, 19, 70, 70);
+              textLeft = 110;
             } catch(imgErr){ textLeft = 40; }
           }
           doc.setTextColor(26,20,5);
-          doc.setFont('helvetica','bold'); doc.setFontSize(20);
-          doc.text('GoCav Transport Services', textLeft, 34);
-          doc.setFont('helvetica','normal'); doc.setFontSize(9);
-          doc.text('Premium Chauffeur Service · Cavite · Laguna · Batangas · All NCR', textLeft, 50);
+          doc.setFont('helvetica','bold'); doc.setFontSize(18);
+          doc.text('GoCav Transport Services', textLeft, 26);
+          doc.setFont('helvetica','normal'); doc.setFontSize(8.5);
+          doc.text('Premium Chauffeur Service · Cavite · Laguna · Batangas · All NCR', textLeft, 40);
           doc.setFontSize(8);
-          doc.text('0976-046-5134 / 0995-435-5514 · gocav.transport@gmail.com', textLeft, 64);
-          doc.setTextColor(26,20,5); doc.setFontSize(11); doc.setFont('helvetica','bold');
-          doc.text('QUOTATION', W-40, 34, {align:'right'});
+          doc.text('0976-046-5134 / 0995-435-5514 · gocav.transport@gmail.com', textLeft, 54);
+          doc.text('Address: Le Rica Homes, Begonia St B19 L68, Brgy. San Francisco, General Trias, Cavite', textLeft, 68);
+          doc.text('Non-VAT Reg. 940-158-988-0000', textLeft, 82);
+          doc.setFont('helvetica','bold'); doc.setFontSize(11);
+          doc.text(b.intent==='quote' ? 'QUOTATION' : 'QUOTATION / BOOKING', W-40, 28, {align:'right'});
           doc.setFont('helvetica','normal'); doc.setFontSize(9);
-          doc.text('Ref: '+b.ref, W-40, 50, {align:'right'});
-          doc.text('Date: '+b.date, W-40, 64, {align:'right'});
-          doc.setTextColor(60,60,70); doc.setFont('helvetica','normal'); doc.setFontSize(8);
-          doc.text('Address: Le Rica Homes, Begonia St B19 L68, Brgy. San Francisco, General Trias, Cavite', 40, 94);
-          doc.text('Non-VAT Reg. 940-158-988-0000', 40, 106);
-          var y = 128;
+          doc.text('Ref: '+b.ref, W-40, 44, {align:'right'});
+          doc.text('Date: '+b.date, W-40, 58, {align:'right'});
+          var y = headerH + 22;
           doc.setTextColor(30,30,30);
           doc.setFont('helvetica','bold'); doc.setFontSize(12);
           doc.text('Client Details', 40, y); y+=18;
@@ -956,12 +1204,16 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
           doc.text('Name: '+b.name, 40, y); y+=15;
           doc.text('Email: '+b.email, 40, y); y+=15;
           doc.text('Phone: '+b.phone, 40, y); y+=15;
+          if(b.company){ doc.text('Company: '+b.company, 40, y); y+=15; }
+          if(b.billEmail){ doc.text('Billing email: '+b.billEmail, 40, y); y+=15; }
+          if(b.tin){ doc.text('TIN: '+b.tin, 40, y); y+=15; }
           doc.text('Account: '+(b.corporate?'Corporate (loyalty rates & invoicing)':'Standard'), 40, y); y+=22;
           doc.setFont('helvetica','bold'); doc.setFontSize(12);
           doc.text('Trip Details', 40, y); y+=18;
           doc.setFont('helvetica','normal'); doc.setFontSize(10);
           doc.text('Service: '+b.service, 40, y); y+=15;
           doc.text('Vehicle: '+b.vehicle, 40, y); y+=15;
+          if(b.partnerLine){ var pl = doc.splitTextToSize(b.partnerLine, W-80); doc.text(pl, 40, y); y += pl.length*15; }
           if(b.days){ doc.text('Duration: '+b.days+' consecutive days (returned to pickup daily)', 40, y); y+=15; }
           doc.text('Date & Time: '+b.datetime+(b.days?' (start / daily pickup)':''), 40, y); y+=15;
           doc.text('From: '+b.from, 40, y); y+=15;
@@ -998,20 +1250,36 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
           y+=28;
           doc.setTextColor(90,90,90); doc.setFont('helvetica','normal'); doc.setFontSize(9);
           doc.text('Payment: '+b.payment, 40, y); y+=14;
-          doc.text('Account Name: Tuhamie A. Dimanang · GCash/Maya: 0995-435-5514 · BPI: 0489-7200-78 · BDO: 0048 2022 1372', 40, y); y+=18;
-          doc.setFontSize(8);
-          if(b.dayRentalMulti){
-            doc.text('[!] Multi-day site visit: 8 hrs / 100 km per day, returned to pickup daily. 2-way toll x days & parking at actual. Valid 48 hrs.', 40, y);
-          } else if(b.dayRental){
-            doc.text('[!] Full-day rate includes 8 hrs / 100 km, fuel & driver. 2-way toll & parking charged at actual cost. Quotation valid 48 hrs.', 40, y);
-          } else {
-            doc.text('Fuel included. Toll & parking at actual cost. Night surcharge +12% (22:00-06:00). Quotation valid 48 hrs.', 40, y);
+          if(b.payTerms){
+            var termsLines = doc.splitTextToSize('Terms: '+b.payTerms, W-80);
+            doc.text(termsLines, 40, y);
+            y += termsLines.length * 12 + 4;
           }
-          y+=12;
-          doc.text('Address: Le Rica Homes, Begonia St B19 L68, Brgy. San Francisco, General Trias, Cavite', 40, y); y+=11;
-          doc.text('Non-VAT Reg. 940-158-988-0000', 40, y); y+=11;
-          doc.text('Cancellation: free up to 24h before pickup. See FAQ for full policy.', 40, y);
-          doc.save('GoCav-Quotation-'+b.ref+'.pdf');
+          doc.setFontSize(8.5);
+          var footNotes = [];
+          footNotes.push('Account Name: Tuhamie A. Dimanang  |  GCash/Maya: 0995-435-5514  |  BPI: 0489-7200-78  |  BDO: 0048 2022 1372');
+          if(b.dayRentalMulti){
+            footNotes.push('Multi-day site visit: 8 hrs / 100 km per day, returned to pickup daily. 2-way toll and parking at actual cost. Valid 48 hours.');
+          } else if(b.dayRental){
+            footNotes.push('Full-day: 8 hrs / 100 km, fuel and driver included. Client returned to pickup. 2-way toll and parking at actual cost. Valid 48 hours.');
+          } else {
+            footNotes.push('Fuel included. Toll and parking at actual cost. Night surcharge +12% (22:00-06:00). Valid 48 hours.');
+          }
+          footNotes.push('Driver and plate number will be sent on Viber or WhatsApp the day before pickup.');
+          if(b.flight || (b.svcType && String(b.svcType).indexOf('TRANSFER')===0)){
+            footNotes.push('Airport wait: 45 minutes free after driver-on-stand notice. Extra wait billed per 30 minutes. Flight numbers are tracked at no extra charge within a reasonable window.');
+          }
+          if(b.dayRental || b.dayRentalMulti){
+            footNotes.push('Full-day includes 8 hours. Extra time is billed at the vehicle excess-hour rate.');
+          }
+          footNotes.push('Address: Le Rica Homes, Begonia St B19 L68, Brgy. San Francisco, General Trias, Cavite');
+          footNotes.push('Cancellation: free up to 24 hours before pickup. See FAQ for the full policy.');
+          footNotes.forEach(function(line){
+            var wrapped = doc.splitTextToSize(line, W-80);
+            doc.text(wrapped, 40, y);
+            y += wrapped.length * 11 + 3;
+          });
+                    doc.save('GoCav-Quotation-'+b.ref+'.pdf');
         } catch(e){ alert('PDF generation needs an internet connection to load. Please try again.'); }
       }
       // Load logo then build PDF (fallback without logo if image blocked)
@@ -1070,6 +1338,14 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
     }, {threshold:0.5});
     document.querySelectorAll('[data-count]').forEach(function(el){ cio.observe(el); });
   } catch(e){}
+  function goHomePage(e){
+    if(e) e.preventDefault();
+    if($('successScreen')) $('successScreen').style.display='none';
+    if($('booking')) $('booking').style.display='block';
+    try { history.replaceState(null,'', window.location.pathname + window.location.search); } catch(err){}
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  if($('logoHome')) $('logoHome').addEventListener('click', goHomePage);
   document.querySelectorAll('[data-scroll]').forEach(function(el){
     el.addEventListener('click', function(){
       var t = document.querySelector(el.getAttribute('data-scroll'));
@@ -1145,6 +1421,10 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
     computeFare();
   }
   $('f_service').addEventListener('change', function(){ showErr('service',false); onServiceChange(); renderVehicles(); updateSummary(); });
+  function updateCorpFields(){
+    var box = $('corpCompanyFields');
+    if(box) box.style.display = state.corporate ? 'block' : 'none';
+  }
   function updateCorpTollNotice(){
     // Show for all service types once a service is selected
     var on = !!($('f_service') && $('f_service').value);
@@ -1152,7 +1432,7 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
     if(a) a.classList.toggle('show', on);
     if(b) b.classList.toggle('show', on);
   }
-  $('f_corporate').addEventListener('change', function(){ state.corporate = this.checked; computeFare(); updateSummary(); updateCorpTollNotice(); });
+  $('f_corporate').addEventListener('change', function(){ state.corporate = this.checked; computeFare(); updateSummary(); updateCorpTollNotice(); updateCorpFields(); });
   function renderVehicles(){
     var pax = parseInt($('f_pax').value)||0, bags = parseInt($('f_luggage').value)||0;
     var container = $('vehicleOptions');
@@ -1171,21 +1451,24 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
       container.innerHTML = '<div style="background:var(--red-soft);border:1px solid var(--red);border-radius:12px;padding:14px;font-size:14px;color:#fca5a5">Your group needs multiple vehicles or a custom arrangement. We\'ll tailor a quote for you.</div>';
       state.selectedVehicle = null; updateSummary(); return;
     }
-    if(!state.selectedVehicle || !opts.some(function(o){return o.key===state.selectedVehicle;})) state.selectedVehicle = opts[0].key;
-    var html = '<p style="font-size:13px;color:var(--muted);margin:0 0 10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase">Recommended Vehicles — tap to select</p>';
+    var comfortOpt = null;
+    opts.forEach(function(o){ if(o.comfort && !comfortOpt) comfortOpt = o; });
+    var stillValid = state.selectedVehicle && opts.some(function(o){ return o.key===state.selectedVehicle; });
+    if(!stillValid) state.selectedVehicle = (comfortOpt || opts[0]).key;
+    var html = '<p style="font-size:13px;color:var(--muted);margin:0 0 10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase">Recommended vehicles — comfort seating is checked</p>';
     html += '<div style="display:grid;gap:10px">';
     opts.forEach(function(o){
       var v = o.v;
       var dayStart = { accent:4500, avanza:5500, montero:6000 };
       var rateLabel = isDay ? ('From ₱'+(dayStart[o.key]||4500).toLocaleString()+'/day') : '₱'+v.perKm+'/km + ₱'+v.base+' base';
       var subNote = isDay ? '8 hrs / 100 km included · fuel & driver' : 'min fare ₱'+v.minFare+' · fuel included';
-      var tagHtml = o.comfort ? '<span class="tag tag-comfort">Comfort Fit</span>' : '<span class="tag tag-max">Max Capacity</span>';
-      if(o.key==='montero') tagHtml = '<span class="tag tag-premium">'+v.tier+'</span> ' + (o.comfort?'<span class="tag tag-comfort">Comfort</span>':'<span class="tag tag-max">Max</span>');
+      var tagHtml = o.comfort ? '<span class="tag tag-comfort">Comfort seating</span>' : '<span class="tag tag-max">Max capacity</span>';
+      if(o.key==='montero') tagHtml = '<span class="tag tag-premium">'+v.tier+'</span> ' + (o.comfort?'<span class="tag tag-comfort">Comfort seating</span>':'<span class="tag tag-max">Max capacity</span>');
       else tagHtml = '<span class="tag '+(o.key==='accent'?'tag-comfort':'tag-premium')+'">'+v.tier+'</span> ' + tagHtml;
       var sel = state.selectedVehicle===o.key ? ' selected' : '';
       html += '<div class="vehicle-opt'+sel+'" data-veh="'+o.key+'">' +
         '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">' +
-        '<div><strong style="font-size:16px">'+v.name+'</strong> <span style="font-size:13px;color:var(--muted)">· '+v.tier+' · '+v.maxPax+' pax max · '+v.maxBags+' bags</span></div>'+tagHtml+'</div>' +
+        '<div><strong style="font-size:16px">'+v.name+'</strong> <span style="font-size:13px;color:var(--muted)">· '+v.maxPax+' pax max · '+v.maxBags+' bags · similar unit may be assigned</span></div>'+tagHtml+'</div>' +
         '<div style="margin-top:6px;font-size:14px;color:var(--gold-light);font-weight:700">'+rateLabel+' <span style="color:var(--muted);font-weight:400;font-size:12px">— '+subNote+'</span></div>' +
         '</div>';
     });
@@ -1197,10 +1480,11 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
         renderVehicles(); computeFare(); updateSummary();
       });
     });
-    computeFare(); updateSummary();
+    computeFare(); updateSummary(); renderPartnerSuggest();
   }
   $('f_pax').addEventListener('input', function(){ showErr('pax',false); renderVehicles(); updateSummary(); });
   $('f_luggage').addEventListener('input', function(){ renderVehicles(); updateSummary(); });
+  ['f_pickup','f_dropoff'].forEach(function(id){ if($(id)) $(id).addEventListener('input', renderPartnerSuggest); });
   function valOrDash(v){ return (v&&String(v).trim()) ? v : '—'; }
   function updateSummary(){
     var svc = $('f_service').value, svcName = svc ? svc.split('|')[1] : '';
@@ -1245,7 +1529,7 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
     var el = $(id); if(!el) return;
     el.addEventListener('input', function(){ showErr(id.replace('f_',''), false); });
   });
-  function goToStep(n){
+  function goToStep(n, opts){
     state.step = n;
     [1,2,3].forEach(function(i){
       $('step'+i).classList.toggle('active', i===n);
@@ -1257,6 +1541,7 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
     $('line2').classList.toggle('done', n>2);
     if(n===2) setTimeout(computeFare, 100);
     if(n===3) updateSummary();
+    if(opts && opts.skipScroll) return;
     // Scroll so the next step title + inputs sit just under the sticky nav (not mid-page)
     setTimeout(function(){
       var pane = $('step'+n);
@@ -1310,7 +1595,15 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
         email: $('f_email').value.trim() || old.email || '',
         phone: $('f_phone').value.trim() || old.phone || '',
         payment: $('f_payment').value || old.payment || '',
-        corporate: state.corporate
+        corporate: state.corporate,
+        company: ($('f_company') && $('f_company').value.trim()) || old.company || '',
+        billEmail: ($('f_bill_email') && $('f_bill_email').value.trim()) || old.billEmail || '',
+        tin: ($('f_tin') && $('f_tin').value.trim()) || old.tin || '',
+        service: $('f_service').value || old.service || '',
+        pickup: $('f_pickup').value.trim() || old.pickup || '',
+        dropoff: $('f_dropoff').value.trim() || old.dropoff || '',
+        pax: $('f_pax').value || old.pax || '',
+        luggage: $('f_luggage').value || old.luggage || ''
       };
       localStorage.setItem('gocav_profile', JSON.stringify(d));
     } catch(e){}
@@ -1323,11 +1616,31 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
       if(d.phone) $('f_phone').value = d.phone;
       if(d.payment) $('f_payment').value = d.payment;
       if(d.corporate){ $('f_corporate').checked = true; state.corporate = true; }
+      if(d.company && $('f_company')) $('f_company').value = d.company;
+      if(d.billEmail && $('f_bill_email')) $('f_bill_email').value = d.billEmail;
+      if(d.tin && $('f_tin')) $('f_tin').value = d.tin;
+      if(d.service && $('f_service') && !$('f_service').value) $('f_service').value = d.service;
+      if(d.pickup && $('f_pickup') && !$('f_pickup').value) $('f_pickup').value = d.pickup;
+      if(d.dropoff && $('f_dropoff') && !$('f_dropoff').value) $('f_dropoff').value = d.dropoff;
+      if(d.pax && $('f_pax') && !$('f_pax').value) $('f_pax').value = d.pax;
+      if(d.luggage && $('f_luggage') && ($('f_luggage').value==='' || $('f_luggage').value==='0')) $('f_luggage').value = d.luggage;
+      updateCorpFields();
     } catch(e){}
   }
   loadLocal();
+    if($('submitBtn')){
+    $('submitBtn').addEventListener('click', function(){ state.intent = 'book'; });
+  }
+    if($('quoteBtn')){
+    $('quoteBtn').addEventListener('click', function(){
+      state.intent = 'quote';
+      if($('bkForm').requestSubmit) $('bkForm').requestSubmit();
+      else $('bkForm').dispatchEvent(new Event('submit', {cancelable:true, bubbles:true}));
+    });
+  }
   $('bkForm').addEventListener('submit', function(e){
     e.preventDefault();
+    if(!state.intent) state.intent = 'book';
     var ok = true;
     if(!$('f_name').value.trim()){ showErr('name',true); ok=false; } else showErr('name',false);
     var em = $('f_email').value.trim();
@@ -1370,14 +1683,25 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
     } else if(state.lastFare && state.lastFare.dayRental){
       fareDetail += '  Note: 8 hrs / 100 km included; 2-way toll & parking charged at actual cost.\n';
     }
+    var intent = state.intent || 'book';
     var corpLine = state.corporate ? 'Account: CORPORATE (loyalty rates & consolidated invoicing)\n' : '';
-    var msg = 'NEW BOOKING — REF: '+ref+'\n' +
+    var company = ($('f_company') && $('f_company').value.trim()) || '';
+    var billEmail = ($('f_bill_email') && $('f_bill_email').value.trim()) || '';
+    var tin = ($('f_tin') && $('f_tin').value.trim()) || '';
+    var companyBlock = '';
+    if(company) companyBlock += 'Company: '+company+'\n';
+    if(billEmail) companyBlock += 'Billing email: '+billEmail+'\n';
+    if(tin) companyBlock += 'TIN: '+tin+'\n';
+    var msgHead = (intent==='quote') ? 'QUOTATION REQUEST — REF: '+ref : 'NEW BOOKING — REF: '+ref;
+    var msg = msgHead+'\n' +
       '══════════════════════\n' + corpLine +
       'Client: '+$('f_name').value.trim()+'\n' +
       'Email: '+em+'\n' +
       'Phone: '+$('f_phone').value.trim()+'\n' +
+      companyBlock +
       'Passengers: '+$('f_pax').value+' · Bags: '+($('f_luggage').value||'0')+'\n' +
       'Vehicle: '+vname+'\n' +
+      partnerDispatchLine()+'\n' +
       'Rate: '+rateText+'\n' +
       fareDetail +
       'Service: '+svcName+'\n' +
@@ -1387,32 +1711,74 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
       'From: '+$('f_pickup').value.trim()+'\n' +
       'To: '+$('f_dropoff').value.trim()+'\n' +
       'Payment: '+$('f_payment').value+'\n' +
+      'Terms: '+getPayTerms(svcType, state.corporate)+'\n' +
       'Notes: '+($('f_notes').value.trim()||'None')+'\n' +
       'Sent via: '+state.sendMethod+'\n' +
       '══════════════════════\n' +
       'GoCav Transport Services\n0976-046-5134 / 0995-435-5514\ngocav.transport@gmail.com';
-    var subject = 'Booking '+ref+' — '+$('f_name').value.trim();
+    var subject = (intent==='quote'?'Quotation ':'Booking ')+ref+' — '+$('f_name').value.trim();
     var emLink = 'mailto:'+EM+'?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(msg);
     var waLink = 'https://wa.me/'+WA+'?text='+encodeURIComponent(msg);
     var vbLink = 'viber://chat?number='+VB;
     state.lastBooking = {
       ref: ref, date: new Date().toLocaleDateString('en-PH'),
       name: $('f_name').value.trim(), email: em, phone: $('f_phone').value.trim(),
+      company: company, billEmail: billEmail, tin: tin,
+      intent: intent,
       corporate: state.corporate,
-      service: svcName, vehicle: vname,
+      service: svcName, vehicle: vname, partnerLine: partnerDispatchLine(),
       datetime: $('f_date').value+' '+$('f_time').value,
       from: $('f_pickup').value.trim(), to: $('f_dropoff').value.trim(), flight: flight,
       pax: $('f_pax').value, bags: $('f_luggage').value||'0',
       payment: $('f_payment').value, rateText: rateText,
+      payTerms: getPayTerms(svcType, state.corporate),
+      svcType: svcType,
       dayRental: !!(state.lastFare && state.lastFare.dayRental),
       dayRentalMulti: !!(state.lastFare && state.lastFare.dayRentalMulti),
       days: (state.lastFare && state.lastFare.days) ? state.lastFare.days : null,
       fareLines: fareLinesArr, fareTotal: fareTotalNum
     };
     $('refNo').textContent = ref;
-    $('followUpNote').textContent = state.corporate
-      ? 'Corporate booking received — expect consolidated invoicing. Tap below to download your branded PDF quotation.'
-      : 'Thank you! Tap below to download your branded PDF quotation.';
+    if(intent==='quote'){
+      $('followUpNote').textContent = 'Quotation request received — this is not a dispatch yet. Download the PDF and send proof only after you confirm the trip.';
+    } else if(state.corporate){
+      $('followUpNote').textContent = 'Corporate booking received — expect consolidated invoicing. Driver and plate will be sent on Viber/WhatsApp the day before. Tap below for your PDF.';
+    } else {
+      $('followUpNote').textContent = 'Thank you! Driver and plate will be confirmed on Viber/WhatsApp the day before pickup. Tap below to download your PDF.';
+    }
+    var sheetRow = {
+      timestamp: new Date().toISOString(),
+      ref: ref,
+      type: intent==='quote' ? 'Quotation' : 'Booking',
+      service: svcName,
+      vehicle: vname,
+      pickup: $('f_pickup').value.trim(),
+      dropoff: $('f_dropoff').value.trim(),
+      date: $('f_date').value,
+      time: $('f_time').value,
+      days: (state.lastFare && state.lastFare.days) ? state.lastFare.days : '',
+      pax: $('f_pax').value,
+      bags: $('f_luggage').value||'0',
+      flight: flight,
+      fare: fareTotalNum || '',
+      corporate: state.corporate ? 'Yes' : 'No',
+      company: company,
+      billEmail: billEmail,
+      tin: tin,
+      name: $('f_name').value.trim(),
+      phone: $('f_phone').value.trim(),
+      email: em,
+      payment: $('f_payment').value,
+      terms: getPayTerms(svcType, state.corporate),
+      partner: partnerDispatchLine(),
+      preferred: ($('f_pref_partner') && $('f_pref_partner').selectedIndex>0) ? $('f_pref_partner').options[$('f_pref_partner').selectedIndex].text : '',
+      channel: state.sendMethod,
+      notes: $('f_notes').value.trim(),
+      gocav20: fareTotalNum ? Math.round(fareTotalNum*0.20) : '',
+      partner80: fareTotalNum ? Math.round(fareTotalNum*0.80) : ''
+    };
+    postBookingToSheet(sheetRow);
+    if($('saveSheetBtn')) $('saveSheetBtn').href = sheetLogUrl(sheetRow);
     $('resendEm').href = emLink;
     $('resendWa').href = waLink;
     $('resendVb').href = vbLink;
@@ -1447,7 +1813,7 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
     $('successScreen').style.display='none';
     $('booking').style.display='block';
     $('bkForm').reset();
-    state.selectedVehicle=null; state.sendMethod='Email'; state.step=1; state.lastFare=null; state.lastBooking=null; state.corporate=false;
+    state.selectedVehicle=null; state.sendMethod='Email'; state.step=1; state.lastFare=null; state.lastBooking=null; state.corporate=false; state.intent='book';
     document.querySelectorAll('.send-opt').forEach(function(o,i){ o.classList.toggle('selected', i===0); });
     document.querySelectorAll('.service-card').forEach(function(c){ c.classList.remove('selected'); });
     $('vehicleOptions').innerHTML='';
@@ -1457,10 +1823,235 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
     onServiceChange(); updateSummary(); goToStep(1);
     $('booking').scrollIntoView({behavior:'smooth'});
   });
+
+  var PARTNER_CITIES = [
+    { name:'Manila', match:['manila'] },
+    { name:'Makati', match:['makati'] },
+    { name:'Taguig / BGC', match:['taguig','bgc'] },
+    { name:'Pasay / NAIA', match:['pasay','naia'] },
+    { name:'Parañaque', match:['paranaque','parañaque'] },
+    { name:'Las Piñas', match:['las pinas','las piñas'] },
+    { name:'Muntinlupa', match:['muntinlupa'] },
+    { name:'Alabang', match:['alabang'] },
+    { name:'Pasig', match:['pasig'] },
+    { name:'Mandaluyong', match:['mandaluyong'] },
+    { name:'San Juan', match:['san juan'] },
+    { name:'Quezon City', match:['quezon'] },
+    { name:'Marikina', match:['marikina'] },
+    { name:'Caloocan', match:['caloocan'] },
+    { name:'Valenzuela', match:['valenzuela'] },
+    { name:'Malabon', match:['malabon'] },
+    { name:'Navotas', match:['navotas'] },
+    { name:'Pateros', match:['pateros'] },
+    { name:'General Trias', match:['general trias','gentri'] },
+    { name:'Dasmariñas', match:['dasmari'] },
+    { name:'Imus', match:['imus'] },
+    { name:'Bacoor', match:['bacoor'] },
+    { name:'Kawit', match:['kawit'] },
+    { name:'Tanza', match:['tanza'] },
+    { name:'Trece Martires', match:['trece','trace'] },
+    { name:'Carmona', match:['carmona'] },
+    { name:'GMA', match:['gma'] },
+    { name:'Santa Rosa', match:['santa rosa'] },
+    { name:'Biñan', match:['biñan','binan'] },
+    { name:'San Pedro', match:['san pedro'] },
+    { name:'Cabuyao', match:['cabuyao'] },
+    { name:'Calamba', match:['calamba'] }
+  ];
+  function partnerCountForCity(city){
+    var ms = city.match || [];
+    var n = 0;
+    PARTNER_UNITS.forEach(function(u){
+      var hit = ms.some(function(m){ return (u.keys||[]).indexOf(m)!==-1; });
+      if(hit) n++;
+    });
+    return n;
+  }
+
+  var PARTNER_UNITS = [
+    { id:'tom-accent', driver:'Tom', phone:'0995-435-55114', plate:'NGF 5260', unit:'Hyundai Accent', cls:'accent', base:'General Trias', keys:['general trias','gentri','le rica','imus','dasmari','kawit','bacoor','paranaque','parañaque','las pinas','las piñas','trece','trace','alabang','muntinlupa'] },
+    { id:'tom-montero', driver:'Tom', phone:'0995-435-55114', plate:'WIX 453', unit:'Mitsubishi Montero', cls:'montero', base:'Las Piñas', keys:['las pinas','las piñas','bacoor','molino','paranaque','parañaque','imus','dasmari','alabang','muntinlupa'] },
+    { id:'ramon-mirage', driver:'Ramon', phone:'0927-417-6683', plate:'NFN 1971', unit:'Mitsubishi Mirage G4', cls:'accent', base:'Dasmariñas', keys:['dasmari','gma','carmona','imus','general trias','gentri'] },
+    { id:'heman-avanza', driver:'Heman', phone:'0956-187-9849', plate:'DBS 3479', unit:'Toyota Avanza', cls:'avanza', base:'Las Piñas', keys:['las pinas','las piñas','muntinlupa','imus','bacoor','paranaque','parañaque','alabang'] },
+    { id:'rommel-mirage', driver:'Rommel', phone:'0977-791-2003', plate:'NIL 7317', unit:'Mitsubishi Mirage', cls:'accent', base:'Tanza', keys:['tanza','kawit','trece','trace','dasmari'] },
+    { id:'jessie-mirage', driver:'Jessie', phone:'0999-486-7533', plate:'NKH 7122', unit:'Mitsubishi Mirage', cls:'accent', base:'Las Piñas', keys:['las pinas','las piñas','paranaque','parañaque','muntinlupa','alabang'] },
+    { id:'jose-expander', driver:'Jose Michael', phone:'0995-580-8288', plate:'DAS 3211', unit:'Mitsubishi Xpander', cls:'avanza', base:'Muntinlupa', keys:['muntinlupa','san pedro','las pinas','las piñas','alabang'] }
+  ];
+  function matchPartnerUnits(){
+    var pickup = (($('f_pickup')&&$('f_pickup').value)||'').toLowerCase();
+    var drop = (($('f_dropoff')&&$('f_dropoff').value)||'').toLowerCase();
+    var blob = pickup+' '+drop;
+    var want = state.selectedVehicle || '';
+    var scored = PARTNER_UNITS.map(function(u){
+      var loc = 0;
+      (u.keys||[]).forEach(function(k){ if(blob.indexOf(k)!==-1) loc += 2; });
+      var veh = 0;
+      if(!want) veh = 1;
+      else if(want===u.cls) veh = 3;
+      else veh = 0;
+      return { u:u, score: loc*2 + veh, loc:loc, veh:veh };
+    }).filter(function(x){ return x.loc>0; }).sort(function(a,b){ return b.score-a.score; });
+    return scored;
+  }
+  function renderPartnerSuggest(){
+    var box = $('partnerSuggestBox'), list = $('partnerSuggestList'), sel = $('f_pref_partner');
+    if(!box||!list||!sel) return;
+    var pickupOn = $('f_pickup') && $('f_pickup').value.trim().length>=3;
+    if(!pickupOn){ box.style.display='none'; return; }
+    var hits = matchPartnerUnits();
+    var keep = sel.value;
+    sel.innerHTML = '<option value="">— Auto-assign nearest available driver —</option>';
+    box.style.display = 'block';
+    if(!hits.length){
+      list.innerHTML = '<p style="margin:0;color:var(--text)">We are looking for the nearest available driver in your area. The unit will be confirmed the day before pickup.</p>';
+      sel.style.display = 'none';
+      var lab = sel.previousElementSibling; if(lab && lab.tagName==='LABEL') lab.style.display='none';
+      return;
+    }
+    sel.style.display = '';
+    var lab2 = sel.previousElementSibling; if(lab2 && lab2.tagName==='LABEL') lab2.style.display='';
+    var className = { accent:'Sedan', avanza:'6-Seater', montero:'SUV' };
+    var top = hits.slice(0,3);
+    list.innerHTML = '<p style="margin:0 0 6px;color:var(--muted);font-size:13px">Nearest available based on your pickup:</p>' + top.map(function(x){
+      var u = x.u;
+      var cls = className[u.cls] || u.cls;
+      var fit = x.veh>=3 ? ' · fits your selected class' : '';
+      return '<div style="margin:4px 0"><strong>'+u.driver+'</strong> · '+cls+' · '+u.unit+fit+'</div>';
+    }).join('');
+    hits.forEach(function(x){
+      var o = document.createElement('option');
+      o.value = x.u.id;
+      o.textContent = x.u.driver+' · '+(className[x.u.cls]||x.u.cls)+' · '+x.u.unit;
+      sel.appendChild(o);
+    });
+    if(keep && [].some.call(sel.options, function(o){ return o.value===keep; })) sel.value = keep;
+  }
+  function partnerDispatchLine(){
+    var pref = $('f_pref_partner') && $('f_pref_partner').value;
+    var u = null;
+    if(pref){ PARTNER_UNITS.forEach(function(p){ if(p.id===pref) u = p; }); }
+    if(!u){
+      var hits = matchPartnerUnits();
+      if(hits.length) u = hits[0].u;
+    }
+    if(!u) return 'Partner unit: to be assigned';
+    return 'Suggested partner: '+u.driver+(u.phone?' '+u.phone:'')+' · '+u.unit+' '+u.plate+' · base '+u.base;
+  }
+  var PARTNER_SLOTS = 2;
+  function renderPartnerCities(){
+    var grid = $('partnerCityGrid'), sel = $('p_city');
+    if(!grid || !sel) return;
+    grid.innerHTML = '';
+    sel.innerHTML = '<option value="">— Select open city —</option>';
+    PARTNER_CITIES.forEach(function(c){
+      var filled = partnerCountForCity(c);
+      var open = filled < PARTNER_SLOTS;
+      var left = Math.max(0, PARTNER_SLOTS - filled);
+      var card = document.createElement('div');
+      card.className = 'city-slot '+(open?'open':'full');
+      card.innerHTML = '<div class="city-name">'+c.name+'</div><div class="city-meta">'+(open ? ('Open — '+left+' of '+PARTNER_SLOTS+' slots') : 'Full — '+filled+' unit'+(filled===1?'':'s')+' already covering')+'</div>';
+      grid.appendChild(card);
+      if(open){
+        var opt = document.createElement('option');
+        opt.value = c.name;
+        opt.textContent = c.name+' ('+left+' slot'+(left===1?'':'s')+' left)';
+        sel.appendChild(opt);
+      }
+    });
+  }
+  function showPErr(id, on){ var el=$('err_'+id); if(el) el.classList.toggle('show', !!on); }
+  function partnerPayload(){
+    var name = ($('p_name').value||'').trim();
+    var phone = ($('p_phone').value||'').replace(/\D/g,'');
+    if(phone.length===12 && phone.indexOf('63')===0) phone = '0'+phone.slice(2);
+    if(phone.length===10 && phone.charAt(0)==='9') phone = '0'+phone;
+    var city = $('p_city').value;
+    var veh = $('p_vehicle').value;
+    var ok = true;
+    showPErr('pname', !name); if(!name) ok=false;
+    showPErr('pphone', phone.length<11); if(phone.length<11) ok=false;
+    showPErr('pcity', !city); if(!city) ok=false;
+    showPErr('pvehicle', !veh); if(!veh) ok=false;
+    if(!ok) return null;
+    var msg = 'DRIVER PARTNER APPLICATION\n══════════════════════\n'+
+      'Name: '+name+'\n'+
+      'Mobile: '+$('p_phone').value.trim()+'\n'+
+      'Base city: '+city+'\n'+
+      'Vehicle: '+veh+'\n'+
+      'Year: '+($('p_year').value||'Not given')+'\n'+
+      'Plate: '+($('p_plate').value.trim()||'Not given')+'\n'+
+      'Drives own unit: '+($('p_with_driver').checked?'Yes':'No')+'\n'+
+      'Notes: '+($('p_notes').value.trim()||'None')+'\n'+'Fee: 20% of trip fare to GoCav; partner paid weekly. Toll/parking at actual.\n'+
+      '══════════════════════\nGoCav Transport Services';
+    return { msg: msg, subject: 'Driver partner — '+name+' — '+city };
+  }
+  function sendPartner(via){
+    var p = partnerPayload(); if(!p) return;
+    var emLink = 'mailto:'+EM+'?subject='+encodeURIComponent(p.subject)+'&body='+encodeURIComponent(p.msg);
+    var waLink = 'https://wa.me/'+WA+'?text='+encodeURIComponent(p.msg);
+    var vbLink = 'viber://chat?number='+VB;
+    var href = via==='wa'?waLink:(via==='em'?emLink:vbLink);
+    var a = document.createElement('a');
+    a.href = href; if(via!=='vb'){ a.target='_blank'; a.rel='noopener noreferrer'; }
+    document.body.appendChild(a); a.click(); a.remove();
+    if($('p_ok')) $('p_ok').style.display='block';
+  }
+
+  (function(){
+    var root=$('svcSlider'); if(!root) return;
+    var slides=[].slice.call(root.querySelectorAll('.svc-slide'));
+    var dots=$('svcDots');
+    var i=0, t=null;
+    slides.forEach(function(sl,n){
+      var b=document.createElement('button');
+      b.type='button'; b.className='svc-dot'+(n===0?' on':'');
+      b.addEventListener('click', function(ev){ ev.stopPropagation(); show(n); });
+      dots.appendChild(b);
+    });
+    function show(n){
+      i=(n+slides.length)%slides.length;
+      slides.forEach(function(sl,k){ sl.classList.toggle('on', k===i); });
+      [].forEach.call(dots.children, function(d,k){ d.classList.toggle('on', k===i); });
+      restart();
+    }
+    function restart(){
+      if(t) clearInterval(t);
+      t=setInterval(function(){ show(i+1); }, 4200);
+    }
+    slides.forEach(function(sl){
+      sl.addEventListener('click', function(){
+        var val=sl.getAttribute('data-service');
+        if($('f_service') && val){ $('f_service').value=val; onServiceChange(); renderVehicles(); updateSummary(); }
+        var bk=document.querySelector('#booking');
+        if(bk) bk.scrollIntoView({behavior:'smooth'});
+      });
+    });
+    restart();
+  })();
+
+
+  function updateFleetCounts(){
+    var map={accent:0,avanza:0,montero:0};
+    (PARTNER_UNITS||[]).forEach(function(u){ if(map[u.cls]!=null) map[u.cls]++; });
+    var labels={accent:'Sedan units available', avanza:'6-Seater units available', montero:'SUV units available'};
+    Object.keys(map).forEach(function(k){
+      var el=$('fleetCount-'+k);
+      if(!el) return;
+      var n=map[k];
+      el.textContent = n ? (n+' '+labels[k]) : 'Looking for a unit in this class';
+    });
+  }
+  updateFleetCounts();
+  renderPartnerCities();
+  if($('p_send_wa')) $('p_send_wa').addEventListener('click', function(){ sendPartner('wa'); });
+  if($('p_send_vb')) $('p_send_vb').addEventListener('click', function(){ sendPartner('vb'); });
+  if($('p_send_em')) $('p_send_em').addEventListener('click', function(){ sendPartner('em'); });
   onServiceChange();
+  renderVehicles();
   updateSummary();
   updateCorpTollNotice();
-  goToStep(1);
+  updateCorpFields();
+  goToStep(1, {skipScroll:true});
 })();
 </script>
 </body>
