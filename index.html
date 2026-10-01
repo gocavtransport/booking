@@ -2,9 +2,16 @@
 <html lang="en" style="margin:0;padding:0;">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>GoCav Transport — Premium Chauffeur Service | Cavite · NCR</title>
 <meta name="description" content="Professional chauffeur service from Cavite to NAIA, Metro Manila & beyond. Live fare estimates, instant PDF quotation. Serving Cavite, Laguna, Batangas & all NCR.">
+<meta name="theme-color" content="#14141c">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="GoCav">
+<link rel="icon" href="https://i.imgur.com/DWfEGWv.png">
+<link rel="apple-touch-icon" href="https://i.imgur.com/DWfEGWv.png">
+<link rel="manifest" href="manifest.webmanifest">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Public+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -30,6 +37,7 @@ h1,h2,h3,.serif{font-family:'Cormorant Garamond',serif;letter-spacing:-.01em}
 .gold-text{background:linear-gradient(100deg,var(--gold-dark),var(--gold-light));-webkit-background-clip:text;background-clip:text;color:transparent}
 .gold-btn{background:linear-gradient(135deg,var(--gold-dark),var(--gold));color:#1a1405;font-weight:700;transition:all .25s;cursor:pointer;border:none;font-size:15px}
 .gold-btn:hover{filter:brightness(1.1);transform:translateY(-2px);box-shadow:0 8px 24px var(--gold-glow)}
+@keyframes neonGold{0%,100%{box-shadow:0 0 8px rgba(212,175,55,.45),0 0 18px rgba(56,189,248,.2)}50%{box-shadow:0 0 18px rgba(240,208,96,1),0 0 40px rgba(34,211,238,.45)}}
 .gold-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
 .ghost-btn{background:transparent;border:1px solid var(--border2);color:var(--text);font-weight:600;transition:all .25s;cursor:pointer;font-size:15px}
 .ghost-btn:hover{border-color:var(--gold);color:var(--gold-light)}
@@ -87,6 +95,7 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
 @media(min-width:768px){.svc-slider{height:340px}.svc-slide img{height:340px}}
 
 
+.pwa-neon{animation:neonGold 1.6s ease-in-out infinite}
 .partner-flash{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;padding:10px 16px;background:linear-gradient(90deg,rgba(212,175,55,.18),rgba(212,175,55,.06),rgba(212,175,55,.18));border-bottom:1px solid rgba(212,175,55,.35);cursor:pointer;animation:corpGlow 2.4s ease-in-out infinite}
 .partner-flash:hover{filter:brightness(1.08)}
 .partner-flash strong{color:var(--gold-light)}
@@ -192,6 +201,12 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
   </div>
 </nav>
 
+<div id="pwaInstallBar" class="pwa-neon" style="display:none;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;padding:12px 16px;background:linear-gradient(90deg,rgba(212,175,55,.2),rgba(20,20,28,.95),rgba(34,211,238,.16));border-bottom:1px solid rgba(240,208,96,.6);font-size:14px">
+  <span style="color:var(--gold-light);font-weight:800;letter-spacing:.04em">INSTALL FOR EASY BOOKING</span>
+  <span style="color:var(--text)">Add GoCav to your phone or tablet home screen.</span>
+  <button type="button" id="pwaInstallBtn" class="gold-btn px-4 py-1.5 rounded-lg text-sm">Install</button>
+  <button type="button" id="pwaInstallHide" class="ghost-btn px-3 py-1.5 rounded-lg text-sm">Not now</button>
+</div>
 <div class="partner-flash" data-scroll="#partners" role="link">
   <span style="width:8px;height:8px;border-radius:50%;background:var(--gold-light);display:inline-block" class="pulse"></span>
   <span style="font-size:13px;color:var(--text)">Open for <strong>driver partnership</strong> — we need about 2 units per city in NCR and nearby areas. <strong style="text-decoration:underline">See open cities →</strong></span>
@@ -449,10 +464,7 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
         <div class="mt-4" id="partnerSuggestBox" style="display:none;padding:14px 16px;border-radius:12px;border:1px solid rgba(212,175,55,.35);background:rgba(212,175,55,.06)">
           <p style="font-weight:700;font-size:13px;letter-spacing:.05em;text-transform:uppercase;color:var(--gold-light);margin:0 0 8px">Suggested partner units</p>
           <div id="partnerSuggestList" style="font-size:14px;line-height:1.55;color:var(--text)"></div>
-          <div class="mt-3">
-            <label for="f_pref_partner" class="block mb-1.5 font-semibold" style="font-size:14px">Preferred partner <span style="color:var(--muted);font-weight:400">(optional)</span></label>
-            <select id="f_pref_partner"><option value="">— Auto-assign nearest open unit —</option></select>
-          </div>
+          <select id="f_pref_partner" style="display:none"><option value=""></option></select>
           <p style="font-size:12px;color:var(--muted);margin:8px 0 0">Final driver and plate are confirmed the day before pickup.</p>
         </div>
         <div class="mt-4" id="multiDayFields" style="display:none">
@@ -1916,41 +1928,22 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
     var pickupOn = $('f_pickup') && $('f_pickup').value.trim().length>=3;
     if(!pickupOn){ box.style.display='none'; return; }
     var hits = matchPartnerUnits();
-    var keep = sel.value;
-    sel.innerHTML = '<option value="">— Auto-assign nearest available driver —</option>';
+    if(sel){ sel.value=''; sel.style.display='none'; }
     box.style.display = 'block';
     if(!hits.length){
       list.innerHTML = '<p style="margin:0;color:var(--text)">We are looking for the nearest available driver in your area. The unit will be confirmed the day before pickup.</p>';
-      sel.style.display = 'none';
-      var lab = sel.previousElementSibling; if(lab && lab.tagName==='LABEL') lab.style.display='none';
       return;
     }
-    sel.style.display = '';
-    var lab2 = sel.previousElementSibling; if(lab2 && lab2.tagName==='LABEL') lab2.style.display='';
     var className = { accent:'Sedan', avanza:'6-Seater', montero:'SUV' };
-    var top = hits.slice(0,3);
-    list.innerHTML = '<p style="margin:0 0 6px;color:var(--muted);font-size:13px">Nearest available based on your pickup:</p>' + top.map(function(x){
-      var u = x.u;
-      var cls = className[u.cls] || u.cls;
-      var fit = x.veh>=3 ? ' · fits your selected class' : '';
-      return '<div style="margin:4px 0"><strong>'+u.driver+'</strong> · '+cls+' · '+u.unit+fit+'</div>';
-    }).join('');
-    hits.forEach(function(x){
-      var o = document.createElement('option');
-      o.value = x.u.id;
-      o.textContent = x.u.driver+' · '+(className[x.u.cls]||x.u.cls)+' · '+x.u.unit;
-      sel.appendChild(o);
-    });
-    if(keep && [].some.call(sel.options, function(o){ return o.value===keep; })) sel.value = keep;
+    var u = hits[0].u;
+    var cls = className[u.cls] || u.cls;
+    var fit = hits[0].veh>=3 ? ' · fits your selected class' : '';
+    list.innerHTML = '<p style="margin:0 0 6px;color:var(--muted);font-size:13px">Nearest available based on your pickup:</p><div style="margin:4px 0"><strong>'+u.driver+'</strong> · '+cls+' · '+u.unit+fit+'</div>';
   }
   function partnerDispatchLine(){
-    var pref = $('f_pref_partner') && $('f_pref_partner').value;
     var u = null;
-    if(pref){ PARTNER_UNITS.forEach(function(p){ if(p.id===pref) u = p; }); }
-    if(!u){
-      var hits = matchPartnerUnits();
-      if(hits.length) u = hits[0].u;
-    }
+    var hits = matchPartnerUnits();
+    if(hits.length) u = hits[0].u;
     if(!u) return 'Partner unit: to be assigned';
     return 'Suggested partner: '+u.driver+(u.phone?' '+u.phone:'')+' · '+u.unit+' '+u.plate+' · base '+u.base;
   }
@@ -2066,6 +2059,35 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
     });
   }
   updateFleetCounts();
+
+  (function(){
+    var deferred = null;
+    var bar = $('pwaInstallBar'), btn = $('pwaInstallBtn'), hide = $('pwaInstallHide');
+    var standalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+    function showBar(){ if(bar && !standalone && !localStorage.getItem('gocav_hide_pwa')) bar.style.display = 'flex'; }
+    showBar();
+    window.addEventListener('beforeinstallprompt', function(e){
+      e.preventDefault();
+      deferred = e;
+      showBar();
+    });
+    if(btn) btn.addEventListener('click', function(){
+      if(!deferred){
+        alert('On Android Chrome: tap the menu (⋮) then Add to Home screen / Install app.');
+        return;
+      }
+      deferred.prompt();
+      deferred.userChoice.finally(function(){ deferred=null; if(bar) bar.style.display='none'; });
+    });
+    if(hide) hide.addEventListener('click', function(){
+      if(bar) bar.style.display='none';
+      try { localStorage.setItem('gocav_hide_pwa','1'); } catch(e){}
+    });
+    if('serviceWorker' in navigator){
+      navigator.serviceWorker.register('./sw.js').catch(function(){});
+    }
+  })();
+
   renderPartnerCities();
   if($('p_send_wa')) $('p_send_wa').addEventListener('click', function(){ sendPartner('wa'); });
   if($('p_send_vb')) $('p_send_vb').addEventListener('click', function(){ sendPartner('vb'); });
