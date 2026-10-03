@@ -2,23 +2,13 @@
 <html lang="en" style="margin:0;padding:0;">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>GoCav Transport — Premium Chauffeur Service | Cavite · NCR</title>
-<meta name="description" content="Professional chauffeur service from Cavite to NAIA, Metro Manila & beyond. Live fare estimates, instant PDF quotation. Serving Cavite, Laguna, Batangas & all NCR.">
-<meta name="theme-color" content="#14141c">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="GoCav">
-<link rel="icon" href="https://i.imgur.com/DWfEGWv.png">
-<link rel="apple-touch-icon" href="https://i.imgur.com/DWfEGWv.png">
-<link rel="manifest" href="manifest.webmanifest">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GoCav Transport — Premium Chauffeur Service | Cavite · NCR · Luzon</title>
+<meta name="description" content="Professional chauffeur service from Cavite to NAIA, Metro Manila, Northern & Southern Luzon. Live fare estimates, instant PDF quotation.">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Public+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script>
-(function(){
-  var s = document.createElement('style');
-  s.textContent = `
+<style>
 :root{
   --bg:#14141c;--card:#1c1c28;--card2:#232333;--text:#eef0f6;--muted:#8b8da3;
   --gold:#d4af37;--gold-light:#f0d060;--gold-dark:#a8862a;
@@ -37,7 +27,6 @@ h1,h2,h3,.serif{font-family:'Cormorant Garamond',serif;letter-spacing:-.01em}
 .gold-text{background:linear-gradient(100deg,var(--gold-dark),var(--gold-light));-webkit-background-clip:text;background-clip:text;color:transparent}
 .gold-btn{background:linear-gradient(135deg,var(--gold-dark),var(--gold));color:#1a1405;font-weight:700;transition:all .25s;cursor:pointer;border:none;font-size:15px}
 .gold-btn:hover{filter:brightness(1.1);transform:translateY(-2px);box-shadow:0 8px 24px var(--gold-glow)}
-@keyframes neonGold{0%,100%{box-shadow:0 0 8px rgba(212,175,55,.45),0 0 18px rgba(56,189,248,.2)}50%{box-shadow:0 0 18px rgba(240,208,96,1),0 0 40px rgba(34,211,238,.45)}}
 .gold-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
 .ghost-btn{background:transparent;border:1px solid var(--border2);color:var(--text);font-weight:600;transition:all .25s;cursor:pointer;font-size:15px}
 .ghost-btn:hover{border-color:var(--gold);color:var(--gold-light)}
@@ -62,12 +51,14 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
 .prog-line.done{background:var(--gold)}
 .vehicle-opt{border:2px solid var(--border2);border-radius:14px;padding:16px;cursor:pointer;transition:all .25s;position:relative;background:var(--card2)}
 .vehicle-opt:hover{border-color:rgba(212,175,55,.5)}
-.vehicle-opt.selected{border-color:var(--gold);background:linear-gradient(135deg,var(--gold-soft),transparent);box-shadow:0 0 20px rgba(212,175,55,.2)}
+.vehicle-opt.recommended{border-color:var(--gold);background:linear-gradient(135deg,rgba(212,175,55,.2),var(--card2));box-shadow:0 0 25px rgba(212,175,55,.45),inset 0 0 15px rgba(212,175,55,.2);animation:neonPulse 2.2s infinite ease-in-out}
+@keyframes neonPulse{0%,100%{box-shadow:0 0 20px rgba(212,175,55,.35),inset 0 0 10px rgba(212,175,55,.15)}50%{box-shadow:0 0 35px rgba(212,175,55,.75),inset 0 0 20px rgba(212,175,55,.35)}}
+.vehicle-opt.selected{border-color:var(--gold);background:linear-gradient(135deg,var(--gold-soft),transparent);box-shadow:0 0 25px rgba(212,175,55,.4)}
 .vehicle-opt.selected::after{content:'✓';position:absolute;top:10px;right:12px;width:26px;height:26px;border-radius:50%;background:var(--gold);color:#1a1405;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px}
 .service-card{cursor:pointer;position:relative;overflow:hidden}
 .service-card.selected{border-color:var(--gold)!important;box-shadow:0 0 0 1px var(--gold),0 0 30px rgba(212,175,55,.25)}
 .service-card.selected::before{content:'SELECTED';position:absolute;top:12px;right:12px;background:linear-gradient(90deg,var(--gold-dark),var(--gold-light));color:#1a1405;font-size:10px;font-weight:800;padding:4px 10px;border-radius:20px;letter-spacing:.08em;z-index:2}
-.send-opt{border:2px solid var(--border2);border-radius:12px;padding:16px;cursor:pointer;transition:all .25s;display:flex;align-items:center;gap:12px;min-height:56px}
+.send-opt{border:2px solid var(--border2);border-radius:12px;padding:14px 16px;cursor:pointer;transition:all .25s;display:flex;align-items:center;gap:12px;min-height:54px}
 .send-opt:hover{border-color:#555}
 .send-opt.selected{border-color:var(--gold);background:var(--gold-soft)}
 .corp-box{display:flex;align-items:flex-start;gap:10px;background:var(--gold-soft);border:1px solid rgba(212,175,55,.35);border-radius:12px;padding:14px 16px;margin-top:16px;cursor:pointer}
@@ -84,7 +75,6 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
 @keyframes floatUp{0%{transform:translateY(0) translateX(0);opacity:0}10%{opacity:.8}90%{opacity:.4}100%{transform:translateY(-320px) translateX(30px);opacity:0}}
 @keyframes pulseGlow{0%,100%{box-shadow:0 0 0 0 rgba(212,175,55,.4)}50%{box-shadow:0 0 0 12px rgba(212,175,55,0)}}
 .pulse{animation:pulseGlow 2s infinite}
-
 .svc-slider{position:relative;border-radius:16px;overflow:hidden;border:1px solid rgba(212,175,55,.3);margin:0 0 20px;height:280px}
 .svc-slide{position:absolute;inset:0;opacity:0;transition:opacity .7s ease;cursor:pointer}
 .svc-slide.on{opacity:1;z-index:1}
@@ -93,9 +83,6 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
 .svc-dot{width:9px;height:9px;border-radius:50%;border:0;background:rgba(255,255,255,.35);cursor:pointer;padding:0}
 .svc-dot.on{background:var(--gold-light);box-shadow:0 0 8px rgba(212,175,55,.8)}
 @media(min-width:768px){.svc-slider{height:340px}.svc-slide img{height:340px}}
-
-
-.pwa-neon{animation:neonGold 1.6s ease-in-out infinite}
 .partner-flash{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;padding:10px 16px;background:linear-gradient(90deg,rgba(212,175,55,.18),rgba(212,175,55,.06),rgba(212,175,55,.18));border-bottom:1px solid rgba(212,175,55,.35);cursor:pointer;animation:corpGlow 2.4s ease-in-out infinite}
 .partner-flash:hover{filter:brightness(1.08)}
 .partner-flash strong{color:var(--gold-light)}
@@ -107,7 +94,6 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
 @keyframes cityFullGlow{0%,100%{box-shadow:0 0 6px rgba(239,68,68,.3),0 0 14px rgba(239,68,68,.12)}50%{box-shadow:0 0 14px rgba(239,68,68,.7),0 0 28px rgba(239,68,68,.28)}}
 .city-slot .city-name{font-weight:700;font-size:14px}
 .city-slot .city-meta{font-size:12px;color:var(--muted);margin-top:4px}
-
 .summary-row{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px dotted var(--border);font-size:14px}
 .summary-row:last-child{border-bottom:none}
 .summary-label{color:var(--muted)}
@@ -137,7 +123,7 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
 .pay-row .acct-name{font-size:12px;color:var(--muted)}
 .fare-box{margin-top:18px;border:1px solid rgba(212,175,55,.35);border-radius:14px;background:linear-gradient(160deg,rgba(212,175,55,.08),var(--card2));padding:18px;display:none;animation:fadeSlide .4s ease}
 .fare-box.show{display:block}
-.fare-box .fare-title{display:flex;align-items:center;gap:8px;font-weight:700;color:var(--gold-light);font-size:15px;letter-spacing:.04em;text-transform:uppercase;margin-bottom:12px}
+.fare-title{display:flex;align-items:center;gap:8px;font-weight:700;color:var(--gold-light);font-size:15px;letter-spacing:.04em;text-transform:uppercase;margin-bottom:12px}
 .fare-line{display:flex;justify-content:space-between;padding:7px 0;font-size:14px;border-bottom:1px dotted rgba(255,255,255,.1)}
 .fare-line:last-of-type{border-bottom:none}
 .fare-line .fl{color:var(--muted)}
@@ -149,11 +135,9 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
 .fare-note{font-size:12px;color:var(--muted);margin-top:10px;line-height:1.5}
 .corp-toll-notice{display:none;margin-top:14px;padding:14px 16px;border-radius:12px;border:1px solid rgba(212,175,55,.55);background:linear-gradient(135deg,rgba(212,175,55,.18),rgba(212,175,55,.06));box-shadow:0 0 0 0 rgba(212,175,55,.45);animation:corpGlow 2.2s ease-in-out infinite;align-items:flex-start;gap:12px}
 .corp-toll-notice.show{display:flex}
-.corp-toll-notice .corp-toll-icon{flex-shrink:0;width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--gold-dark),var(--gold-light));display:flex;align-items:center;justify-content:center;box-shadow:0 0 16px var(--gold-glow)}
+.corp-toll-notice .corp-toll-icon{flex-shrink:0;width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--gold-dark),var(--gold-light));display:flex;align-items:center;justify-content:center;box-shadow:0 0 16px var(--gold-glow);color:#1a1405}
 .corp-toll-notice .corp-toll-title{font-weight:800;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--gold-light);margin:0 0 4px}
 .corp-toll-notice .corp-toll-body{font-size:13px;color:var(--text);line-height:1.55;margin:0}
-.corp-toll-notice .corp-toll-body strong{color:var(--gold-light)}
-@keyframes corpGlow{0%,100%{box-shadow:0 0 8px rgba(212,175,55,.25),0 0 0 0 rgba(212,175,55,.35)}50%{box-shadow:0 0 22px rgba(212,175,55,.55),0 0 0 6px rgba(212,175,55,.12)}}
 .corp-toll-notice-sm{display:none;margin-top:12px;padding:12px 14px;border-radius:10px;border:1px solid rgba(212,175,55,.5);background:linear-gradient(135deg,rgba(212,175,55,.16),rgba(212,175,55,.05));animation:corpGlow 2.2s ease-in-out infinite}
 .corp-toll-notice-sm.show{display:block}
 .corp-toll-notice-sm p{margin:0;font-size:12px;line-height:1.5;color:var(--text)}
@@ -173,10 +157,7 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
   .testi-card p{font-size:15px}
   footer p{font-size:14px}
 }
-`;
-  document.head.appendChild(s);
-})();
-</script>
+</style>
 </head>
 <body>
 <div style="background:radial-gradient(900px 500px at 85% -5%,rgba(212,175,55,.10),transparent 60%),var(--bg);min-height:100%;">
@@ -186,7 +167,7 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
       <img src="https://i.imgur.com/DWfEGWv.png" alt="GoCav" style="height:60px;border-radius:10px" onerror="this.style.display='none'">
       <div>
         <div class="serif font-bold" style="font-size:24px;line-height:1.1">GoCav Transport</div>
-        <div style="font-size:11px;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;font-weight:700;margin-top:2px">Premium Chauffeur Service</div>
+        <div style="font-size:11px;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;font-weight:700;margin:2px 0 0">Premium Chauffeur Service · Luzon Wide</div>
       </div>
     </a>
     <div class="hidden md:flex items-center gap-6">
@@ -201,15 +182,9 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
   </div>
 </nav>
 
-<div id="pwaInstallBar" class="pwa-neon" style="display:none;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;padding:12px 16px;background:linear-gradient(90deg,rgba(212,175,55,.2),rgba(20,20,28,.95),rgba(34,211,238,.16));border-bottom:1px solid rgba(240,208,96,.6);font-size:14px">
-  <span style="color:var(--gold-light);font-weight:800;letter-spacing:.04em">INSTALL FOR EASY BOOKING</span>
-  <span style="color:var(--text)">Add GoCav to your phone or tablet home screen.</span>
-  <button type="button" id="pwaInstallBtn" class="gold-btn px-4 py-1.5 rounded-lg text-sm">Install</button>
-  <button type="button" id="pwaInstallHide" class="ghost-btn px-3 py-1.5 rounded-lg text-sm">Not now</button>
-</div>
 <div class="partner-flash" data-scroll="#partners" role="link">
   <span style="width:8px;height:8px;border-radius:50%;background:var(--gold-light);display:inline-block" class="pulse"></span>
-  <span style="font-size:13px;color:var(--text)">Open for <strong>driver partnership</strong> — we need about 2 units per city in NCR and nearby areas. <strong style="text-decoration:underline">See open cities →</strong></span>
+  <span style="font-size:13px;color:var(--text)">Open for <strong>driver partnership</strong> across NCR, Cavite, Laguna, Batangas &amp; Luzon corridors. <strong style="text-decoration:underline">See open cities →</strong></span>
 </div>
 
 <section id="home" style="position:relative;overflow:hidden;padding:80px 24px 60px;text-align:center">
@@ -219,13 +194,13 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
   <div class="reveal" style="position:relative;max-width:720px;margin:0 auto">
     <div style="display:inline-flex;align-items:center;gap:8px;background:var(--gold-soft);border:1px solid rgba(212,175,55,.3);padding:6px 16px;border-radius:20px;margin-bottom:24px">
       <span style="width:8px;height:8px;border-radius:50%;background:var(--green);display:inline-block" class="pulse"></span>
-      <span style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-light)">Now Serving Cavite · Laguna · Batangas · All NCR</span>
+      <span style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-light)">Serving Cavite · NCR · Laguna · Batangas · Northern &amp; Southern Luzon</span>
     </div>
     <h1 class="serif" style="font-size:clamp(40px,7vw,72px);font-weight:700;line-height:1.08;margin:0 0 16px">
-      Travel in <span class="gold-text">Premium Comfort</span><br>Arrive in Style
+      Travel in <span class="gold-text">Premium Comfort</span><br>Across All Luzon
     </h1>
     <p style="color:var(--muted);font-size:18px;max-width:580px;margin:0 auto 32px">
-      Professional chauffeur service from Cavite to NAIA, all of Metro Manila &amp; beyond. Live fare estimates anchored to our home base — instant PDF quotation.
+      Professional chauffeur service from Cavite &amp; NCR to Baguio, Subic, Clark, Batangas, Quezon &amp; beyond. Live fare estimates with updated regional toll rates.
     </p>
     <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
       <button type="button" class="gold-btn px-8 py-3.5 rounded-xl text-base pulse" data-scroll="#booking">Book Your Ride Now</button>
@@ -239,6 +214,9 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
     </div>
   </div>
 </section>
+
+<datalist id="locationHubs"></datalist>
+
 <section id="services" class="max-w-6xl mx-auto px-5 py-16">
   <div class="reveal text-center mb-10">
     <div class="step-label mb-2">Our Fleet &amp; Rates</div>
@@ -260,6 +238,7 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
       <div style="display:flex;justify-content:space-between;font-size:14px;padding:6px 0"><span style="color:var(--muted)">Loaded rate</span><strong>₱28/km</strong></div>
       <div style="display:flex;justify-content:space-between;font-size:14px;padding:6px 0;color:var(--gold-light)"><span>Base charge</span><strong>₱150 · Min ₱550</strong></div>
       <div style="margin-top:10px;font-size:12px;color:var(--green)">✓ Fuel Included · Professional Driver</div>
+      <div id="fleetCount-accent" class="text-xs text-amber-300 font-semibold mt-2"></div>
       <button type="button" class="gold-btn px-4 py-2 rounded-lg text-sm" style="margin-top:14px;width:100%">Book this service</button>
     </div>
     <div class="card-el service-card reveal p-5" data-service="ONEWAY|One-Way Transfer|TRANSFER_ONEWAY" data-vehicle="avanza">
@@ -272,6 +251,7 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
       <div style="display:flex;justify-content:space-between;font-size:14px;padding:6px 0"><span style="color:var(--muted)">Loaded rate</span><strong>₱34/km</strong></div>
       <div style="display:flex;justify-content:space-between;font-size:14px;padding:6px 0;color:var(--gold-light)"><span>Base charge</span><strong>₱200 · Min ₱700</strong></div>
       <div style="margin-top:10px;font-size:12px;color:var(--green)">✓ Fuel Included · Professional Driver</div>
+      <div id="fleetCount-avanza" class="text-xs text-amber-300 font-semibold mt-2"></div>
       <button type="button" class="gold-btn px-4 py-2 rounded-lg text-sm" style="margin-top:14px;width:100%">Book this service</button>
     </div>
     <div class="card-el service-card reveal p-5" data-service="ONEWAY|One-Way Transfer|TRANSFER_ONEWAY" data-vehicle="montero">
@@ -284,6 +264,7 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
       <div style="display:flex;justify-content:space-between;font-size:14px;padding:6px 0"><span style="color:var(--muted)">Loaded rate</span><strong>₱40/km</strong></div>
       <div style="display:flex;justify-content:space-between;font-size:14px;padding:6px 0;color:var(--gold-light)"><span>Base charge</span><strong>₱250 · Min ₱850</strong></div>
       <div style="margin-top:10px;font-size:12px;color:var(--green)">✓ Fuel Included · Professional Driver</div>
+      <div id="fleetCount-montero" class="text-xs text-amber-300 font-semibold mt-2"></div>
       <button type="button" class="gold-btn px-4 py-2 rounded-lg text-sm" style="margin-top:14px;width:100%">Book this service</button>
     </div>
   </div>
@@ -294,7 +275,7 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
   <div class="svc-slider reveal" id="svcSlider">
     <div class="svc-slide on" data-service="DAYRENTAL|Full-Day Rental / Site Visit|DAYRENTAL"><img src="https://i.imgur.com/FFXAIo9.jpeg" alt="Full-Day Rental / Site Visit"></div>
     <div class="svc-slide" data-service="DAYRENTAL_MULTI|Multi-Day Site Visit - Same Route Daily|DAYRENTAL_MULTI"><img src="https://i.imgur.com/4goIJsc.jpeg" alt="Multi-Day Site Visit"></div>
-    <div class="svc-slide" data-service="ROUND_SAMEDAY|Round Trip - Same-Day Return|TRANSFER_ROUND_SAMEDAY"><img src="https://i.imgur.com/iPuV1j2.jpeg" alt="Airport Transfer"></div>
+    <div class="svc-slide" data-service="ROUND_SPLIT|Same-Day Split Transfer (AM Drop-off + PM Return)|TRANSFER_ROUND_SPLIT"><img src="https://i.imgur.com/iPuV1j2.jpeg" alt="Split Transfer"></div>
     <div class="svc-dots" id="svcDots"></div>
   </div>
   <div class="grid md:grid-cols-3 gap-5">
@@ -312,15 +293,16 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
       <div style="color:var(--gold-light);font-weight:700;font-size:15px">From ₱4,500–₱6,000/day · 5%/8% corporate loyalty</div>
       <button type="button" class="gold-btn px-4 py-2 rounded-lg text-sm" style="margin-top:14px;width:100%">Book this service</button>
     </div>
-    <div class="card-el service-card reveal p-6 text-center" data-service="ROUND_SAMEDAY|Round Trip - Same-Day Return|TRANSFER_ROUND_SAMEDAY">
+    <div class="card-el service-card reveal p-6 text-center" data-service="ROUND_SPLIT|Same-Day Split Transfer (AM Drop-off + PM Return)|TRANSFER_ROUND_SPLIT">
       <img src="https://i.imgur.com/iPuV1j2.jpeg" alt="Airport Round Trip" style="width:100%;height:200px;object-fit:cover;object-position:center top;border-radius:12px;margin-bottom:14px" onerror="this.style.display='none'">
-      <h3 class="serif" style="font-size:24px;font-weight:700;margin:0 0 4px">Airport Round Trip</h3>
-      <p style="color:var(--muted);font-size:14px;margin:0 0 10px">Same-day or multi-day returns. Corporate accounts get 8% off when you return the same day.</p>
-      <div style="color:var(--gold-light);font-weight:700;font-size:15px">Dynamic fare · NAIA &amp; Clark served</div>
+      <h3 class="serif" style="font-size:24px;font-weight:700;margin:0 0 4px">Split-Day Airport Run</h3>
+      <p style="color:var(--muted);font-size:14px;margin:0 0 10px">Morning drop-off, return evening pickup (same or next day). 10% off the return trip. No waiting fees.</p>
+      <div style="color:var(--gold-light);font-weight:700;font-size:15px">Two Dedicated Dispatches · NAIA &amp; Clark</div>
       <button type="button" class="gold-btn px-4 py-2 rounded-lg text-sm" style="margin-top:14px;width:100%">Book this service</button>
     </div>
   </div>
 </section>
+
 <section id="corporate" class="py-16" style="background:linear-gradient(180deg,transparent,rgba(212,175,55,.05),transparent)">
   <div class="max-w-6xl mx-auto px-5">
     <div class="reveal text-center mb-10">
@@ -332,12 +314,12 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
       <div class="reveal card-el p-6">
         <div class="feature-icon mb-4"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg></div>
         <h3 style="font-weight:700;margin:0 0 6px;font-size:17px">Airport Transfers</h3>
-        <p style="color:var(--muted);font-size:14px;margin:0">One-way, same-day return, or multi-day return with empty-leg positioning fully itemized. Flight tracking included.</p>
+        <p style="color:var(--muted);font-size:14px;margin:0">One-way, split round-trip, or multi-day return with empty-leg positioning fully itemized. Flight tracking included.</p>
       </div>
       <div class="reveal card-el p-6">
         <div class="feature-icon mb-4"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h4l3-9 4 18 3-9h4"/></svg></div>
-        <h3 style="font-weight:700;margin:0 0 6px;font-size:17px">8% Loyalty Discount</h3>
-        <p style="color:var(--muted);font-size:14px;margin:0">Corporate accounts automatically receive 8% off when you return the same day — shown live in your estimate.</p>
+        <h3 style="font-weight:700;margin:0 0 6px;font-size:17px">Split &amp; Return Loyalty</h3>
+        <p style="color:var(--muted);font-size:14px;margin:0">Split round-trips receive an automatic 10% discount on the return trip. Standby corporate returns get 8% off.</p>
       </div>
       <div class="reveal card-el p-6">
         <div class="feature-icon mb-4"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8M16 17H8M10 9H8"/></svg></div>
@@ -347,6 +329,7 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
     </div>
   </div>
 </section>
+
 <section id="why" class="py-16">
   <div class="max-w-6xl mx-auto px-5">
     <div class="reveal text-center mb-10">
@@ -377,6 +360,7 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
     </div>
   </div>
 </section>
+
 <section id="booking" class="max-w-6xl mx-auto px-5 py-16">
   <div class="reveal text-center mb-8">
     <div class="step-label mb-2">Reservations</div>
@@ -406,12 +390,14 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
           <option value="">— Select Service —</option>
           <optgroup label="Point-to-Point Transfers (dynamic fare)">
             <option value="ONEWAY|One-Way Transfer|TRANSFER_ONEWAY">One-Way Transfer</option>
-            <option value="ROUND_SAMEDAY|Round Trip - Same-Day Return|TRANSFER_ROUND_SAMEDAY">Round Trip — Same-Day Return (corporate: 8% off when you return the same day)</option>
-            <option value="ROUND_MULTIDAY|Round Trip - Multi-Day Return|TRANSFER_ROUND_MULTIDAY">Round Trip — Multi-Day Return (includes empty legs)</option>
+            <option value="ROUND_SAMEDAY|Round Trip - Same-Day Return|TRANSFER_ROUND_SAMEDAY">Round Trip — Standby / Immediate Return</option>
+            <option value="ROUND_SPLIT|Same-Day Split Transfer (AM Drop-off + PM Return)|TRANSFER_ROUND_SPLIT">Same-Day Split Transfer (AM Drop-off + PM Return, 10% Off Trip 2)</option>
+            <option value="ROUND_MULTIDAY|Round Trip - Multi-Day Return|TRANSFER_ROUND_MULTIDAY">Round Trip — Multi-Day Return (Different Dates, 10% Off Trip 2)</option>
           </optgroup>
           <optgroup label="Full-Day Rental (8 hrs / 100 km included)">
             <option value="DAYRENTAL|Full-Day Rental / Site Visit|DAYRENTAL">Full-Day Rental / Site Visit — returned to pickup point</option>
             <option value="DAYRENTAL_MULTI|Multi-Day Site Visit - Same Route Daily|DAYRENTAL_MULTI">Multi-Day Site Visit — Same Route Daily (corporate · 2–7 days)</option>
+            <option value="DAYRENTAL_OOT|Out-of-Town Multi-Day (Vehicle Retained)|DAYRENTAL_OOT">Out-of-Town Multi-Day (2–7 days, driver stays with client)</option>
           </optgroup>
         </select>
         <div class="err-msg" id="err_service">Please select a service type.</div>
@@ -423,7 +409,7 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
           <div>
             <label for="f_pax" class="block mb-1.5 font-semibold" style="font-size:15px">Passengers <span style="color:var(--red)">*</span></label>
             <input type="number" id="f_pax" min="1" max="20" placeholder="e.g. 3" required>
-            <div class="err-msg" id="err_pax">Enter number of passengers (children count as 1).</div>
+            <div class="err-msg" id="err_pax">Enter number of passengers.</div>
           </div>
           <div>
             <label for="f_luggage" class="block mb-1.5 font-semibold" style="font-size:15px">Large Bags</label>
@@ -439,42 +425,116 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
       <div class="step-pane" id="step2">
         <h3 class="serif" style="font-size:26px;font-weight:700;margin:0 0 4px">Trip Details</h3>
         <p style="color:var(--muted);font-size:15px;margin:0 0 20px">Enter your locations — your fare estimate appears automatically.</p>
-        <div class="grid grid-cols-2 gap-4">
-          <div>
-            <label for="f_date" class="block mb-1.5 font-semibold" style="font-size:15px">Pickup Date <span style="color:var(--red)">*</span></label>
-            <input type="date" id="f_date" required>
-            <div class="err-msg" id="err_date">Please select a valid date.</div>
-          </div>
-          <div>
-            <label for="f_time" class="block mb-1.5 font-semibold" style="font-size:15px">Pickup Time <span style="color:var(--red)">*</span></label>
-            <input type="time" id="f_time" required>
-            <div class="err-msg" id="err_time">Please select a time. Night surcharge +12% applies 22:00–06:00.</div>
+
+        <div class="p-3.5 rounded-xl border border-white/10 bg-white/[0.02] mb-4">
+          <div class="text-xs font-bold uppercase tracking-wider text-amber-300 mb-2">Trip 1: Departure Trip</div>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label for="f_date" class="block mb-1.5 font-semibold" style="font-size:15px">Pickup Date <span style="color:var(--red)">*</span></label>
+              <input type="date" id="f_date" required>
+              <div class="err-msg" id="err_date">Please select a valid date.</div>
+            </div>
+            <div>
+              <label for="f_time" class="block mb-1.5 font-semibold" style="font-size:15px">Pickup Time <span style="color:var(--red)">*</span></label>
+              <input type="time" id="f_time" required>
+              <div class="err-msg" id="err_time">Please select a valid time.</div>
+            </div>
           </div>
         </div>
+
+        <div id="splitReturnBox" style="display:none;" class="p-3.5 rounded-xl border border-amber-400/30 bg-amber-400/5 mb-4">
+          <div class="flex items-center justify-between mb-2">
+            <div class="text-xs font-bold uppercase tracking-wider text-amber-300">Trip 2: Return Journey</div>
+            <span class="tag tag-comfort text-[10px]" id="splitReturnTag">10% Off Return Base/Km</span>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label for="f_return_date" class="block mb-1 text-xs font-semibold text-slate-300">Return Date <span style="color:var(--red)">*</span></label>
+              <input type="date" id="f_return_date">
+              <div class="err-msg" id="err_return_date">Select return date.</div>
+            </div>
+            <div>
+              <label for="f_return_time" class="block mb-1 text-xs font-semibold text-slate-300">Return Pickup Time <span style="color:var(--red)">*</span></label>
+              <input type="time" id="f_return_time">
+              <div class="err-msg" id="err_return_time">Select return pickup time.</div>
+            </div>
+          </div>
+          <div class="mt-3">
+            <label for="f_return_flight" class="block mb-1 text-xs font-semibold text-slate-300">Return Flight / Arrival Notes <span style="color:var(--muted);font-weight:400">(optional)</span></label>
+            <input type="text" id="f_return_flight" placeholder="e.g. PR 2822 landing at NAIA T2 around 7:45 PM">
+          </div>
+        </div>
+
         <div class="mt-4">
           <label for="f_pickup" class="block mb-1.5 font-semibold" style="font-size:15px">Pickup Location <span style="color:var(--red)">*</span></label>
-          <input type="text" id="f_pickup" placeholder="e.g. Le Rica Homes GenTri / Makati / NAIA Terminal 3 / Santa Rosa Laguna">
+          <input type="text" id="f_pickup" list="locationHubs" placeholder="e.g. Le Rica Homes GenTri / Baguio / Subic / Makati">
           <div class="err-msg" id="err_pickup">Please enter pickup location (include city for instant estimate).</div>
         </div>
+
         <div class="mt-4">
           <label for="f_dropoff" class="block mb-1.5 font-semibold" style="font-size:15px" id="lbl_dropoff">Drop-off / Destination <span style="color:var(--red)">*</span></label>
-          <input type="text" id="f_dropoff" placeholder="e.g. NAIA Terminal 3 / BGC / Clark Airport / Quezon City">
+          <input type="text" id="f_dropoff" list="locationHubs" placeholder="e.g. Baguio City / Subic Bay / NAIA Terminal 3 / Quezon City">
           <div class="err-msg" id="err_dropoff">Please enter destination.</div>
         </div>
-        <div class="mt-4" id="partnerSuggestBox" style="display:none;padding:14px 16px;border-radius:12px;border:1px solid rgba(212,175,55,.35);background:rgba(212,175,55,.06)">
-          <p style="font-weight:700;font-size:13px;letter-spacing:.05em;text-transform:uppercase;color:var(--gold-light);margin:0 0 8px">Suggested partner units</p>
-          <div id="partnerSuggestList" style="font-size:14px;line-height:1.55;color:var(--text)"></div>
-          <select id="f_pref_partner" style="display:none"><option value=""></option></select>
-          <p style="font-size:12px;color:var(--muted);margin:8px 0 0">Final driver and plate are confirmed the day before pickup.</p>
+
+        <div class="mt-4" id="routePrefBox">
+          <label class="block mb-1.5 font-semibold" style="font-size:15px">Route &amp; Expressway Preference</label>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+            <div class="send-opt route-opt selected" data-route="fastest" style="padding:12px;min-height:auto">
+              <div>
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:6px">
+                  <div style="font-weight:700;font-size:14px;color:var(--gold-light)">⚡ Elevated / Fastest</div>
+                  <span id="tag_time_fastest" class="tag tag-comfort" style="font-size:10px;padding:2px 6px">Saves ~30–45m</span>
+                </div>
+                <div style="font-size:11px;color:var(--muted);margin-top:4px">Skyway Stages 1/2/3, TPLEX, NLEX, SLEX Elevated</div>
+              </div>
+            </div>
+            <div class="send-opt route-opt" data-route="standard" style="padding:12px;min-height:auto">
+              <div>
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:6px">
+                  <div style="font-weight:700;font-size:14px">Standard Expressway</div>
+                  <span id="tag_time_standard" class="tag" style="background:var(--border2);color:var(--text);font-size:10px;padding:2px 6px">Normal time</span>
+                </div>
+                <div style="font-size:11px;color:var(--muted);margin-top:4px">At-grade SLEX, CAVITEX, TPLEX mainline</div>
+              </div>
+            </div>
+            <div class="send-opt route-opt" data-route="budget" style="padding:12px;min-height:auto">
+              <div>
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:6px">
+                  <div style="font-weight:700;font-size:14px">Economical / Min. Toll</div>
+                  <span id="tag_time_budget" class="tag tag-max" style="font-size:10px;padding:2px 6px">+25–40m</span>
+                </div>
+                <div style="font-size:11px;color:var(--muted);margin-top:4px">National service highways where viable (zero toll)</div>
+              </div>
+            </div>
+          </div>
         </div>
+
+        <div class="mt-4" id="partnerSuggestBox" style="display:none;padding:14px 16px;border-radius:12px;border:1px solid rgba(212,175,55,.35);background:rgba(212,175,55,.06)">
+          <p style="font-weight:700;font-size:13px;letter-spacing:.05em;text-transform:uppercase;color:var(--gold-light);margin:0 0 8px">Available Driver Units</p>
+          <div id="partnerSuggestList" style="font-size:14px;line-height:1.55;color:var(--text)"></div>
+          <p style="font-size:12px;color:var(--muted);margin:8px 0 0">GoCav coordinates directly with available drivers based on pickup zone. Driver and plate are confirmed the day before.</p>
+        </div>
+
         <div class="mt-4" id="multiDayFields" style="display:none">
           <div>
             <label for="f_days" class="block mb-1.5 font-semibold" style="font-size:15px">Number of Consecutive Days <span style="color:var(--red)">*</span></label>
             <input type="number" id="f_days" min="2" max="7" placeholder="e.g. 3" value="2">
-            <p style="font-size:12px;color:var(--muted);margin-top:4px">2–7 days · same route daily · client returned to pickup each day · corporate required</p>
-            <div class="err-msg" id="err_days">Enter 2–7 consecutive days for multi-day site visit.</div>
+            <p style="font-size:12px;color:var(--muted);margin-top:4px">2–7 days duration</p>
+            <div class="err-msg" id="err_days">Enter 2–7 consecutive days for multi-day rental.</div>
           </div>
         </div>
+        
+        <div class="mt-4" id="standbyFields" style="display:none">
+          <label for="f_wait_hrs" class="block mb-1.5 font-semibold" style="font-size:15px">Estimated Waiting Time at Destination</label>
+          <input type="number" id="f_wait_hrs" min="1" max="16" value="2" placeholder="e.g. 2">
+          <p style="font-size:12px;color:var(--muted);margin-top:4px">First 2 hours are free. Excess is billed at the vehicle's standard hourly rate.</p>
+          
+          <div id="standbyWarning" style="display:none; margin-top:10px; padding:12px; background:rgba(212,175,55,.1); border:1px solid var(--gold); border-radius:10px; font-size:13px; color:var(--gold-light);">
+            💡 <strong>Cost-Saving Tip:</strong> For waits over 3 hours, switching your Service Type at the top to <strong>"Full-Day Rental"</strong> or <strong>"Same-Day Split Transfer"</strong> is usually cheaper!
+          </div>
+        </div>
+        
         <div class="mt-4" id="dayRentalFields" style="display:none">
           <div class="grid grid-cols-2 gap-4">
             <div>
@@ -500,18 +560,20 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
             <span class="ftv" id="fareTotal">—</span>
           </div>
           <div class="fare-note" id="fareNote"></div>
-          <div class="corp-toll-notice" id="corpTollNotice" role="status" aria-live="polite">
-            <div class="corp-toll-icon">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1a1405" stroke-width="2.5"><path d="M12 9v4m0 4h.01M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
-            </div>
-            <div>
-              <p class="corp-toll-title">Important — toll &amp; parking</p>
-              <p class="corp-toll-body">Toll fees and parking, if any, are <strong>not fully final in this estimate</strong> and will be <strong>added to your total</strong> at actual cost on top of the estimated rate.</p>
-            </div>
+        </div>
+        
+        <div id="corpTollNotice" class="corp-toll-notice">
+          <div class="corp-toll-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8M16 17H8M10 9H8"/></svg>
+          </div>
+          <div>
+            <div class="corp-toll-title">Corporate Billing Notice</div>
+            <p class="corp-toll-body">Tolls, parking, and multi-day excess are itemized and billed at actual cost on your consolidated corporate invoice.</p>
           </div>
         </div>
+
         <div class="mt-4">
-          <label for="f_flight" class="block mb-1.5 font-semibold" style="font-size:15px">Flight Number <span style="color:var(--muted);font-weight:400;font-size:13px">(for airport pickups — optional)</span></label>
+          <label for="f_flight" class="block mb-1.5 font-semibold" style="font-size:15px">Outbound Flight Number <span style="color:var(--muted);font-weight:400;font-size:13px">(for airport pickups — optional)</span></label>
           <input type="text" id="f_flight" placeholder="e.g. PR 123 / 5J 456">
         </div>
         <div class="mt-4">
@@ -551,8 +613,8 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
         </div>
         <div class="mt-4">
           <label for="f_phone" class="block mb-1.5 font-semibold" style="font-size:15px">Contact Number <span style="color:var(--red)">*</span></label>
-          <input type="tel" id="f_phone" placeholder="09XX-XXX-XXXX" required>
-          <div class="err-msg" id="err_phone">Please enter a valid PH mobile (e.g. 09XX-XXX-XXXX, 11 digits).</div>
+          <input type="tel" id="f_phone" placeholder="639XX-XXX-XXXX" required>
+          <div class="err-msg" id="err_phone">Please enter a valid mobile (e.g. 639XX-XXX-XXXX, 12 digits).</div>
         </div>
         <div id="corpCompanyFields" style="display:none;margin-top:16px;padding:16px;border-radius:12px;border:1px solid rgba(212,175,55,.35);background:rgba(212,175,55,.06)">
           <p style="font-weight:700;font-size:14px;color:var(--gold-light);margin:0 0 12px;letter-spacing:.04em;text-transform:uppercase">Company billing details</p>
@@ -611,23 +673,27 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
           <div class="summary-row"><span class="summary-label">Vehicle</span><span class="summary-val" id="s_vehicle">—</span></div>
           <div class="summary-row"><span class="summary-label">Account</span><span class="summary-val" id="s_corp">—</span></div>
           <div class="summary-row"><span class="summary-label">Passengers</span><span class="summary-val" id="s_pax">—</span></div>
-          <div class="summary-row"><span class="summary-label">Date &amp; Time</span><span class="summary-val" id="s_datetime">—</span></div>
+          <div class="summary-row"><span class="summary-label">Trip 1 Departure</span><span class="summary-val" id="s_datetime">—</span></div>
+          <div class="summary-row" id="s_return_row" style="display:none"><span class="summary-label">Trip 2 Return</span><span class="summary-val" id="s_return_datetime">—</span></div>
           <div class="summary-row"><span class="summary-label">From</span><span class="summary-val" id="s_from">—</span></div>
           <div class="summary-row"><span class="summary-label">To</span><span class="summary-val" id="s_to">—</span></div>
           <div class="summary-row"><span class="summary-label">Payment</span><span class="summary-val" id="s_payment">—</span></div>
         </div>
+        
+        <div id="corpTollNoticeSummary" class="corp-toll-notice-sm">
+          <p><strong>Corporate Account:</strong> Tolls and parking billed at actual cost on your consolidated corporate invoice.</p>
+        </div>
+
         <div style="margin-top:16px;padding-top:14px;border-top:2px solid var(--gold);display:flex;justify-content:space-between;align-items:center">
           <span style="font-weight:700;font-size:15px">Estimated Rate</span>
           <span id="s_price" class="serif" style="font-size:28px;font-weight:700;color:var(--gold-light)">—</span>
         </div>
-        <p style="font-size:12px;color:var(--muted);margin:8px 0 0">Fuel included. Toll &amp; parking charged at actual cost. Night surcharge +12% (22:00–06:00). Free cancellation up to 24 hours before pickup.</p>
-        <div class="corp-toll-notice-sm" id="corpTollNoticeSummary" role="status">
-          <p><strong>Toll &amp; parking:</strong> If any, will be <strong>added to your estimated rate</strong> and charged at actual cost.</p>
-        </div>
+        <p style="font-size:12px;color:var(--muted);margin:8px 0 0">Fuel included. Parking, if any, charged at actual cost. Tolls are included as per your selected route. Night surcharge +15% (22:00–06:00). Free cancellation up to 24 hours before pickup.</p>
       </div>
     </div>
   </div>
 </section>
+
 <div id="successScreen" style="display:none" class="max-w-2xl mx-auto px-5 py-16 text-center">
   <div class="card-el success-anim p-8 md:p-12" style="border-color:rgba(212,175,55,.4);background:linear-gradient(160deg,var(--card),rgba(212,175,55,.06))">
     <div class="check-ring">
@@ -654,6 +720,7 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
     <button type="button" class="ghost-btn px-6 py-2.5 rounded-lg text-sm mt-6" id="newBooking">+ Make Another Booking</button>
   </div>
 </div>
+
 <section id="payment" class="max-w-4xl mx-auto px-5 py-16">
   <div class="reveal text-center mb-8">
     <div class="step-label mb-2">Settlements</div>
@@ -664,12 +731,12 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
     <div class="reveal card-el p-6">
       <h3 style="font-weight:700;margin:0 0 14px;font-size:17px">E-Wallets</h3>
       <div class="pay-row">
-        <div><div style="font-weight:700;color:#34d399;font-size:15px">GCash</div><div class="acct-name">Tuhamie A. Dimanang</div><div class="acct">0995-435-5514</div></div>
-        <button type="button" class="copy-btn" data-copy="GCash — Tuhamie A. Dimanang — 09954355514">Copy</button>
+        <div><div style="font-weight:700;color:#34d399;font-size:15px">GCash</div><div class="acct-name">Tuhamie A. Dimanang</div><div class="acct">63955-435-5514</div></div>
+        <button type="button" class="copy-btn" data-copy="GCash — Tuhamie A. Dimanang — 639554355514">Copy</button>
       </div>
       <div class="pay-row">
-        <div><div style="font-weight:700;color:#60a5fa;font-size:15px">Maya</div><div class="acct-name">Tuhamie A. Dimanang</div><div class="acct">0995-435-5514</div></div>
-        <button type="button" class="copy-btn" data-copy="Maya — Tuhamie A. Dimanang — 09954355514">Copy</button>
+        <div><div style="font-weight:700;color:#60a5fa;font-size:15px">Maya</div><div class="acct-name">Tuhamie A. Dimanang</div><div class="acct">63955-435-5514</div></div>
+        <button type="button" class="copy-btn" data-copy="Maya — Tuhamie A. Dimanang — 639554355514">Copy</button>
       </div>
       <div class="pay-row" style="margin-bottom:0">
         <div><div style="font-weight:700;color:var(--gold-light);font-size:15px">Cash</div><div class="acct-name">Pay upon pickup to driver</div></div>
@@ -694,7 +761,7 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
       </div>
       <div>
-        <div class="step-label" style="margin:0">Corporate accounts</div>
+        <div class="step-label" style="margin:0">Terms &amp; Accounts</div>
         <h3 style="font-weight:700;margin:2px 0 0;font-size:18px">Payment terms by service</h3>
       </div>
     </div>
@@ -705,8 +772,8 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
         <div style="color:var(--text);line-height:1.6">Airport and point-to-point drops are billed after the ride. Please settle within <strong>3 days</strong>. Fuel is included; toll and parking are added at actual cost.</div>
       </div>
       <div style="background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:14px 16px">
-        <div style="font-weight:700;color:var(--gold-light);margin-bottom:6px">Same-day return</div>
-        <div style="color:var(--text);line-height:1.6">Pickup and return on the same day. Corporate accounts get <strong>8% off when you return the same day</strong>. Please settle within <strong>3 days</strong> after the trip.</div>
+        <div style="font-weight:700;color:var(--gold-light);margin-bottom:6px">Same-day / Split return</div>
+        <div style="color:var(--text);line-height:1.6">Pickup and return on the same or next day. Split round-trips receive a <strong>10% loyalty discount on the return trip</strong>. Please settle within <strong>3 days</strong> after the trip.</div>
       </div>
       <div style="background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:14px 16px">
         <div style="font-weight:700;color:var(--gold-light);margin-bottom:6px">Multi-day round trip</div>
@@ -716,14 +783,19 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
         <div style="font-weight:700;color:var(--gold-light);margin-bottom:6px">Full-day / site visit</div>
         <div style="color:var(--text);line-height:1.6">Covers 8 hours and 100 km, with the client returned to pickup. We send the invoice after the visit. Payment is due within <strong>7 days</strong>. Extra hours, extra km, toll, and parking are billed separately at actual.</div>
       </div>
-      <div style="background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:14px 16px" class="md:col-span-2">
-        <div style="font-weight:700;color:var(--gold-light);margin-bottom:6px">Multi-day site visit (2–7 days)</div>
-        <div style="color:var(--text);line-height:1.6">Same route each day for audits or plant visits, returned to pickup daily. You receive <strong>one invoice for the full block</strong>, due within <strong>7 days</strong>. Corporate loyalty is 5% for 2 days and 8% for 3–7 days. New clients: <strong>50% before Day 1</strong>, remainder after the last day. Repeat accounts may use weekly invoicing.</div>
+      <div style="background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:14px 16px">
+        <div style="font-weight:700;color:var(--gold-light);margin-bottom:6px">Out-of-Town Multi-Day (Vehicle Retained)</div>
+        <div style="color:var(--text);line-height:1.6">Driver stays with you (e.g., 3 days in Baguio). A <strong>₱1,200/night</strong> driver allowance is automatically added so they can secure lodging/meals. <strong>50% reservation</strong> required. Tolls are charged once for the round trip.</div>
+      </div>
+      <div style="background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:14px 16px">
+        <div style="font-weight:700;color:var(--gold-light);margin-bottom:6px">Multi-day site visit (Same Route)</div>
+        <div style="color:var(--text);line-height:1.6">Returned to pickup daily. Corporate accounts receive <strong>one invoice for the full block</strong>, due within <strong>7 days</strong>. Corporate loyalty is 5% for 2 days and 8% for 3–7 days. New clients: <strong>50% before Day 1</strong>.</div>
       </div>
     </div>
     <p style="font-size:13px;color:var(--muted);margin:14px 0 0">Please send proof of payment via WhatsApp or Viber after transfer. Booking is confirmed once we reply on your chosen channel.</p>
   </div>
 </section>
+
 <section class="py-16" style="background:linear-gradient(180deg,transparent,rgba(212,175,55,.04),transparent)">
   <div class="max-w-6xl mx-auto px-5">
     <div class="reveal text-center mb-10">
@@ -776,21 +848,22 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
     </div>
   </div>
 </section>
+
 <section id="faq" class="max-w-3xl mx-auto px-5 py-16">
   <div class="reveal text-center mb-8">
     <div class="step-label mb-2">Good to Know</div>
     <h2 class="serif" style="font-size:32px;font-weight:700;margin:0">Frequently Asked Questions</h2>
   </div>
   <div class="reveal">
-    <div class="faq-item"><div class="faq-q">How is the fare calculated?<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div><div class="faq-a">Every trip is priced dynamically: base charge + loaded distance (₱28/34/40 per km by vehicle) + vehicle positioning from our home base in General Trias (if pickup is outside our base zone) + estimated toll + airport fee (NAIA/Clark) + 12% night surcharge (22:00–06:00). Corporate accounts get 8% off when you return the same day. Fuel is always included.</div></div>
-    <div class="faq-item"><div class="faq-q">Do you serve all of Metro Manila?<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div><div class="faq-a">Yes — Makati, BGC, Manila, Quezon City, Pasig, Mandaluyong, Parañaque, Pasay, Las Piñas, Muntinlupa, Marikina, San Juan, Caloocan, Valenzuela, Malabon, Navotas, plus all of Cavite, Laguna, Batangas, and Clark Airport. All locations produce an instant live estimate.</div></div>
+    <div class="faq-item"><div class="faq-q">How is the fare calculated?<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div><div class="faq-a">Every trip is priced dynamically: base charge + loaded distance (₱28/34/40 per km by vehicle) + vehicle positioning (₱23/km from our home base in General Trias if pickup is outside our base zone) + estimated toll by preferred expressway + 15% night surcharge (22:00–06:00). Corporate accounts get 8% off when returning on standby. Fuel is always included.</div></div>
+    <div class="faq-item"><div class="faq-q">Do you serve all of Metro Manila and Luzon?<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div><div class="faq-a">Yes — we cover Metro Manila, Cavite, Laguna, Batangas, Rizal, Bulacan, Pampanga (Clark/Subic), Tarlac, La Union (Baguio gateway), and Quezon province. All locations produce an instant live estimate with regional expressway tolls.</div></div>
     <div class="faq-item"><div class="faq-q">How do corporate accounts work?<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div><div class="faq-a">Tick the "Corporate Account" box when booking. You'll receive 8% off when you return the same day, multi-day site-visit loyalty (5% for 2 days, 8% for 3–7 days on the day-rate portion), priority dispatch, and consolidated weekly/monthly invoicing (select "Corporate Billing (Invoice)" as payment method). Perfect for airport transfers and full-day or multi-day site visits.</div></div>
     <div class="faq-item"><div class="faq-q">What's included in full-day rental?<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div><div class="faq-a">8 hours and 100 km total, with driver and fuel included. The client is returned to the original pickup point. Excess distance is billed per km and excess hours per hour by vehicle class. Two-way toll fees are estimated in your quote and charged at actual cost, along with parking. Pickup at our home base gets an additional discount.</div></div>
-    <div class="faq-item"><div class="faq-q">What is Multi-Day Site Visit?<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div><div class="faq-a">For corporate clients who need the same route over consecutive days (e.g. audits or plant visits). Each day is a full-day package (8 hrs / 100 km), and the client is returned to the original pickup point every day. Book 2–7 days. Corporate loyalty: 5% off day rates for 2 days, 8% for 3–7 days. Two-way toll × number of days is estimated; excess km/hours billed if you exceed the daily package. Same driver/vehicle preferred subject to availability.</div></div>
-    <div class="faq-item"><div class="faq-q">Are toll fees and parking included?<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div><div class="faq-a">Fuel is included. Toll fees are estimated in your live quote and charged at actual cost. For full-day and multi-day site visits, toll is estimated two-way (and × days for multi-day). Parking is paid by the client at actual cost. Both are shown as separate line items in your estimate and PDF quotation.</div></div>
+    <div class="faq-item"><div class="faq-q">What is Multi-Day Site Visit vs. Out-of-Town?<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div><div class="faq-a">"Multi-Day Site Visit" is for clients who need the same route over consecutive days (e.g. daily audits), returned to pickup daily. "Out-of-Town" is when the driver stays with the client (e.g., 3 days in Baguio). For Out-of-Town trips, a ₱1,200/night allowance is automatically added for the driver to secure their own lodging and meals.</div></div>
+    <div class="faq-item"><div class="faq-q">Are toll fees and parking included?<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div><div class="faq-a">Fuel is included. Toll fees are estimated in your live quote according to your route preference (Elevated/Fastest, Standard, or Economical) and charged at actual cost. Parking is paid by the client at actual cost.</div></div>
     <div class="faq-item"><div class="faq-q">What if my flight is delayed?<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div><div class="faq-a">No problem. Include your flight number and we monitor arrival times. We wait for delayed flights at no extra charge within reasonable windows.</div></div>
-    <div class="faq-item"><div class="faq-q">What about waiting time and flight delays?<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div><div class="faq-a">Airport pickups: 45 minutes free waiting from the time we notify you that the driver is on stand. Extra waiting is billed per 30 minutes. If you give a flight number, we track the flight and adjust pickup for delays at no extra charge within a reasonable window. Full-day / site visit: 8 hours included; time beyond that is billed at the vehicle excess-hour rate. Night trips (22:00–06:00) have a +12% surcharge.</div></div>
-    <div class="faq-item"><div class="faq-q">What is your cancellation policy?<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div><div class="faq-a">Free cancellation up to 24 hours before pickup. 12–24 hours before: 25% of estimated fare (minimum ₱500). Less than 12 hours or no-show: 50%–100% of estimated fare. Multi-day corporate site visits: free cancel of the whole block until 24 hours before Day 1; after Day 1 starts, unused later days can be dropped free if you notify us before 8:00 PM the evening before (otherwise 50% of that day may apply). Reschedules with 12+ hours notice are usually free once. Flight delays with a given flight number are monitored at no extra charge within reasonable windows. Contact us via WhatsApp or Viber for the fastest response.</div></div>
+    <div class="faq-item"><div class="faq-q">What about waiting time and flight delays?<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div><div class="faq-a">Airport pickups: 45 minutes free waiting from the time we notify you that the driver is on stand. Extra waiting is billed per 30 minutes. If you give a flight number, we track the flight and adjust pickup for delays at no extra charge within a reasonable window. Full-day / site visit: 8 hours included; time beyond that is billed at the vehicle excess-hour rate. Night trips (22:00–06:00) have a +15% surcharge.</div></div>
+    <div class="faq-item"><div class="faq-q">What is your cancellation policy?<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div><div class="faq-a">Free cancellation up to 24 hours before pickup. 12–24 hours before: 25% of estimated fare (minimum ₱500). Less than 12 hours or no-show: 50%–100% of estimated fare. Multi-day corporate site visits: free cancel of the whole block until 24 hours before Day 1; after Day 1 starts, unused later days can be dropped free if you notify us before 8:00 PM the evening before. Reschedules with 12+ hours notice are usually free once.</div></div>
   </div>
 </section>
 
@@ -798,7 +871,7 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
   <div class="reveal text-center mb-8">
     <div class="step-label mb-2">Drive with GoCav</div>
     <h2 class="serif" style="font-size:32px;font-weight:700;margin:0 0 8px">Driver Partnership</h2>
-    <p style="color:var(--muted);font-size:15px;max-width:640px;margin:0 auto">We keep about <strong style="color:var(--text)">2 partner units per city</strong> (or a nearby city) across NCR and adjoining Cavite / Laguna. Apply only where a slot is still open. Clean unit, valid papers, and a professional chauffeur required.</p><p style="color:var(--muted);font-size:15px;max-width:640px;margin:12px auto 0">GoCav invoices the client. Partners are paid weekly. Coordination fee is <strong style="color:var(--gold-light)">20%</strong> of the trip fare. Toll and parking are billed at actual cost and are not part of the 20%.</p>
+    <p style="color:var(--muted);font-size:15px;max-width:640px;margin:0 auto">We keep about <strong style="color:var(--text)">2 partner units per city</strong> across NCR, Cavite, Laguna, Batangas and Luzon transport hubs. Apply only where a slot is still open. Clean unit, valid papers, and a professional chauffeur required.</p><p style="color:var(--muted);font-size:15px;max-width:640px;margin:12px auto 0">GoCav invoices the client. Partners are paid weekly. Coordination fee is <strong style="color:var(--gold-light)">20%</strong> of the trip fare. Toll and parking are billed at actual cost and are not part of the 20%.</p>
   </div>
   <p style="text-align:center;color:var(--gold-light);font-size:14px;font-weight:700;margin:0 0 12px">Double-click an open city to take a slot, then fill in your partner details below.</p>
   <div id="partnerCityGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 mb-10"></div>
@@ -813,8 +886,8 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
       </div>
       <div>
         <label for="p_phone" class="block mb-1.5 font-semibold" style="font-size:15px">Mobile <span style="color:var(--red)">*</span></label>
-        <input type="tel" id="p_phone" placeholder="09XX-XXX-XXXX">
-        <div class="err-msg" id="err_pphone">Please enter a valid 11-digit mobile.</div>
+        <input type="tel" id="p_phone" placeholder="639XX-XXX-XXXX">
+        <div class="err-msg" id="err_pphone">Please enter a valid 12-digit mobile (639...).</div>
       </div>
     </div>
     <div class="grid md:grid-cols-2 gap-4 mt-4">
@@ -866,24 +939,35 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
   <div class="max-w-4xl mx-auto">
     <img src="https://i.imgur.com/DWfEGWv.png" alt="GoCav" style="height:56px;border-radius:10px;margin:0 auto 16px" onerror="this.style.display='none'">
     <p style="color:var(--muted);font-size:14px;margin:4px 0">Le Rica Homes, Begonia St B19 L68, Brgy. San Francisco, General Trias, Cavite — Home Base</p>
-    <p style="color:var(--muted);font-size:14px;margin:4px 0">Serving Cavite · Laguna · Batangas · All NCR · 0976-046-5134 / 0995-435-5514 · Viber · WhatsApp · gocav.transport@gmail.com</p>
+    <p style="color:var(--muted);font-size:14px;margin:4px 0">Serving Cavite · Laguna · Batangas · NCR · Northern &amp; Southern Luzon · 63976-046-5134 / 63955-435-5514</p>
     <p style="color:#5a5c72;font-size:13px;margin:12px 0 0">Non-VAT Reg. 940-158-988-0000 · © 2019–2026 GoCav Transport Services</p>
   </div>
 </footer>
 </div>
+
 <script>
 (function(){
+  var state = {
+    selectedVehicle: null,
+    corporate: false,
+    routePref: 'fastest',
+    lastFare: null,
+    sendMethod: 'Email',
+    step: 1,
+    intent: 'book',
+    lastBooking: null
+  };
+
   var WA = "639760465134", VB = "639760465134", EM = "gocav.transport@gmail.com";
-  // Paste your Google Apps Script web-app URL after you deploy (see gocav-sheet-setup.txt)
   var SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbzDKQQy0XcKvip6WQ22Fd6CsKoVYCp5lXyfFme3WkkAHjs_3j6uzOGbRbbQJvBgxFFdNQ/exec";
   var SHEET_TOKEN = "gocav-2026";
-  // VEHICLE TIERS — rates cover fuel, driver allowance, maintenance, insurance, depreciation.
+
   var VEHICLES = {
-    accent:  { name:'Sedan',      tier:'Sedan',     maxPax:4, comfortPax:3, maxBags:3, comfortBags:2, base:150, perKm:28, repositionKm:14, minFare:550, naiaFee:150, clarkFee:350, homeDiscount:200, dayExcessKm:20, dayExcessHr:450 },
-    avanza:  { name:'6-Seater',       tier:'6-Seater',  maxPax:6, comfortPax:5, maxBags:5, comfortBags:4, base:200, perKm:34, repositionKm:18, minFare:700, naiaFee:180, clarkFee:400, homeDiscount:250, dayExcessKm:24, dayExcessHr:500 },
-    montero: { name:'SUV', tier:'SUV',       maxPax:6, comfortPax:5, maxBags:5, comfortBags:4, base:250, perKm:40, repositionKm:22, minFare:850, naiaFee:200, clarkFee:450, homeDiscount:300, dayExcessKm:28, dayExcessHr:550 }
+    accent:  { name:'Sedan',      tier:'Sedan',     maxPax:4, comfortPax:3, maxBags:3, comfortBags:2, base:150, perKm:28, repositionKm:23, minFare:550, naiaFee:150, clarkFee:350, homeDiscount:200, dayExcessKm:20, dayExcessHr:450 },
+    avanza:  { name:'6-Seater',   tier:'6-Seater',  maxPax:6, comfortPax:5, maxBags:5, comfortBags:4, base:200, perKm:34, repositionKm:23, minFare:700, naiaFee:180, clarkFee:400, homeDiscount:250, dayExcessKm:24, dayExcessHr:500 },
+    montero: { name:'SUV',        tier:'SUV',       maxPax:6, comfortPax:5, maxBags:5, comfortBags:4, base:250, perKm:40, repositionKm:23, minFare:850, naiaFee:200, clarkFee:450, homeDiscount:300, dayExcessKm:28, dayExcessHr:550 }
   };
-  // Full-day rental flat rates by pickup zone (8 hrs / 100 km included).
+
   var DAY_RATES = {
     zone1:   { label:'Home Cavite',          accent:4500, avanza:5500, montero:6000 },
     zone2:   { label:'Extended Cavite',      accent:4800, avanza:5900, montero:6500 },
@@ -894,95 +978,136 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
   };
   var HOME_DAY_DISCOUNT = { accent:300, avanza:350, montero:400 };
   var HOME = { lat:14.3137, lng:120.8814, name:'Le Rica Homes, General Trias, Cavite' };
-  // Expanded coverage — every entry tagged with a day-rental zone.
+  var BASE_KEYWORDS = ['general trias', 'gen trias', 'gentri', 'le rica'];
+
   var GEO = [
-    { k:['naia','airport','terminal'], lat:14.5080, lng:121.0194, name:'NAIA Airport', zone:'airport' },
-    { k:['clark'], lat:15.1850, lng:120.5610, name:'Clark International Airport', zone:'airport' },
-    { k:['santa rosa','sta rosa','sta. rosa'], lat:14.3110, lng:121.1160, name:'Santa Rosa, Laguna', zone:'zone5' },
-    { k:['calamba'], lat:14.2089, lng:121.1710, name:'Calamba, Laguna', zone:'zone5' },
-    { k:['san pablo'], lat:14.0700, lng:121.3200, name:'San Pablo, Laguna', zone:'zone5' },
-    { k:['biñan','binan'], lat:14.3333, lng:121.0833, name:'Biñan, Laguna', zone:'zone5' },
-    { k:['cabuyao'], lat:14.2750, lng:121.1219, name:'Cabuyao, Laguna', zone:'zone5' },
-    { k:['san pedro'], lat:14.3611, lng:121.0578, name:'San Pedro, Laguna', zone:'zone5' },
-    { k:['los baños','los banos'], lat:14.1794, lng:121.2467, name:'Los Baños, Laguna', zone:'zone5' },
-    { k:['lipa'], lat:13.9418, lng:121.1647, name:'Lipa, Batangas', zone:'zone5' },
-    { k:['tanauan'], lat:14.0833, lng:121.1500, name:'Tanauan, Batangas', zone:'zone5' },
-    { k:['batangas city','batangas port'], lat:13.7561, lng:121.0583, name:'Batangas City', zone:'custom' },
-    { k:['nasugbu'], lat:14.0700, lng:120.6300, name:'Nasugbu, Batangas', zone:'custom' },
-    { k:['lemery'], lat:13.8822, lng:120.9119, name:'Lemery, Batangas', zone:'custom' },
-    { k:['tagaytay'], lat:14.1167, lng:120.9833, name:'Tagaytay', zone:'zone2' },
-    { k:['manila','intramuros','rizal park','binondo'], lat:14.5995, lng:120.9842, name:'Manila', zone:'zone3' },
-    { k:['makati','bgc','taguig','bonifacio','fort'], lat:14.5547, lng:121.0244, name:'Makati / BGC', zone:'zone3' },
-    { k:['mandaluyong','ortigas','shaw'], lat:14.5794, lng:121.0359, name:'Mandaluyong / Ortigas', zone:'zone3' },
-    { k:['quezon city','qc','cubao','fairview','timog','katipunan'], lat:14.6760, lng:121.0437, name:'Quezon City', zone:'zone4' },
-    { k:['pasig','tiendesitas','cainta'], lat:14.5810, lng:121.0640, name:'Pasig', zone:'zone4' },
-    { k:['marikina','antipolo'], lat:14.6507, lng:121.1023, name:'Marikina', zone:'zone4' },
-    { k:['san juan','greenhills'], lat:14.6000, lng:121.0333, name:'San Juan', zone:'zone3' },
-    { k:['caloocan','malabon','navotas','valenzuela','muñoz','munoz'], lat:14.6667, lng:120.9833, name:'Caloocan / Malabon / Navotas / Valenzuela', zone:'zone4' },
-    { k:['las piñas','las pinas','alabang','muntinlupa','ayala alabang','sucat'], lat:14.4197, lng:121.0231, name:'Las Piñas / Muntinlupa / Alabang', zone:'zone3' },
-    { k:['pasay','paranaque','parañaque','moa','mall of asia','ayala'], lat:14.5378, lng:121.0014, name:'Pasay / Parañaque', zone:'zone3' },
-    { k:['bacoor'], lat:14.4583, lng:120.9375, name:'Bacoor, Cavite', zone:'zone1' },
-    { k:['dasmarinas','dasmariñas'], lat:14.3250, lng:120.9375, name:'Dasmariñas, Cavite', zone:'zone1' },
-    { k:['imus'], lat:14.4278, lng:120.9367, name:'Imus, Cavite', zone:'zone1' },
+    { k:['naia','airport','terminal 1','terminal 2','terminal 3','terminal 4','miaa'], lat:14.5080, lng:121.0194, name:'NAIA Airport (All Terminals)', zone:'airport' },
+    { k:['clark','dmia','clark airport'], lat:15.1850, lng:120.5610, name:'Clark International Airport', zone:'airport' },
+    { k:['canlubang','carmelray','carmelray 1','carmelray 2','carmelray i','carmelray ii'], lat:14.2185, lng:121.1070, name:'Carmelray / Canlubang Industrial Park', zone:'zone5' },
+    { k:['laguna technopark','technopark','ltp','nuvali','ayala technopark'], lat:14.2750, lng:121.0500, name:'Laguna Technopark / Nuvali (Sta. Rosa/Biñan)', zone:'zone5' },
+    { k:['fpip','first philippine industrial park','sto tomas industrial','tanauan park'], lat:14.0890, lng:121.1440, name:'FPIP (First Philippine Industrial Park, Batangas)', zone:'zone5' },
+    { k:['lisp','lisp 1','lisp 2','lisp 3','light industry and science park'], lat:14.2400, lng:121.1300, name:'LISP (Light Industry & Science Park, Cabuyao/Calamba)', zone:'zone5' },
+    { k:['ceza','cepz','cavite economic zone','rosario epza','peza rosario'], lat:14.4170, lng:120.8660, name:'Cavite Economic Zone (CEPZ Rosario)', zone:'zone1' },
+    { k:['gateway business park','gateway gentri','crispina'], lat:14.2660, lng:120.9160, name:'Gateway Business Park (General Trias)', zone:'zone1' },
+    { k:['fcie','first cavite industrial estate','langkaan'], lat:14.3000, lng:120.9500, name:'FCIE (First Cavite Industrial Estate, Dasma)', zone:'zone1' },
+    { k:['general trias','gen trias','gentri','le rica'], lat:14.3137, lng:120.8814, name:'General Trias, Cavite (Home Base)', zone:'zone1' },
+    { k:['manggahan','governor\'s drive gentri'], lat:14.2980, lng:120.9050, name:'General Trias (Manggahan / Gov Drive)', zone:'zone1' },
+    { k:['imus north','imus cavitex','buhay na tubig','palico','tanzang luma'], lat:14.4450, lng:120.9380, name:'Imus (North / Palico / Buhay na Tubig)', zone:'zone1' },
+    { k:['imus','imus south','anabu','anabu 1','anabu 2','malagasang'], lat:14.4050, lng:120.9360, name:'Imus (South / Anabu / Malagasang)', zone:'zone1' },
+    { k:['bacoor north','talaba','longos','panapaan','bacoor cavitex'], lat:14.4650, lng:120.9500, name:'Bacoor (North / Talaba / Longos)', zone:'zone1' },
+    { k:['bacoor','molino','daang hari bacoor','springville','meadowood'], lat:14.4150, lng:120.9780, name:'Bacoor (South / Molino / Daang Hari)', zone:'zone1' },
+    { k:['dasmarinas north','dasmariñas north','salitran','golden city'], lat:14.3480, lng:120.9400, name:'Dasmariñas (North / Salitran)', zone:'zone1' },
+    { k:['dasmarinas','dasmariñas','pala-pala','palapala','sm dasma','robinsons dasma'], lat:14.3050, lng:120.9580, name:'Dasmariñas (Central / Pala-Pala)', zone:'zone1' },
     { k:['kawit','noveleta','rosario'], lat:14.4333, lng:120.9000, name:'Kawit / Noveleta / Rosario, Cavite', zone:'zone1' },
     { k:['tanza'], lat:14.3964, lng:120.8536, name:'Tanza, Cavite', zone:'zone1' },
     { k:['silang'], lat:14.2250, lng:120.9764, name:'Silang, Cavite', zone:'zone2' },
-    { k:['general trias','gen trias','gentri','le rica'], lat:14.3137, lng:120.8814, name:'General Trias, Cavite (Home Base)', zone:'zone1' },
+    { k:['tagaytay'], lat:14.1167, lng:120.9833, name:'Tagaytay City', zone:'zone2' },
     { k:['carmona'], lat:14.3167, lng:121.0500, name:'Carmona, Cavite', zone:'zone2' },
     { k:['trece','trece martires'], lat:14.2828, lng:120.8647, name:'Trece Martires, Cavite', zone:'zone2' },
-    { k:['amadeo','indang','naic','ternate','alfonso','maragondon'], lat:14.2000, lng:120.8500, name:'Amadeo / Indang / Naic / Ternate, Cavite', zone:'zone2' }
+    { k:['amadeo','indang','naic','ternate','alfonso','maragondon'], lat:14.2000, lng:120.8500, name:'Western Cavite (Naic/Indang/Alfonso)', zone:'zone2' },
+    { k:['makati','ayala','buendia','bel-air','legazpi','salcedo','poblacion','chino roces','magallanes','tuv rheinland makati','tuv makati'], lat:14.5547, lng:121.0244, name:'Makati City', zone:'zone3' },
+    { k:['bgc','taguig','bonifacio','fort','market market','sm aura','mckinley'], lat:14.5450, lng:121.0500, name:'Taguig / BGC', zone:'zone3' },
+    { k:['pasay','moa','mall of asia','roxas blvd','macapagal'], lat:14.5378, lng:121.0014, name:'Pasay / Bay Area', zone:'zone3' },
+    { k:['paranaque','parañaque','bf homes','sucat','bicutan'], lat:14.4793, lng:121.0198, name:'Parañaque', zone:'zone3' },
+    { k:['las piñas','las pinas','alabang-zapote','zapote'], lat:14.4445, lng:120.9939, name:'Las Piñas', zone:'zone3' },
+    { k:['alabang','muntinlupa','filinvest','ayala alabang','madrigal'], lat:14.4197, lng:121.0231, name:'Muntinlupa / Alabang', zone:'zone3' },
+    { k:['manila','intramuros','binondo','ermita','malate','port area','quiapo'], lat:14.5995, lng:120.9842, name:'City of Manila', zone:'zone3' },
+    { k:['mandaluyong','ortigas','shaw','edsa central'], lat:14.5794, lng:121.0359, name:'Mandaluyong / Ortigas', zone:'zone3' },
+    { k:['pasig','kapitolyo','tiendesitas','rosario pasig'], lat:14.5810, lng:121.0640, name:'Pasig City', zone:'zone4' },
+    { k:['san juan','greenhills'], lat:14.6000, lng:121.0333, name:'San Juan / Greenhills', zone:'zone3' },
+    { k:['quezon city','qc','cubao','timog','katipunan','diliman','commonwealth','fairview'], lat:14.6760, lng:121.0437, name:'Quezon City', zone:'zone4' },
+    { k:['marikina','antipolo','cainta','taytay','rizal'], lat:14.6507, lng:121.1023, name:'Marikina / Rizal Border', zone:'zone4' },
+    { k:['caloocan','malabon','navotas','valenzuela','monumento'], lat:14.6667, lng:120.9833, name:'CAMANAVA / Northern NCR', zone:'zone4' },
+    { k:['santa rosa','sta rosa','sta. rosa','balibago'], lat:14.3110, lng:121.1160, name:'Santa Rosa, Laguna', zone:'zone5' },
+    { k:['biñan','binan','mamplasan'], lat:14.3333, lng:121.0833, name:'Biñan, Laguna', zone:'zone5' },
+    { k:['cabuyao'], lat:14.2750, lng:121.1219, name:'Cabuyao, Laguna', zone:'zone5' },
+    { k:['calamba','calamba crossing','pansol','bucal'], lat:14.2089, lng:121.1710, name:'Calamba, Laguna', zone:'zone5' },
+    { k:['san pedro'], lat:14.3611, lng:121.0578, name:'San Pedro, Laguna', zone:'zone5' },
+    { k:['los baños','los banos','uplb'], lat:14.1794, lng:121.2467, name:'Los Baños, Laguna', zone:'zone5' },
+    { k:['san pablo'], lat:14.0700, lng:121.3200, name:'San Pablo, Laguna', zone:'zone5' },
+    { k:['laguna'], lat:14.2500, lng:121.1300, name:'Laguna Province Corridor', zone:'zone5' },
+    { k:['tanauan'], lat:14.0833, lng:121.1500, name:'Tanauan, Batangas', zone:'zone5' },
+    { k:['lipa','tambo lipa'], lat:13.9418, lng:121.1647, name:'Lipa City, Batangas', zone:'zone5' },
+    { k:['batangas city','batangas port','bauan'], lat:13.7561, lng:121.0583, name:'Batangas City / Port', zone:'custom' },
+    { k:['nasugbu','matabungkay','calatagan','lian'], lat:14.0700, lng:120.6300, name:'Nasugbu / Western Batangas Coast', zone:'custom' },
+    { k:['lemery','taal'], lat:13.8822, lng:120.9119, name:'Lemery / Taal, Batangas', zone:'custom' },
+    { k:['batangas'], lat:13.8500, lng:121.1000, name:'Batangas Province Corridor', zone:'zone5' },
+    { k:['baguio','camp john hay','session rd','benguet'], lat:16.4023, lng:120.5960, name:'Baguio City, Benguet', zone:'custom' },
+    { k:['subic','subic bay','sbfz','olongapo','zambales'], lat:14.8291, lng:120.2828, name:'Subic Bay Freeport Zone / Zambales', zone:'custom' },
+    { k:['angeles','pampanga','san fernando pampanga','clark freeport'], lat:15.0307, lng:120.6845, name:'Angeles / San Fernando, Pampanga', zone:'custom' },
+    { k:['tarlac','tarlac city','capas','luisita'], lat:15.4802, lng:120.5979, name:'Tarlac City / Hacienda Luisita', zone:'custom' },
+    { k:['dagupan','pangasinan','urdaneta','rosales'], lat:16.0433, lng:120.3333, name:'Dagupan / Pangasinan Corridor', zone:'custom' },
+    { k:['la union','san fernando la union','san juan la union','elyu'], lat:16.6150, lng:120.3209, name:'La Union (Surfing / Capital)', zone:'custom' },
+    { k:['bulacan','malolos','meycauayan','marilao','bocaue','sta maria'], lat:14.7943, lng:120.9333, name:'Bulacan Province Corridor', zone:'custom' },
+    { k:['bataan','mariveles','balanga'], lat:14.6753, lng:120.5367, name:'Bataan Province / Freeport Area', zone:'custom' },
+    { k:['cabanatuan','nueva ecija'], lat:15.4865, lng:120.9674, name:'Cabanatuan, Nueva Ecija', zone:'custom' },
+    { k:['lucena','quezon province','sariaya','candelaria','tiaong'], lat:13.9374, lng:121.6163, name:'Lucena / Western Quezon Corridor', zone:'custom' }
   ];
-  var BASE_KEYWORDS = ['general trias','gen trias','gentri','le rica'];
-  var state = { step:1, sendMethod:'Email', selectedVehicle:null, lastFare:null, lastBooking:null, corporate:false };
-  try {
-    if(window.location.hash === '#booking'){
-      history.replaceState(null, '', window.location.pathname + window.location.search);
-    }
-    if('scrollRestoration' in history) history.scrollRestoration = 'manual';
-    window.scrollTo(0, 0);
-  } catch(e){}
 
-  function sheetQuery(row){
-    var keys = ['token','ref','type','service','vehicle','pickup','dropoff','date','time','days','pax','bags','flight','fare','gocav20','partner80','corporate','company','name','phone','email','payment','partner','channel','notes'];
-    row = row || {};
-    row.token = SHEET_TOKEN;
-    return keys.map(function(k){
-      var v = row[k] == null ? '' : String(row[k]);
-      if(v.length>180) v = v.slice(0,180);
-      return encodeURIComponent(k)+'='+encodeURIComponent(v);
-    }).join('&');
-  }
-  function sheetLogUrl(row){
-    return SHEET_WEBAPP_URL + '?' + sheetQuery(row);
-  }
-  function postBookingToSheet(row){
+  function postBookingToSheet(data) {
     if(!SHEET_WEBAPP_URL) return;
-    try {
-      var url = sheetLogUrl(row);
-      window.__gocavSheetUrl = url;
-      var img = new Image();
-      img.src = url;
-      fetch(url, {mode:'no-cors'}).catch(function(){});
-    } catch(e){}
+    data.token = SHEET_TOKEN;
+    fetch(SHEET_WEBAPP_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    }).catch(function(e){ console.warn("Sheet save background task", e); });
   }
+
+  function sheetLogUrl(data) {
+    var url = SHEET_WEBAPP_URL + '?token=' + SHEET_TOKEN;
+    for (var key in data) {
+      if(data.hasOwnProperty(key)) {
+        url += '&' + key + '=' + encodeURIComponent(data[key] || '');
+      }
+    }
+    return url;
+  }
+
   var $ = function(id){ return document.getElementById(id); };
+
+  var dl = $('locationHubs');
+  if (dl) {
+    dl.innerHTML = '';
+    GEO.forEach(function(item){
+      var opt = document.createElement('option');
+      opt.value = item.name;
+      dl.appendChild(opt);
+    });
+  }
+
   function showErr(id, show){
     var el = $('f_'+id) || $(id);
     if(el) el.classList.toggle('field-error', show);
     var em = $('err_'+id);
     if(em) em.classList.toggle('show', show);
   }
+
   function findGeo(text){
-    var t = (text||'').toLowerCase();
-    for(var i=0;i<GEO.length;i++){ for(var j=0;j<GEO[i].k.length;j++){ if(t.indexOf(GEO[i].k[j])>=0) return GEO[i]; } }
+    var raw = (text || '').toLowerCase().trim();
+    if(!raw) return null;
+    for(var i = 0; i < GEO.length; i++){
+      for(var j = 0; j < GEO[i].k.length; j++){
+        var keyword = GEO[i].k[j];
+        var reg = new RegExp('\\b' + keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'i');
+        if(reg.test(raw)) return GEO[i];
+      }
+    }
+    for(var i = 0; i < GEO.length; i++){
+      for(var j = 0; j < GEO[i].k.length; j++){
+        if(raw.indexOf(GEO[i].k[j]) !== -1) return GEO[i];
+      }
+    }
     return null;
   }
+
   function isBaseZone(text){
     var t = (text||'').toLowerCase();
     for(var i=0;i<BASE_KEYWORDS.length;i++){ if(t.indexOf(BASE_KEYWORDS[i])>=0) return true; }
     return false;
   }
-  function isNaia(text){ return /naia|airport|terminal/i.test(text||'') && !/clark/i.test(text||''); }
+  function isNaia(text){ return /naia|airport|terminal|miaa/i.test(text||'') && !/clark/i.test(text||''); }
   function isClark(text){ return /clark/i.test(text||''); }
   function isNight(timeStr){
     if(!timeStr) return false;
@@ -996,40 +1121,95 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
     return 2*R*Math.asin(Math.sqrt(h));
   }
   function roadKm(a,b){ return haversineKm(a,b)*1.35; }
-  function estimateToll(pickupTxt, dropoffTxt, v){
-    var t = (pickupTxt+' '+dropoffTxt).toLowerCase();
-    var mult = v.tier==='Sedan' ? 1 : 1.2;
-    var base = 90;
-    if(t.indexOf('clark')>=0) base = 350;
-    else if(t.indexOf('lipa')>=0 || t.indexOf('batangas city')>=0 || t.indexOf('lemery')>=0) base = 210;
-    else if(t.indexOf('nasugbu')>=0) base = 180;
-    else if(t.indexOf('calamba')>=0 || t.indexOf('san pablo')>=0 || t.indexOf('los baños')>=0 || t.indexOf('los banos')>=0) base = 130;
-    else if(t.indexOf('santa rosa')>=0 || t.indexOf('sta rosa')>=0 || t.indexOf('cabuyao')>=0 || t.indexOf('biñan')>=0 || t.indexOf('binan')>=0 || t.indexOf('san pedro')>=0) base = 105;
-    else if(t.indexOf('tagaytay')>=0) base = 120;
-    else if(t.indexOf('quezon city')>=0 || t.indexOf(' qc')>=0 || t.indexOf('marikina')>=0 || t.indexOf('pasig')>=0 || t.indexOf('cubao')>=0) base = 130;
-    else if(t.indexOf('manila')>=0 || t.indexOf('makati')>=0 || t.indexOf('bgc')>=0 || t.indexOf('mandaluyong')>=0) base = 95;
-    return Math.round(base*mult);
+
+  function getTollBreakdown(pickupTxt, dropoffTxt, v, routePref){
+    routePref = routePref || state.routePref || 'fastest';
+    var p = (pickupTxt || '').toLowerCase();
+    var d = (dropoffTxt || '').toLowerCase();
+    var combo = p + ' ' + d;
+    var isToOrFromNaia = isNaia(p) || isNaia(d);
+    var lines = [];
+    var mult = 1;
+
+    if(routePref === 'budget'){
+      lines.push({ label: 'Toll: National Highway Bypass (Toll-Free)', val: 0, zeroToll: true });
+      return { total: 0, lines: lines };
+    }
+
+    if(combo.indexOf('baguio') >= 0 || combo.indexOf('la union') >= 0 || combo.indexOf('pangasinan') >= 0){
+      if(routePref === 'fastest') lines.push({ label: 'Toll: Skyway Stage 3', val: 264 * mult });
+      lines.push({ label: 'Toll: NLEX / SCTEX Mainline', val: 670 * mult });
+      lines.push({ label: 'Toll: TPLEX (Full length to Rosario)', val: 311 * mult });
+    } else if(combo.indexOf('subic') >= 0 || combo.indexOf('zambales') >= 0 || combo.indexOf('bataan') >= 0){
+      if(routePref === 'fastest') lines.push({ label: 'Toll: Skyway Stage 3', val: 264 * mult });
+      lines.push({ label: 'Toll: NLEX & SCTEX (Subic Connector)', val: 607 * mult });
+    } else if(combo.indexOf('clark') >= 0 || combo.indexOf('angeles') >= 0 || combo.indexOf('pampanga') >= 0 || combo.indexOf('tarlac') >= 0){
+      if(routePref === 'fastest') lines.push({ label: 'Toll: Skyway Stage 3', val: 264 * mult });
+      lines.push({ label: 'Toll: NLEX / SCTEX Expressway', val: 670 * mult });
+    } else if(combo.indexOf('lucena') >= 0 || combo.indexOf('quezon') >= 0){
+      lines.push({ label: 'Toll: SLEX & STAR Tollway to Quezon Corridor', val: 278 * mult });
+      if(routePref === 'fastest') lines.push({ label: 'Toll: Skyway Stages 1/2', val: 164 * mult });
+    } else if(combo.indexOf('lipa') >= 0 || combo.indexOf('tanauan') >= 0 || combo.indexOf('batangas') >= 0){
+      lines.push({ label: 'Toll: STAR Tollway & SLEX (Alabang to Batangas)', val: 295 * mult });
+      if(routePref === 'fastest') lines.push({ label: 'Toll: Skyway Stages 1/2', val: 164 * mult });
+    } else if(combo.indexOf('calamba') >= 0 || combo.indexOf('san pablo') >= 0 || combo.indexOf('los baños') >= 0){
+      lines.push({ label: 'Toll: SLEX (Calamba ↔ Alabang)', val: 137 * mult });
+      if(routePref === 'fastest') lines.push({ label: 'Toll: Skyway Stages 1/2', val: 164 * mult });
+    } else if(combo.indexOf('santa rosa') >= 0 || combo.indexOf('sta rosa') >= 0){
+      lines.push({ label: 'Toll: SLEX (Sta. Rosa ↔ Alabang)', val: 75 * mult });
+      if(routePref === 'fastest') lines.push({ label: 'Toll: Skyway Stages 1/2', val: 164 * mult });
+    } else if(combo.indexOf('biñan') >= 0 || combo.indexOf('binan') >= 0 || combo.indexOf('carmona') >= 0 || combo.indexOf('cabuyao') >= 0){
+      lines.push({ label: 'Toll: SLEX (Mamplasan/Carmona/Biñan ↔ Alabang)', val: 59 * mult });
+      if(routePref === 'fastest') lines.push({ label: 'Toll: Skyway Stages 1/2', val: 164 * mult });
+    } else if(combo.indexOf('daang hari') >= 0 || combo.indexOf('mcx') >= 0){
+      lines.push({ label: 'Toll: MCX & SLEX Connector', val: 41 * mult });
+      if(routePref === 'fastest') lines.push({ label: 'Toll: Skyway Stages 1/2', val: 164 * mult });
+    } else if(/general trias|gentri|imus|bacoor|kawit|tanza|noveleta|rosario/i.test(combo)){
+      lines.push({ label: 'Toll: CAVITEX (Parañaque + Kawit Plazas)', val: 127 * mult });
+      if(isToOrFromNaia && routePref === 'fastest'){
+        lines.push({ label: 'Toll: NAIAX Elevated Direct Ramp', val: 45 * mult });
+      }
+    } else if(combo.indexOf('tagaytay') >= 0 || combo.indexOf('silang') >= 0){
+      lines.push({ label: 'Toll: CALAX (Cavite-Laguna Expressway)', val: 81 * mult });
+      lines.push({ label: 'Toll: SLEX to Alabang', val: 59 * mult });
+      if(routePref === 'fastest') lines.push({ label: 'Toll: Skyway Stages 1/2', val: 164 * mult });
+    } else {
+      if(routePref === 'fastest') lines.push({ label: 'Toll: Skyway / Elevated Base', val: 264 * mult });
+      else lines.push({ label: 'Toll: Expressway Base', val: 86 * mult });
+    }
+
+    if(isToOrFromNaia && !lines.some(function(l){ return l.label.indexOf('NAIAX') !== -1; }) && routePref === 'fastest'){
+      lines.push({ label: 'Toll: NAIAX Elevated', val: 45 * mult });
+    }
+
+    var sum = lines.reduce(function(acc, cur){ return acc + cur.val; }, 0);
+    return { total: sum, lines: lines };
   }
+
   function getVeh(key){ return (key && VEHICLES[key]) ? VEHICLES[key] : null; }
   function resolveVkey(){
     if(state.selectedVehicle && VEHICLES[state.selectedVehicle]) return state.selectedVehicle;
     var pax = parseInt($('f_pax').value)||0;
     return pax>3 ? 'avanza' : 'accent';
   }
+
   function computeFare(){
     var box = $('fareBox'), bd = $('fareBreakdown'), tot = $('fareTotal'), note = $('fareNote');
     var svc = $('f_service').value;
     if(!svc){ box.classList.remove('show'); state.lastFare=null; updateSummary(); return; }
     var parts = svc.split('|'), svcType = parts[2]||'';
-    var isDayRental = (svcType==='DAYRENTAL' || svcType==='DAYRENTAL_MULTI');
-    var isDayMulti = (svcType==='DAYRENTAL_MULTI');
-    var isRound = (svcType.indexOf('ROUND')>=0);
+    
+    var isDayRental = (svcType==='DAYRENTAL' || svcType==='DAYRENTAL_MULTI' || svcType==='DAYRENTAL_OOT');
+    var isDayMulti = (svcType==='DAYRENTAL_MULTI' || svcType==='DAYRENTAL_OOT');
+    var isOOT = (svcType==='DAYRENTAL_OOT');
+    var isSplit = (svcType==='TRANSFER_ROUND_SPLIT');
     var isMulti = (svcType==='TRANSFER_ROUND_MULTIDAY');
     var isSameDay = (svcType==='TRANSFER_ROUND_SAMEDAY');
     var vkey = resolveVkey();
     var v = VEHICLES[vkey];
     var pickupTxt = $('f_pickup').value.trim(), dropoffTxt = $('f_dropoff').value.trim();
     var lines = [], total = 0;
+
     if(isDayRental){
       if(!pickupTxt){ box.classList.remove('show'); state.lastFare=null; updateSummary(); return; }
       var days = 1;
@@ -1042,7 +1222,7 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
         box.classList.add('show');
         bd.innerHTML = '<div style="color:var(--muted);font-size:14px;padding:8px 0">Pickup zone not yet in our day-rental map — we\'ll quote you exactly within 24 hours. A PDF quotation is generated after booking.</div>';
         tot.textContent = 'Quote';
-        note.textContent = 'Tip: include the city name (e.g. "Makati" or "General Trias") for an instant day rate.';
+        note.textContent = 'Tip: include the city name (e.g. "Baguio", "Subic", "General Trias") for an instant day rate.';
         state.lastFare = { custom:true }; updateSummary(); return;
       }
       var zone = pg.zone, zoneLabel = DAY_RATES[zone].label;
@@ -1055,14 +1235,12 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
       }
       total = dayRateTotal;
 
-      // ✅ NEW: VEHICLE POSITIONING FEE — same logic as Point-to-Point
       if(!isBaseZone(pickupTxt)){
         var posKm = roadKm(HOME, pg);
         var posFee = posKm * v.repositionKm;
         lines.push({ label:'Vehicle Positioning Fee (Home Base → Pickup, ~'+posKm.toFixed(0)+' km @ ₱'+v.repositionKm+'/km)', val:posFee });
         total += posFee;
       }
-      // ✅ END NEW
 
       var homeDiscTotal = 0;
       if(isBaseZone(pickupTxt)){
@@ -1070,7 +1248,7 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
         lines.push({ label:'Home-Base Pickup Discount'+(isDayMulti?' × '+days:'')+' (Le Rica, GenTri)', val:-homeDiscTotal, disc:true });
         total -= homeDiscTotal;
       }
-      // Corporate multi-day loyalty on day-rate portion (after home discount)
+      
       if(isDayMulti && state.corporate){
         var packageSub = dayRateTotal - homeDiscTotal;
         var loyPct = days >= 3 ? 0.08 : 0.05;
@@ -1078,120 +1256,326 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
         lines.push({ label:'Corporate multi-day loyalty ('+(loyPct*100|0)+'% of day rates)', val:-loyAmt, disc:true });
         total -= loyAmt;
       }
+
+      if (isOOT) {
+        var nights = days - 1;
+        if (nights > 0) {
+          var driverAllowancePerNight = 1200;
+          var totalAllowance = driverAllowancePerNight * nights;
+          lines.push({ 
+            label: 'Driver Overnight Allowance (' + nights + ' nights @ ₱' + driverAllowancePerNight + '/night)', 
+            val: totalAllowance 
+          });
+          total += totalAllowance;
+        }
+      }
+      
       var estKm = parseInt($('f_daykm').value)||0, estHrs = parseFloat($('f_dayhrs').value)||0;
-      if(estKm>100){
+      var includedKm = 100 * days;
+      
+      if (dropoffTxt) {
+        var dgDay = findGeo(dropoffTxt);
+        if (dgDay) {
+          var calculatedRoundKm = Math.round(roadKm(pg, dgDay) * 2);
+          if (calculatedRoundKm > includedKm && estKm === 0) {
+            var autoExKm = (calculatedRoundKm - includedKm) * v.dayExcessKm;
+            lines.push({ 
+              label: 'Estimated Route Excess Mileage (~' + calculatedRoundKm + ' km total, ' + (calculatedRoundKm - includedKm) + ' km excess over ' + days + ' days)', 
+              val: autoExKm 
+            });
+            total += autoExKm;
+            estKm = -1;
+          }
+        }
+      }
+
+      if(estKm > 100){
         var exKm=(estKm-100)*v.dayExcessKm*days;
-        lines.push({ label:'Excess distance ('+(estKm-100)+' km/day × ₱'+v.dayExcessKm+(isDayMulti?' × '+days+' days':'')+')', val:exKm });
+        lines.push({ label:'Excess distance ('+(estKm-100)+' km/day × ₱'+v.dayExcessKm+(isDayMulti?' × '+days:'')+' days)', val:exKm });
         total+=exKm;
       }
       if(estHrs>8){
         var exHr=Math.ceil(estHrs-8)*v.dayExcessHr*days;
-        lines.push({ label:'Excess hours ('+Math.ceil(estHrs-8)+' hr/day × ₱'+v.dayExcessHr+(isDayMulti?' × '+days+' days':'')+')', val:exHr });
+        lines.push({ label:'Excess hours ('+Math.ceil(estHrs-8)+' hr/day × ₱'+v.dayExcessHr+(isDayMulti?' × '+days:'')+' days)', val:exHr });
         total+=exHr;
       }
-      var tollOneWay = estimateToll(pickupTxt, dropoffTxt||pickupTxt, v);
-      var tollD = tollOneWay * 2 * days; // 2-way toll × days
-      lines.push({ label:'Toll fees (2-way'+(isDayMulti?' × '+days+' days':'')+' estimate, charged at actual)', val:tollD }); total+=tollD;
+
+      var tollData = getTollBreakdown(pickupTxt, dropoffTxt||pickupTxt, v, state.routePref);
+      var tollMultiplier = isOOT ? 1 : days;
+      
+      tollData.lines.forEach(function(segment){
+        var dailyVal = segment.val * 2 * tollMultiplier;
+        var tollLabel = isOOT ? ' (2-way trip)' : ' (2-way × ' + days + 'd)';
+        lines.push({ label: segment.label + tollLabel, val: dailyVal, zeroToll: segment.zeroToll });
+        total += dailyVal;
+      });
+
       var html = '';
       lines.forEach(function(l){
-        var valStr = (l.val<0 ? '−₱' : '₱') + Math.abs(Math.round(l.val)).toLocaleString();
+        var valStr = (l.val === 0 && l.zeroToll) ? '<span style="color:var(--green)">₱0 (Toll-Free)</span>' : ((l.val<0 ? '−₱' : '₱') + Math.abs(Math.round(l.val)).toLocaleString());
         html += '<div class="fare-line'+(l.disc?' disc':'')+'"><span class="fl">'+l.label+'</span><span class="fv">'+valStr+'</span></div>';
       });
       bd.innerHTML = html;
       tot.textContent = '₱'+Math.round(total).toLocaleString();
-      if(isDayMulti){
-        note.innerHTML = '✓ Fuel & driver included · 8 hrs / 100 km per day · Returned to pickup daily · ⚠ 2-way toll × '+days+' days & parking at actual · <span class="fare-calc">Zone: '+zoneLabel+' · '+days+' consecutive days</span>';
+      
+      if(isOOT){
+        note.innerHTML = '✓ Fuel, driver & initial tolls included · Driver stays with you · Parking at actual · <span class="fare-calc">Zone: '+zoneLabel+' · '+days+' consecutive days</span>';
+      } else if(isDayMulti){
+        note.innerHTML = '✓ Fuel, driver & tolls included · 8 hrs / 100 km per day · Returned to pickup daily · Parking at actual · <span class="fare-calc">Zone: '+zoneLabel+' · '+days+' consecutive days</span>';
       } else {
-        note.innerHTML = '✓ Fuel & driver included · 8 hrs / 100 km included · ⚠ Vehicle positioning fee, 2-way toll & parking charged at actual · <span class="fare-calc">Zone: '+zoneLabel+' · Client returned to pickup point</span>';
+        note.innerHTML = '✓ Fuel, driver & tolls included · 8 hrs / 100 km included · Parking charged at actual · <span class="fare-calc">Zone: '+zoneLabel+' · Client returned to pickup point</span>';
       }
       box.classList.add('show');
       state.lastFare = { total:Math.round(total), lines:lines, dayRental:true, dayRentalMulti:isDayMulti, days:days, zone:zoneLabel, vkey:vkey };
       updateSummary(); return;
     }
-    // ---- TRANSFER (one-way / round) ----
+
     if(!pickupTxt || !dropoffTxt){ box.classList.remove('show'); state.lastFare=null; updateSummary(); return; }
     var pg2 = findGeo(pickupTxt), dg = findGeo(dropoffTxt);
     if(!pg2 || !dg){
       box.classList.add('show');
       bd.innerHTML = '<div style="color:var(--muted);font-size:14px;padding:8px 0">Location not yet in our route map — we\'ll quote you exactly within 24 hours. A PDF quotation is generated after booking.</div>';
       tot.textContent = 'Quote';
-      note.textContent = 'Tip: include the city name (e.g. "Makati", "Quezon City", "Santa Rosa Laguna") for an instant estimate.';
+      note.textContent = 'Tip: include the city name (e.g. "Baguio", "Subic", "Manila") for an instant estimate.';
       state.lastFare = { custom:true }; updateSummary(); return;
     }
-    var baseMult = isMulti ? 2 : 1;
-    lines.push({ label:'Base Charge (dispatch & prep) ×'+baseMult, val:v.base*baseMult });
-    total += v.base*baseMult;
+
     var oneLegKm = roadKm(pg2, dg);
-    var legs = isRound ? 2 : 1;
-    var loadedPerLeg = Math.max(oneLegKm * v.perKm, v.minFare);
-    var loaded = loadedPerLeg * legs;
-    lines.push({ label:'Trip distance (~'+oneLegKm.toFixed(0)+' km × '+legs+' leg(s) × ₱'+v.perKm+'/km)', val:loaded });
-    total += loaded;
-    if(!isBaseZone(pickupTxt)){
-      var posKm = roadKm(HOME, pg2);
-      var posFee = posKm * v.repositionKm;
-      lines.push({ label:'Vehicle Positioning Fee (Home Base → pickup, ~'+posKm.toFixed(0)+' km @ ₱'+v.repositionKm+'/km)', val:posFee });
-      total += posFee;
+    var depTime = $('f_time').value;
+    var retTime = $('f_return_time').value;
+    var tollDataTrans = getTollBreakdown(pickupTxt, dropoffTxt, v, state.routePref);
+
+    var isAirportTrip = isNaia(pickupTxt) || isNaia(dropoffTxt) || isClark(pickupTxt) || isClark(dropoffTxt);
+    var airportPremiumPerLeg = 0;
+    if (isNaia(pickupTxt) || isNaia(dropoffTxt)) {
+      airportPremiumPerLeg = v.naiaFee;
+    } else if (isClark(pickupTxt) || isClark(dropoffTxt)) {
+      airportPremiumPerLeg = v.clarkFee;
     }
-    if(isMulti){
-      var emptyKm = roadKm(dg, HOME);
-      var emptyFee = 2 * emptyKm * v.repositionKm;
-      lines.push({ label:'Empty return + redeploy (2× ~'+emptyKm.toFixed(0)+' km @ ₱'+v.repositionKm+'/km)', val:emptyFee });
-      total += emptyFee;
+
+    // Distance multiplier for standalone legs > 20 km (covers driver empty return)
+    var oneWayDeadheadFactor = (oneLegKm > 20) ? 1.4 : 1.0;
+
+    if(isSplit || isMulti){
+      // TRIP 1: Dedicated Outbound Dispatch (includes empty return recovery)
+      var trip1Base = v.base + airportPremiumPerLeg;
+      var trip1DistanceFee = Math.max(oneLegKm * v.perKm * oneWayDeadheadFactor, v.minFare);
+      var trip1Sub = Math.round(trip1Base + trip1DistanceFee);
+      var trip1Night = isNight(depTime);
+      var trip1NightFee = trip1Night ? Math.round(trip1Sub * 0.15) : 0;
+
+      lines.push({ 
+        label: 'Trip 1 Departure (Dedicated Dispatch ~' + oneLegKm.toFixed(0) + ' km + empty-leg return)', 
+        val: trip1Sub 
+      });
+      if(trip1Night) lines.push({ label: 'Trip 1 Night Surcharge (22:00–06:00 [+15%])', val: trip1NightFee });
+
+      // TRIP 2: Dedicated Return Dispatch (10% Loyalty Discount applied to base + distance)
+      var trip2Base = trip1Base * 0.90;
+      var trip2DistanceFee = trip1DistanceFee * 0.90;
+      var trip2Sub = Math.round(trip2Base + trip2DistanceFee);
+      var trip2Night = isNight(retTime);
+      var trip2NightFee = trip2Night ? Math.round(trip2Sub * 0.15) : 0;
+
+      lines.push({ 
+        label: 'Trip 2 Return Journey (Dedicated Dispatch, 10% Split Loyalty Discount)', 
+        val: trip2Sub 
+      });
+      if(trip2Night) lines.push({ label: 'Trip 2 Night Surcharge (22:00–06:00 [+15%])', val: trip2NightFee });
+
+      total += (trip1Sub + trip1NightFee + trip2Sub + trip2NightFee);
+
+      // Positioning to initial pickup point
+      if(!isBaseZone(pickupTxt)){
+        var posKm = roadKm(HOME, pg2);
+        var posFee = posKm * v.repositionKm;
+        lines.push({ label: 'Vehicle Positioning Fee (Home Base → pickup, ~' + posKm.toFixed(0) + ' km @ ₱' + v.repositionKm + '/km)', val: posFee });
+        total += posFee;
+      }
+
+      // Tolls for two dedicated dispatches
+      tollDataTrans.lines.forEach(function(segment){
+        var dailySegVal = segment.val * 2;
+        lines.push({ label: segment.label + ' (2 dispatches)', val: dailySegVal, zeroToll: segment.zeroToll });
+        total += dailySegVal;
+      });
+
+      note.innerHTML = '✓ Two dedicated dispatches · No waiting time fees · 10% return trip discount applied · Tolls included';
+
+    } else {
+      // STANDBY / IMMEDIATE RETURN & ONE-WAY TRANSFERS
+      var isRound = isSameDay;
+      var isLongHaulRound = (isRound && oneLegKm > 120);
+      var isLongDistanceOneWay = (!isRound && (oneLegKm > 20 || isClark(dropoffTxt) || /baguio|subic|tarlac|angeles|lucena|batangas|laguna|tagaytay/i.test(dropoffTxt)));
+      
+      var legs = 1;
+      if (isRound) {
+        legs = isLongHaulRound ? 1.7 : 2.0; 
+      } else if (isLongDistanceOneWay) {
+        legs = 1.4; 
+      }
+
+      var totalBase = (v.base + airportPremiumPerLeg) * (isRound ? 2 : 1);
+      var baseLabel = isAirportTrip
+        ? 'Base Charge (Dispatch, terminal staging & flight tracking)' + (isRound ? ' × 2' : '')
+        : 'Base Charge (dispatch & prep)' + (isRound ? ' × 2' : '');
+
+      lines.push({ label: baseLabel, val: totalBase });
+      total += totalBase;
+
+      var loadedPerLeg = Math.max(oneLegKm * v.perKm, v.minFare);
+      var loaded = Math.round(loadedPerLeg * legs);
+      
+      var distanceLabel = '';
+      if (isLongHaulRound) {
+         distanceLabel = 'Round-trip distance (~' + (oneLegKm * 2).toFixed(0) + ' km with long-haul standby adjustment)';
+      } else if (isRound) {
+         distanceLabel = 'Round-trip loaded distance (~' + (oneLegKm * 2).toFixed(0) + ' km + up to 2 hrs standby)';
+      } else if (isLongDistanceOneWay) {
+         distanceLabel = 'Trip distance (~' + oneLegKm.toFixed(0) + ' km one-way + return-trip deadhead)';
+      } else {
+         distanceLabel = 'Trip distance (~' + oneLegKm.toFixed(0) + ' km × ₱' + v.perKm + '/km)';
+      }
+      
+      lines.push({ label: distanceLabel, val: loaded });
+      total += loaded;
+
+      // --- NEW STANDBY WAITING TIME LOGIC ---
+      if (isSameDay) {
+        var waitHrs = parseFloat($('f_wait_hrs').value) || 2;
+        if (waitHrs > 2) {
+          var excessWait = waitHrs - 2;
+          var waitFee = excessWait * v.dayExcessHr;
+          lines.push({ 
+            label: 'Standby Waiting Fee (' + excessWait + ' excess hours @ ₱' + v.dayExcessHr + '/hr)', 
+            val: waitFee 
+          });
+          total += waitFee;
+        }
+      }
+      // --------------------------------------
+
+      if(!isBaseZone(pickupTxt)){
+        var posKm = roadKm(HOME, pg2);
+        var posFee = posKm * v.repositionKm;
+        lines.push({ label: 'Vehicle Positioning Fee (Home Base → pickup, ~' + posKm.toFixed(0) + ' km @ ₱' + v.repositionKm + '/km)', val: posFee });
+        total += posFee;
+      }
+
+      if(isSameDay && state.corporate){
+        var disc = Math.round(0.08 * loadedPerLeg);
+        lines.push({ label: 'Corporate loyalty discount (8% off same-day standby return)', val: -disc, disc: true });
+        total -= disc;
+      }
+      if(isBaseZone(dropoffTxt)){
+        lines.push({ label: 'Home-Base drop-off discount (ends at Le Rica, GenTri)', val: -v.homeDiscount, disc: true });
+        total -= v.homeDiscount;
+      }
+
+      tollDataTrans.lines.forEach(function(segment){
+        var segVal = segment.val * (isRound ? 2 : 1);
+        lines.push({ label: segment.label + (isRound ? ' (Round-trip ×2)' : ''), val: segVal, zeroToll: segment.zeroToll });
+        total += segVal;
+      });
+
+      if(isNight(depTime) || (isRound && isNight(retTime))){
+        var night = Math.round(total * 0.15);
+        lines.push({ label: 'Night surcharge (22:00–06:00, +15%)', val: night });
+        total += night;
+      }
+      
+      if (isRound) {
+        var wHrs = parseFloat($('f_wait_hrs').value) || 2;
+        note.innerHTML = '✓ Fuel, driver & tolls included · Includes up to 2 hours free standby · Estimated wait: ' + wHrs + ' hours';
+      } else {
+        note.innerHTML = '✓ Fuel, driver & tolls included · Flight tracking included';
+      }
     }
-    var airportVisits = (isNaia(pickupTxt)||isNaia(dropoffTxt)) ? (isRound?2:1) : 0;
-    if(airportVisits){ var af = v.naiaFee*airportVisits; lines.push({ label:'NAIA airport fee (×'+airportVisits+')', val:af }); total+=af; }
-    var clarkVisits = (isClark(pickupTxt)||isClark(dropoffTxt)) ? (isRound?2:1) : 0;
-    if(clarkVisits){ var cf = v.clarkFee*clarkVisits; lines.push({ label:'Clark airport fee (×'+clarkVisits+')', val:cf }); total+=cf; }
-    if(isSameDay && state.corporate){
-      var disc = Math.round(0.08 * loadedPerLeg);
-      lines.push({ label:'Corporate loyalty discount (8% off when you return the same day)', val:-disc, disc:true });
-      total -= disc;
-    }
-    if(isBaseZone(dropoffTxt)){
-      lines.push({ label:'Home-Base drop-off discount (ends at Le Rica, GenTri)', val:-v.homeDiscount, disc:true });
-      total -= v.homeDiscount;
-    }
-    var toll = estimateToll(pickupTxt, dropoffTxt, v);
-    lines.push({ label:'Toll fees (estimated, charged at actual)', val:toll });
-    total += toll;
-    if(isNight($('f_time').value)){
-      var night = Math.round(total*0.12);
-      lines.push({ label:'Night surcharge (22:00–06:00, +12%)', val:night });
-      total += night;
-    }
+
     var html = '';
     lines.forEach(function(l){
-      var valStr = (l.val<0 ? '−₱' : '₱') + Math.abs(Math.round(l.val)).toLocaleString();
+      var valStr = (l.val === 0 && l.zeroToll) ? '<span style="color:var(--green)">₱0 (Toll-Free)</span>' : ((l.val<0 ? '−₱' : '₱') + Math.abs(Math.round(l.val)).toLocaleString());
       html += '<div class="fare-line'+(l.disc?' disc':'')+'"><span class="fl">'+l.label+'</span><span class="fv">'+valStr+'</span></div>';
     });
     bd.innerHTML = html;
     tot.textContent = '₱'+Math.round(total).toLocaleString();
-    note.innerHTML = '✓ Fuel included in per-km rate · ⚠ Toll is estimate, charged at actual · <span class="fare-calc">Matched: '+pg2.name+' → '+dg.name+' · Home: '+HOME.name+'</span>';
     box.classList.add('show');
-    state.lastFare = { total:Math.round(total), lines:lines, transfer:true, vkey:vkey };
+    state.lastFare = { total:Math.round(total), lines:lines, transfer:true, isSplit:isSplit||isMulti, vkey:vkey };
     updateSummary();
   }
+  
+  function autoCalcWaitTime() {
+    var svcType = (($('f_service').value).split('|')[2]) || '';
+    if (svcType !== 'TRANSFER_ROUND_SAMEDAY') return;
+    
+    var pt = $('f_pickup').value.trim();
+    var dt = $('f_dropoff').value.trim();
+    var pTime = $('f_time').value;
+    var rTime = $('f_return_time').value;
+
+    // Only calculate if all times and locations are filled out
+    if (pTime && rTime && pt && dt) {
+        var pg = findGeo(pt);
+        var dg = findGeo(dt);
+        if (!pg || !dg) return;
+        
+        var km = roadKm(pg, dg);
+        
+        var dParts = pTime.split(':');
+        var rParts = rTime.split(':');
+        var dMins = parseInt(dParts[0], 10) * 60 + parseInt(dParts[1], 10);
+        var rMins = parseInt(rParts[0], 10) * 60 + parseInt(rParts[1], 10);
+        
+        // If return time is past midnight
+        if (rMins < dMins) rMins += 24 * 60; 
+        
+        // Estimate 1-way travel time: 1.5 mins per km (roughly 40 km/h average)
+        var travelMins = km * 1.5; 
+        
+        // Waiting time = (Time between pickups) - (Travel Time)
+        var calculatedWait = (rMins - dMins) - travelMins;
+        var autoWaitHrs = Math.max(0, calculatedWait / 60);
+        
+        // Round to nearest half hour (e.g., 4.5 hours)
+        autoWaitHrs = Math.round(autoWaitHrs * 2) / 2; 
+        
+        var waitInput = $('f_wait_hrs');
+        if (waitInput) {
+            waitInput.value = autoWaitHrs > 0 ? autoWaitHrs : 0;
+            var warn = $('standbyWarning');
+            if (warn) warn.style.display = (autoWaitHrs > 3) ? 'block' : 'none';
+        }
+    }
+  }
+
   var fareTimer=null;
   function scheduleFare(){ clearTimeout(fareTimer); fareTimer=setTimeout(computeFare, 400); }
+
   function getPayTerms(svcType, corporate){
+    if(svcType==='TRANSFER_ROUND_SPLIT'){
+      return 'Split round trip: two dedicated trips. 10% discount on return trip. Settle within 3 days after completion (BPI/BDO preferred). Tolls and fuel included; parking at actual cost.';
+    }
+    if(svcType==='DAYRENTAL_OOT'){
+      return 'Out-of-Town Multi-Day: 50% reservation downpayment required. Includes driver overnight allowance. Remainder due on final day. Tolls included; parking at actual.';
+    }
     if(!corporate){
-      return 'Pay by cash, GCash, Maya, or bank transfer. Fuel is included. Toll and parking, if any, are billed at actual cost.';
+      return 'Pay by cash, GCash, Maya, or bank transfer. Fuel and tolls included; parking at actual cost.';
     }
     if(svcType==='DAYRENTAL_MULTI'){
-      return 'Multi-day site visit: one invoice for the full block, due within 7 days (BPI/BDO preferred). New clients: 50% before Day 1, remainder after the last day. Corporate loyalty 5% (2 days) or 8% (3-7 days) on the day rate. Toll and parking billed at actual cost.';
+      return 'Multi-day site visit: one invoice for the full block, due within 7 days (BPI/BDO preferred). New clients: 50% before Day 1, remainder after the last day. Corporate loyalty 5% (2 days) or 8% (3-7 days) on the day rate. Tolls and fuel included; parking at actual.';
     }
     if(svcType==='DAYRENTAL'){
-      return 'Full-day / site visit: invoice sent after the visit, due within 7 days (BPI/BDO preferred). Includes 8 hrs / 100 km; extra time, distance, toll, and parking billed at actual cost.';
+      return 'Full-day / site visit: invoice sent after the visit, due within 7 days (BPI/BDO preferred). Includes 8 hrs / 100 km, fuel and tolls; parking billed at actual cost.';
     }
     if(svcType==='TRANSFER_ROUND_MULTIDAY'){
-      return 'Multi-day round trip: 50% reservation to hold the vehicle; remaining balance due after the return trip (BPI/BDO preferred). Toll and parking billed at actual cost.';
+      return 'Multi-day round trip: 50% reservation to hold the vehicle; remaining balance due after the return trip (BPI/BDO preferred). Tolls and fuel included; parking at actual cost.';
     }
     if(svcType==='TRANSFER_ROUND_SAMEDAY'){
-      return 'Same-day return: due within 3 days after the trip (BPI/BDO preferred). Corporate accounts receive 8% off when you return the same day. Toll and parking billed at actual cost.';
+      return 'Same-day return: due within 3 days after the trip (BPI/BDO preferred). Corporate accounts receive 8% off when you return the same day. Tolls and fuel included; parking at actual.';
     }
-    return 'One-way transfer: due within 3 days after the trip (BPI/BDO preferred). Fuel included. Toll and parking billed at actual cost.';
+    return 'One-way transfer: due within 3 days after the trip (BPI/BDO preferred). Fuel and tolls included; parking at actual cost.';
   }
+
   function generatePDF(){
     try {
       var b = state.lastBooking; if(!b) return;
@@ -1206,7 +1590,6 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
           var textLeft = 40;
           if(logoDataUrl){
             try {
-              // Logo sized to sit with the 5-line header block
               doc.addImage(logoDataUrl, 'PNG', 28, 19, 70, 70);
               textLeft = 110;
             } catch(imgErr){ textLeft = 40; }
@@ -1215,13 +1598,13 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
           doc.setFont('helvetica','bold'); doc.setFontSize(18);
           doc.text('GoCav Transport Services', textLeft, 26);
           doc.setFont('helvetica','normal'); doc.setFontSize(8.5);
-          doc.text('Premium Chauffeur Service · Cavite · Laguna · Batangas · All NCR', textLeft, 40);
+          doc.text('Premium Chauffeur Service · Luzon Wide', textLeft, 40);
           doc.setFontSize(8);
-          doc.text('0976-046-5134 / 0995-435-5514 · gocav.transport@gmail.com', textLeft, 54);
+          doc.text('63976-046-5134 / 63955-435-5514 · gocav.transport@gmail.com', textLeft, 54);
           doc.text('Address: Le Rica Homes, Begonia St B19 L68, Brgy. San Francisco, General Trias, Cavite', textLeft, 68);
-          doc.text('Non-VAT Reg. 940-158-988-0000', textLeft, 82);
+          doc.text('Non-VAT Reg. TIN: 940-158-988-0000', textLeft, 82);
           doc.setFont('helvetica','bold'); doc.setFontSize(11);
-          doc.text(b.intent==='quote' ? 'QUOTATION' : 'QUOTATION / BOOKING', W-40, 28, {align:'right'});
+          doc.text(b.isSplit ? 'SPLIT ROUND-TRIP QUOTATION' : (b.intent==='quote' ? 'QUOTATION' : 'BOOKING CONFIRMATION'), W-40, 28, {align:'right'});
           doc.setFont('helvetica','normal'); doc.setFontSize(9);
           doc.text('Ref: '+b.ref, W-40, 44, {align:'right'});
           doc.text('Date: '+b.date, W-40, 58, {align:'right'});
@@ -1238,16 +1621,26 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
           if(b.tin){ doc.text('TIN: '+b.tin, 40, y); y+=15; }
           doc.text('Account: '+(b.corporate?'Corporate (loyalty rates & invoicing)':'Standard'), 40, y); y+=22;
           doc.setFont('helvetica','bold'); doc.setFontSize(12);
-          doc.text('Trip Details', 40, y); y+=18;
+          doc.text('Trip & Schedule Details', 40, y); y+=18;
           doc.setFont('helvetica','normal'); doc.setFontSize(10);
           doc.text('Service: '+b.service, 40, y); y+=15;
           doc.text('Vehicle: '+b.vehicle, 40, y); y+=15;
+          doc.text('Route: ' + b.route, 40, y); y+=15;
           if(b.partnerLine){ var pl = doc.splitTextToSize(b.partnerLine, W-80); doc.text(pl, 40, y); y += pl.length*15; }
-          if(b.days){ doc.text('Duration: '+b.days+' consecutive days (returned to pickup daily)', 40, y); y+=15; }
-          doc.text('Date & Time: '+b.datetime+(b.days?' (start / daily pickup)':''), 40, y); y+=15;
-          doc.text('From: '+b.from, 40, y); y+=15;
-          doc.text('To: '+b.to, 40, y); y+=15;
-          if(b.flight){ doc.text('Flight: '+b.flight, 40, y); y+=15; }
+
+          if(b.isSplit){
+            doc.text('Trip 1 Departure: '+b.depDate+' @ '+b.depTime+' ('+b.from+' → '+b.to+')', 40, y); y+=15;
+            doc.text('Trip 2 Return: '+b.returnDate+' @ '+b.returnTime+' ('+b.to+' → '+b.from+')', 40, y); y+=15;
+            if(b.returnFlight){ doc.text('Return Flight Tracking: '+b.returnFlight, 40, y); y+=15; }
+          } else {
+            if(b.days){ doc.text('Duration: '+b.days+' consecutive days', 40, y); y+=15; }
+            if(b.waitHrs){ doc.text('Estimated Wait: '+b.waitHrs+' hours', 40, y); y+=15; }
+            doc.text('Date & Time: '+b.datetime+(b.days?' (start / daily pickup)':''), 40, y); y+=15;
+            doc.text('From: '+b.from, 40, y); y+=15;
+            doc.text('To: '+b.to, 40, y); y+=15;
+            if(b.flight){ doc.text('Flight: '+b.flight, 40, y); y+=15; }
+          }
+
           doc.text('Passengers: '+b.pax+' · Bags: '+b.bags, 40, y); y+=22;
           doc.setFont('helvetica','bold'); doc.setFontSize(12);
           doc.text('Fare Breakdown', 40, y); y+=18;
@@ -1262,7 +1655,7 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
                 .replace(/Home Base → pickup/g, 'Base to pickup')
                 .replace(/Home Base →/g, 'Base to')
                 .replace(/ · Home: [^·<]+/g, '');
-              var valStr = (l.val<0 ? '-P ' : 'P ')+Math.abs(Math.round(l.val)).toLocaleString()+'.00';
+              var valStr = (l.val === 0 && l.zeroToll) ? 'P 0.00 (Toll-Free)' : ((l.val<0 ? '-P ' : 'P ')+Math.abs(Math.round(l.val)).toLocaleString()+'.00');
               doc.text(label, 40, y);
               doc.text(valStr, W-40, y, {align:'right'});
               y+=16;
@@ -1286,21 +1679,19 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
           }
           doc.setFontSize(8.5);
           var footNotes = [];
-          footNotes.push('Account Name: Tuhamie A. Dimanang  |  GCash/Maya: 0995-435-5514  |  BPI: 0489-7200-78  |  BDO: 0048 2022 1372');
-          if(b.dayRentalMulti){
-            footNotes.push('Multi-day site visit: 8 hrs / 100 km per day, returned to pickup daily. 2-way toll and parking at actual cost. Valid 48 hours.');
+          footNotes.push('Account Name: Tuhamie A. Dimanang  |  GCash/Maya: 63955-435-5514  |  BPI: 0489-7200-78  |  BDO: 0048 2022 1372');
+          if(b.isSplit){
+            footNotes.push('Split-Transfer: 2 dispatches confirmed. 10% loyalty discount credited to Trip 2. Inbound flight monitored.');
+          } else if(b.dayRentalMulti && !b.dayRentalOOT){
+            footNotes.push('Multi-day site visit: 8 hrs / 100 km per day, returned to pickup daily. Tolls included; parking at actual cost.');
+          } else if(b.dayRentalOOT){
+            footNotes.push('Out-of-Town Multi-Day: Driver stays with client. Includes driver allowance. Tolls included; parking at actual cost.');
           } else if(b.dayRental){
-            footNotes.push('Full-day: 8 hrs / 100 km, fuel and driver included. Client returned to pickup. 2-way toll and parking at actual cost. Valid 48 hours.');
+            footNotes.push('Full-day: 8 hrs / 100 km, fuel and driver included. Client returned to pickup. Tolls included; parking at actual.');
           } else {
-            footNotes.push('Fuel included. Toll and parking at actual cost. Night surcharge +12% (22:00-06:00). Valid 48 hours.');
+            footNotes.push('Fuel and tolls included. Parking at actual cost. Night surcharge +15% (22:00-06:00). Valid 48 hours.');
           }
           footNotes.push('Driver and plate number will be sent on Viber or WhatsApp the day before pickup.');
-          if(b.flight || (b.svcType && String(b.svcType).indexOf('TRANSFER')===0)){
-            footNotes.push('Airport wait: 45 minutes free after driver-on-stand notice. Extra wait billed per 30 minutes. Flight numbers are tracked at no extra charge within a reasonable window.');
-          }
-          if(b.dayRental || b.dayRentalMulti){
-            footNotes.push('Full-day includes 8 hours. Extra time is billed at the vehicle excess-hour rate.');
-          }
           footNotes.push('Address: Le Rica Homes, Begonia St B19 L68, Brgy. San Francisco, General Trias, Cavite');
           footNotes.push('Cancellation: free up to 24 hours before pickup. See FAQ for the full policy.');
           footNotes.forEach(function(line){
@@ -1308,10 +1699,9 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
             doc.text(wrapped, 40, y);
             y += wrapped.length * 11 + 3;
           });
-                    doc.save('GoCav-Quotation-'+b.ref+'.pdf');
+          doc.save('GoCav-Quotation-'+b.ref+'.pdf');
         } catch(e){ alert('PDF generation needs an internet connection to load. Please try again.'); }
       }
-      // Load logo then build PDF (fallback without logo if image blocked)
       var img = new Image();
       img.crossOrigin = 'anonymous';
       var done = false;
@@ -1331,6 +1721,7 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
       img.src = LOGO_URL;
     } catch(e){ alert('PDF generation needs an internet connection to load. Please try again.'); }
   }
+
   try {
     var pc = $('particles');
     for (var i=0;i<14;i++){
@@ -1344,12 +1735,14 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
       pc.appendChild(p);
     }
   } catch(e){}
+
   try {
     var io = new IntersectionObserver(function(entries){
       entries.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
     }, {threshold:0.12});
     document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
   } catch(e){ document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); }); }
+
   try {
     var cio = new IntersectionObserver(function(entries){
       entries.forEach(function(en){
@@ -1367,6 +1760,7 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
     }, {threshold:0.5});
     document.querySelectorAll('[data-count]').forEach(function(el){ cio.observe(el); });
   } catch(e){}
+
   function goHomePage(e){
     if(e) e.preventDefault();
     if($('successScreen')) $('successScreen').style.display='none';
@@ -1375,15 +1769,19 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
   if($('logoHome')) $('logoHome').addEventListener('click', goHomePage);
+
   document.querySelectorAll('[data-scroll]').forEach(function(el){
-    el.addEventListener('click', function(){
+    el.addEventListener('click', function(e){
+      e.preventDefault();
       var t = document.querySelector(el.getAttribute('data-scroll'));
       if(t) t.scrollIntoView({behavior:'smooth'});
     });
   });
+
   document.querySelectorAll('.faq-q').forEach(function(q){
     q.addEventListener('click', function(){ q.parentElement.classList.toggle('open'); });
   });
+
   function ok(btn){ var old=btn.textContent; btn.textContent='✓ Copied'; btn.classList.add('ok'); setTimeout(function(){ btn.textContent=old; btn.classList.remove('ok'); },1800); }
   function fallbackCopy(txt, btn){
     try {
@@ -1403,26 +1801,55 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
       } catch(e){ fallbackCopy(txt, btn); }
     });
   });
+
   (function(){
     var d = new Date();
     var iso = d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
     var di=$('f_date'); if(di) di.min=iso;
   })();
-  $('f_phone').addEventListener('input', function(){
-    var v = this.value.replace(/\D/g,'').slice(0,11);
-    if(v.length>=7) v = v.slice(0,4)+'-'+v.slice(4,7)+'-'+v.slice(7);
-    else if(v.length>=4) v = v.slice(0,4)+'-'+v.slice(4);
-    this.value = v;
+
+  function formatPhoneInput(val) {
+    var raw = val.replace(/[^\d+]/g, '');
+    if (raw.indexOf('+63') === 0) raw = '63' + raw.slice(3);
+    var digits = raw.replace(/\D/g, '');
+    if (digits.startsWith('0')) digits = '63' + digits.slice(1);
+    else if (digits.startsWith('9')) digits = '63' + digits;
+    digits = digits.slice(0, 12);
+    if (digits.length >= 8) return digits.slice(0, 5) + '-' + digits.slice(5, 8) + '-' + digits.slice(8);
+    if (digits.length >= 5) return digits.slice(0, 5) + '-' + digits.slice(5);
+    return digits;
+  }
+
+  ['f_phone', 'p_phone'].forEach(function(id){
+    var el = $(id);
+    if(el) {
+      el.addEventListener('input', function(){
+        this.value = formatPhoneInput(this.value);
+      });
+    }
   });
-  document.querySelectorAll('.send-opt').forEach(function(opt){
+
+  document.querySelectorAll('.send-opt:not(.route-opt)').forEach(function(opt){
     opt.addEventListener('click', function(){
-      document.querySelectorAll('.send-opt').forEach(function(o){ o.classList.remove('selected'); });
+      document.querySelectorAll('.send-opt:not(.route-opt)').forEach(function(o){ o.classList.remove('selected'); });
       opt.classList.add('selected');
       state.sendMethod = opt.getAttribute('data-method');
     });
   });
+
+  document.querySelectorAll('.route-opt').forEach(function(opt){
+    opt.addEventListener('click', function(){
+      document.querySelectorAll('.route-opt').forEach(function(o){ o.classList.remove('selected'); });
+      opt.classList.add('selected');
+      state.routePref = opt.getAttribute('data-route');
+      computeFare();
+      updateSummary();
+    });
+  });
+
   document.querySelectorAll('.service-card').forEach(function(card){
-    card.addEventListener('click', function(){
+    card.addEventListener('click', function(e){
+      e.preventDefault();
       document.querySelectorAll('.service-card').forEach(function(c){ c.classList.remove('selected'); });
       card.classList.add('selected');
       $('f_service').value = card.getAttribute('data-service');
@@ -1432,15 +1859,36 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
       $('booking').scrollIntoView({behavior:'smooth'});
     });
   });
+
   function onServiceChange(){
     var val = $('f_service').value, type = (val.split('|')[2])||'';
-    var isDay = (type==='DAYRENTAL' || type==='DAYRENTAL_MULTI');
-    var isDayMulti = (type==='DAYRENTAL_MULTI');
+    var isDay = (type==='DAYRENTAL' || type==='DAYRENTAL_MULTI' || type==='DAYRENTAL_OOT');
+    var isDayMulti = (type==='DAYRENTAL_MULTI' || type==='DAYRENTAL_OOT');
+    var isOOT = (type==='DAYRENTAL_OOT');
+    var isSplit = (type==='TRANSFER_ROUND_SPLIT');
+    var isMultiRound = (type==='TRANSFER_ROUND_MULTIDAY');
+    var isSameDay = (type==='TRANSFER_ROUND_SAMEDAY');
+
     $('dayRentalFields').style.display = isDay ? 'block' : 'none';
     $('multiDayFields').style.display = isDayMulti ? 'block' : 'none';
-    if(isDayMulti){
+    $('standbyFields').style.display = isSameDay ? 'block' : 'none';
+
+    var retBox = $('splitReturnBox');
+    if (retBox) {
+      retBox.style.display = (isSplit || isMultiRound || isSameDay) ? 'block' : 'none';
+      if ($('f_date') && $('f_return_date') && !$('f_return_date').value) {
+        $('f_return_date').value = $('f_date').value;
+      }
+      var tagEl = $('splitReturnTag');
+      if(tagEl) {
+        tagEl.textContent = isSameDay ? 'Same-Day Return Leg' : '10% Off Return Base/Km';
+      }
+    }
+
+    if(isOOT){
+      $('lbl_dropoff').innerHTML = 'Out-of-Town Destination <span style="color:var(--muted);font-weight:400;font-size:13px">(where vehicle and driver will stay)</span>';
+    } else if(isDayMulti){
       $('lbl_dropoff').innerHTML = 'Work Area / Main Destination <span style="color:var(--muted);font-weight:400;font-size:13px">(same route daily · returned to pickup each day)</span>';
-      // Corporate required for multi-day site visit
       if(!$('f_corporate').checked){ $('f_corporate').checked = true; state.corporate = true; }
     } else if(isDay){
       $('lbl_dropoff').innerHTML = 'Return / End Point <span style="color:var(--muted);font-weight:400;font-size:13px">(client returned to pickup point)</span>';
@@ -1449,26 +1897,41 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
     }
     computeFare();
   }
+
   $('f_service').addEventListener('change', function(){ showErr('service',false); onServiceChange(); renderVehicles(); updateSummary(); });
+
   function updateCorpFields(){
     var box = $('corpCompanyFields');
     if(box) box.style.display = state.corporate ? 'block' : 'none';
   }
   function updateCorpTollNotice(){
-    // Show for all service types once a service is selected
-    var on = !!($('f_service') && $('f_service').value);
+    var on = state.corporate && !!($('f_service') && $('f_service').value);
     var a = $('corpTollNotice'), b = $('corpTollNoticeSummary');
     if(a) a.classList.toggle('show', on);
     if(b) b.classList.toggle('show', on);
   }
-  $('f_corporate').addEventListener('change', function(){ state.corporate = this.checked; computeFare(); updateSummary(); updateCorpTollNotice(); updateCorpFields(); });
+
+  $('f_corporate').addEventListener('change', function(){ 
+    var svcType = (($('f_service').value).split('|')[2]) || '';
+    if(svcType === 'DAYRENTAL_MULTI' && !this.checked){
+      this.checked = true;
+      alert('Corporate status is required for Multi-Day Site Visits.');
+    }
+    state.corporate = this.checked; 
+    computeFare(); 
+    updateSummary(); 
+    updateCorpTollNotice(); 
+    updateCorpFields(); 
+  });
+
   function renderVehicles(){
     var pax = parseInt($('f_pax').value)||0, bags = parseInt($('f_luggage').value)||0;
     var container = $('vehicleOptions');
     if(!pax || pax<1){ container.innerHTML=''; return; }
     var svcType = (($('f_service').value).split('|')[2])||'';
-    var isDay = (svcType==='DAYRENTAL' || svcType==='DAYRENTAL_MULTI');
+    var isDay = (svcType==='DAYRENTAL' || svcType==='DAYRENTAL_MULTI' || svcType==='DAYRENTAL_OOT');
     var opts = [];
+    
     Object.keys(VEHICLES).forEach(function(k){
       var v = VEHICLES[k];
       if(pax <= v.maxPax && bags <= v.maxBags){
@@ -1476,64 +1939,118 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
         opts.push({ key:k, v:v, comfort:comfort });
       }
     });
+
     if(opts.length===0){
-      container.innerHTML = '<div style="background:var(--red-soft);border:1px solid var(--red);border-radius:12px;padding:14px;font-size:14px;color:#fca5a5">Your group needs multiple vehicles or a custom arrangement. We\'ll tailor a quote for you.</div>';
+      container.innerHTML = '<div style="background:var(--red-soft);border:1px solid var(--red);border-radius:12px;padding:14px;font-size:14px;color:#fca5a5">Your group ('+pax+' passengers, '+bags+' bags) exceeds single-vehicle limit. Please contact us for a van or multi-unit dispatch.</div>';
       state.selectedVehicle = null; updateSummary(); return;
     }
+
     var comfortOpt = null;
     opts.forEach(function(o){ if(o.comfort && !comfortOpt) comfortOpt = o; });
+
+    var defaultKey = comfortOpt ? comfortOpt.key : opts[0].key;
     var stillValid = state.selectedVehicle && opts.some(function(o){ return o.key===state.selectedVehicle; });
-    if(!stillValid) state.selectedVehicle = (comfortOpt || opts[0]).key;
-    var html = '<p style="font-size:13px;color:var(--muted);margin:0 0 10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase">Recommended vehicles — comfort seating is checked</p>';
+    if(!stillValid) {
+      state.selectedVehicle = defaultKey;
+    }
+
+    var html = '<p style="font-size:13px;color:var(--muted);margin:0 0 10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase">Recommended vehicles</p>';
+    if (pax === 4) {
+      html += '<div style="background:var(--gold-soft);border:1px solid rgba(212,175,55,.4);border-radius:10px;padding:10px 12px;font-size:13px;color:var(--gold-light);margin-bottom:10px">💡 <strong>Comfort Tip:</strong> For 4 passengers, our 6-Seater is highlighted for a roomier ride, but <strong>Sedan is fully available</strong> if you prefer.</div>';
+    } else if (pax >= 5) {
+      html += '<div style="background:var(--red-soft);border:1px solid rgba(239,68,68,.4);border-radius:10px;padding:10px 12px;font-size:13px;color:#fca5a5;margin-bottom:10px">❌ <strong>Sedan Unavailable:</strong> Sedans accommodate a maximum of 4 passengers. Please select a 6-Seater or SUV.</div>';
+    }
+
     html += '<div style="display:grid;gap:10px">';
-    opts.forEach(function(o){
-      var v = o.v;
+    Object.keys(VEHICLES).forEach(function(k){
+      var v = VEHICLES[k];
+      var canFit = pax <= v.maxPax && bags <= v.maxBags;
+      var isRecommended = (k === 'avanza' && pax === 4);
+      var sel = state.selectedVehicle===k ? ' selected' : '';
+      var recClass = isRecommended ? ' recommended' : '';
       var dayStart = { accent:4500, avanza:5500, montero:6000 };
-      var rateLabel = isDay ? ('From ₱'+(dayStart[o.key]||4500).toLocaleString()+'/day') : '₱'+v.perKm+'/km + ₱'+v.base+' base';
-      var subNote = isDay ? '8 hrs / 100 km included · fuel & driver' : 'min fare ₱'+v.minFare+' · fuel included';
-      var tagHtml = o.comfort ? '<span class="tag tag-comfort">Comfort seating</span>' : '<span class="tag tag-max">Max capacity</span>';
-      if(o.key==='montero') tagHtml = '<span class="tag tag-premium">'+v.tier+'</span> ' + (o.comfort?'<span class="tag tag-comfort">Comfort seating</span>':'<span class="tag tag-max">Max capacity</span>');
-      else tagHtml = '<span class="tag '+(o.key==='accent'?'tag-comfort':'tag-premium')+'">'+v.tier+'</span> ' + tagHtml;
-      var sel = state.selectedVehicle===o.key ? ' selected' : '';
-      html += '<div class="vehicle-opt'+sel+'" data-veh="'+o.key+'">' +
+      var rateLabel = isDay ? ('From ₱'+(dayStart[k]||4500).toLocaleString()+'/day') : '₱'+v.perKm+'/km + ₱'+v.base+' base';
+
+      var tagHtml = '';
+      if(!canFit) {
+        if(pax > v.maxPax) tagHtml = '<span class="tag tag-max">❌ Exceeds pax limit (Max ' + v.maxPax + ' pax)</span>';
+        else tagHtml = '<span class="tag tag-max">❌ Exceeds luggage capacity (Max ' + v.maxBags + ' bags)</span>';
+      } else if(isRecommended) {
+        tagHtml = '<span class="tag tag-comfort">⭐ Comfort Recommended</span>';
+      } else if(pax <= v.comfortPax) {
+        tagHtml = '<span class="tag tag-comfort">Comfort seating</span>';
+      } else {
+        tagHtml = '<span class="tag tag-max">Max capacity (Snug)</span>';
+      }
+
+      if(k==='montero') tagHtml = '<span class="tag tag-premium">'+v.tier+'</span> ' + tagHtml;
+      else tagHtml = '<span class="tag '+(k==='accent'?'tag-comfort':'tag-premium')+'">'+v.tier+'</span> ' + tagHtml;
+
+      html += '<div class="vehicle-opt'+sel+recClass+'" data-veh="'+k+'" style="'+(canFit ? '' : 'opacity:0.4;cursor:not-allowed;')+'">' +
         '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">' +
-        '<div><strong style="font-size:16px">'+v.name+'</strong> <span style="font-size:13px;color:var(--muted)">· '+v.maxPax+' pax max · '+v.maxBags+' bags · similar unit may be assigned</span></div>'+tagHtml+'</div>' +
-        '<div style="margin-top:6px;font-size:14px;color:var(--gold-light);font-weight:700">'+rateLabel+' <span style="color:var(--muted);font-weight:400;font-size:12px">— '+subNote+'</span></div>' +
+        '<div><strong style="font-size:16px">'+v.name+'</strong> <span style="font-size:13px;color:var(--muted)">· '+v.maxPax+' pax max · '+v.maxBags+' bags</span></div>'+tagHtml+'</div>' +
+        '<div style="margin-top:6px;font-size:14px;color:var(--gold-light);font-weight:700">'+rateLabel+'</div>' +
         '</div>';
     });
     html += '</div>';
     container.innerHTML = html;
+
     container.querySelectorAll('.vehicle-opt').forEach(function(el){
       el.addEventListener('click', function(){
-        state.selectedVehicle = el.getAttribute('data-veh');
-        renderVehicles(); computeFare(); updateSummary();
+        var k = el.getAttribute('data-veh');
+        var v = VEHICLES[k];
+        if(pax <= v.maxPax && bags <= v.maxBags){
+          state.selectedVehicle = k;
+          renderVehicles(); computeFare(); updateSummary();
+        } else {
+          if (pax > v.maxPax) {
+            alert(v.name + ' accommodates up to ' + v.maxPax + ' passengers. Please select a larger vehicle for ' + pax + ' passengers.');
+          } else if (bags > v.maxBags) {
+            alert(v.name + ' accommodates up to ' + v.maxBags + ' large bags. Please select a vehicle with greater luggage space.');
+          }
+        }
       });
     });
     computeFare(); updateSummary(); renderPartnerSuggest();
   }
+
   $('f_pax').addEventListener('input', function(){ showErr('pax',false); renderVehicles(); updateSummary(); });
   $('f_luggage').addEventListener('input', function(){ renderVehicles(); updateSummary(); });
   ['f_pickup','f_dropoff'].forEach(function(id){ if($(id)) $(id).addEventListener('input', renderPartnerSuggest); });
+
   function valOrDash(v){ return (v&&String(v).trim()) ? v : '—'; }
   function updateSummary(){
     var svc = $('f_service').value, svcName = svc ? svc.split('|')[1] : '';
     $('s_service').textContent = valOrDash(svcName);
     var svcTypeSm = svc ? (svc.split('|')[2]||'') : '';
-    var isMultiSm = (svcTypeSm==='DAYRENTAL_MULTI');
+    var isMultiSm = (svcTypeSm==='DAYRENTAL_MULTI' || svcTypeSm==='DAYRENTAL_OOT');
+    var isSplitSm = (svcTypeSm==='TRANSFER_ROUND_SPLIT' || svcTypeSm==='TRANSFER_ROUND_MULTIDAY' || svcTypeSm==='TRANSFER_ROUND_SAMEDAY');
+
     var daysRow = $('s_days_row');
     if(daysRow){
       daysRow.style.display = isMultiSm ? 'flex' : 'none';
       var dval = parseInt($('f_days').value)||0;
       $('s_days').textContent = (isMultiSm && dval>=2) ? (dval+' consecutive days') : '—';
     }
+
     var vehObj = getVeh(state.selectedVehicle);
     $('s_vehicle').textContent = vehObj ? (vehObj.name+' ('+vehObj.tier+')') : '—';
     $('s_corp').innerHTML = state.corporate ? '<span class="tag tag-corp">Corporate</span>' : 'Standard';
     var pax = $('f_pax').value, bags = $('f_luggage').value;
     var paxNum = parseInt(pax)||0;
     $('s_pax').textContent = (paxNum>0) ? paxNum + ' pax' + (bags&&parseInt(bags)>0 ? ' · '+bags+' bags' : '') : '—';
+
     var dt = $('f_date').value, tm = $('f_time').value;
     $('s_datetime').textContent = (dt||tm) ? (dt?dt:'—')+' '+(tm?tm:'') : '—';
+
+    var retRow = $('s_return_row');
+    if(retRow){
+      retRow.style.display = isSplitSm ? 'flex' : 'none';
+      var rdt = $('f_return_date').value || dt;
+      var rtm = $('f_return_time').value;
+      $('s_return_datetime').textContent = (rdt||rtm) ? (rdt?rdt:'—')+' '+(rtm?rtm:'') : '—';
+    }
+
     $('s_from').textContent = valOrDash($('f_pickup').value);
     $('s_to').textContent = valOrDash($('f_dropoff').value);
     $('s_payment').textContent = valOrDash($('f_payment').value);
@@ -1549,15 +2066,42 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
     }
     updateCorpTollNotice();
   }
-  ['f_date','f_time','f_pickup','f_dropoff','f_daykm','f_dayhrs','f_days','f_payment','f_flight'].forEach(function(id){
+
+  ['f_date','f_time','f_return_date','f_return_time','f_pickup','f_dropoff','f_daykm','f_dayhrs','f_days','f_payment','f_flight','f_return_flight','f_wait_hrs'].forEach(function(id){
     var el = $(id); if(!el) return;
-    el.addEventListener('input', function(){ updateSummary(); scheduleFare(); });
-    el.addEventListener('change', function(){ updateSummary(); scheduleFare(); });
+    el.addEventListener('input', function(){ 
+      if(id !== 'f_wait_hrs') autoCalcWaitTime(); // Auto-calculate before fare updates
+      updateSummary(); 
+      scheduleFare(); 
+    });
+    el.addEventListener('change', function(){ 
+      if(id !== 'f_wait_hrs') autoCalcWaitTime(); 
+      updateSummary(); 
+      scheduleFare(); 
+    });
   });
-  ['f_name','f_email','f_phone'].forEach(function(id){
+
+  if ($('f_wait_hrs')) {
+    $('f_wait_hrs').addEventListener('input', function() {
+      var hrs = parseFloat(this.value) || 0;
+      var warn = $('standbyWarning');
+      if (warn) warn.style.display = (hrs > 3) ? 'block' : 'none';
+    });
+  }
+
+  if ($('f_date')) {
+    $('f_date').addEventListener('change', function(){
+      if ($('f_return_date') && !$('f_return_date').value) {
+        $('f_return_date').value = this.value;
+      }
+    });
+  }
+
+  ['f_name','f_email'].forEach(function(id){
     var el = $(id); if(!el) return;
     el.addEventListener('input', function(){ showErr(id.replace('f_',''), false); });
   });
+
   function goToStep(n, opts){
     state.step = n;
     [1,2,3].forEach(function(i){
@@ -1571,7 +2115,6 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
     if(n===2) setTimeout(computeFare, 100);
     if(n===3) updateSummary();
     if(opts && opts.skipScroll) return;
-    // Scroll so the next step title + inputs sit just under the sticky nav (not mid-page)
     setTimeout(function(){
       var pane = $('step'+n);
       if(!pane) return;
@@ -1580,42 +2123,80 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
       window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
     }, 60);
   }
+
   function validateStep1(){
     var ok = true;
     if(!$('f_service').value){ showErr('service',true); ok=false; } else showErr('service',false);
     var pax = parseInt($('f_pax').value);
     if(!pax || pax<1){ showErr('pax',true); ok=false; } else showErr('pax',false);
+    if(state.selectedVehicle){
+      var v = VEHICLES[state.selectedVehicle];
+      if(pax > v.maxPax){
+        showErr('pax',true);
+        alert('Selected vehicle ('+v.name+') only accommodates up to '+v.maxPax+' passengers. Please select a larger vehicle.');
+        ok=false;
+      }
+    }
     var svcType = (($('f_service').value).split('|')[2])||'';
-    if(svcType==='DAYRENTAL_MULTI'){
-      if(!$('f_corporate').checked){ $('f_corporate').checked = true; state.corporate = true; }
+    if(svcType==='DAYRENTAL_MULTI' || svcType==='DAYRENTAL_OOT'){
+      if(svcType==='DAYRENTAL_MULTI' && !$('f_corporate').checked){ $('f_corporate').checked = true; state.corporate = true; }
       var days = parseInt($('f_days').value);
-      // days validated on step 2 as well; light check here
       if(days && (days<2 || days>7)){ showErr('days',true); ok=false; } else showErr('days',false);
     }
     return ok;
   }
+
   function validateStep2(){
     var ok = true;
     var d = $('f_date').value;
     if(!d || d < ($('f_date').min||'')){ showErr('date',true); ok=false; } else showErr('date',false);
-    if(!$('f_time').value){ showErr('time',true); ok=false; } else showErr('time',false);
-    if(!String($('f_pickup').value).trim()){ showErr('pickup',true); ok=false; } else showErr('pickup',false);
+
+    var t = $('f_time').value;
+    if(!t){
+      showErr('time',true); ok=false;
+    } else {
+      var now = new Date();
+      var todayIso = now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0');
+      if(d === todayIso){
+        var parts = t.split(':');
+        var selectedMin = parseInt(parts[0],10)*60 + parseInt(parts[1],10);
+        var currentMin = now.getHours()*60 + now.getMinutes() + 60;
+        if(selectedMin < currentMin){
+          alert('For same-day reservations, please select a pickup time at least 1 hour from now.');
+          showErr('time',true); ok=false;
+        } else {
+          showErr('time',false);
+        }
+      } else {
+        showErr('time',false);
+      }
+    }
+
     var svcType = (($('f_service').value).split('|')[2])||'';
-    var isDay = (svcType==='DAYRENTAL' || svcType==='DAYRENTAL_MULTI');
-    var isDayMulti = (svcType==='DAYRENTAL_MULTI');
+    var isSplit = (svcType==='TRANSFER_ROUND_SPLIT' || svcType==='TRANSFER_ROUND_MULTIDAY');
+    if(isSplit){
+      if(!$('f_return_date').value){ showErr('return_date',true); ok=false; } else showErr('return_date',false);
+      if(!$('f_return_time').value){ showErr('return_time',true); ok=false; } else showErr('return_time',false);
+    }
+
+    if(!String($('f_pickup').value).trim()){ showErr('pickup',true); ok=false; } else showErr('pickup',false);
+    var isDay = (svcType==='DAYRENTAL' || svcType==='DAYRENTAL_MULTI' || svcType==='DAYRENTAL_OOT');
+    var isDayMulti = (svcType==='DAYRENTAL_MULTI' || svcType==='DAYRENTAL_OOT');
     if(!isDay && !String($('f_dropoff').value).trim()){ showErr('dropoff',true); ok=false; } else showErr('dropoff',false);
     if(isDayMulti){
       var days = parseInt($('f_days').value);
       if(!days || days<2 || days>7){ showErr('days',true); ok=false; } else showErr('days',false);
-      if(!$('f_corporate').checked){ $('f_corporate').checked = true; state.corporate = true; }
+      if(svcType==='DAYRENTAL_MULTI' && !$('f_corporate').checked){ $('f_corporate').checked = true; state.corporate = true; }
     }
     if(!$('f_payment').value){ showErr('payment',true); ok=false; } else showErr('payment',false);
     return ok;
   }
+
   $('toStep2').addEventListener('click', function(){ if(validateStep1()){ saveLocal(); goToStep(2); } });
   $('backStep1').addEventListener('click', function(){ goToStep(1); });
   $('toStep3').addEventListener('click', function(){ if(validateStep2()){ saveLocal(); goToStep(3); } });
   $('backStep2').addEventListener('click', function(){ goToStep(2); });
+
   function saveLocal(){
     try {
       var old = JSON.parse(localStorage.getItem('gocav_profile')||'{}');
@@ -1632,7 +2213,8 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
         pickup: $('f_pickup').value.trim() || old.pickup || '',
         dropoff: $('f_dropoff').value.trim() || old.dropoff || '',
         pax: $('f_pax').value || old.pax || '',
-        luggage: $('f_luggage').value || old.luggage || ''
+        luggage: $('f_luggage').value || old.luggage || '',
+        waitHrs: $('f_wait_hrs') ? $('f_wait_hrs').value : '2'
       };
       localStorage.setItem('gocav_profile', JSON.stringify(d));
     } catch(e){}
@@ -1653,20 +2235,23 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
       if(d.dropoff && $('f_dropoff') && !$('f_dropoff').value) $('f_dropoff').value = d.dropoff;
       if(d.pax && $('f_pax') && !$('f_pax').value) $('f_pax').value = d.pax;
       if(d.luggage && $('f_luggage') && ($('f_luggage').value==='' || $('f_luggage').value==='0')) $('f_luggage').value = d.luggage;
+      if(d.waitHrs && $('f_wait_hrs')) $('f_wait_hrs').value = d.waitHrs;
       updateCorpFields();
     } catch(e){}
   }
   loadLocal();
-    if($('submitBtn')){
+
+  if($('submitBtn')){
     $('submitBtn').addEventListener('click', function(){ state.intent = 'book'; });
   }
-    if($('quoteBtn')){
+  if($('quoteBtn')){
     $('quoteBtn').addEventListener('click', function(){
       state.intent = 'quote';
       if($('bkForm').requestSubmit) $('bkForm').requestSubmit();
       else $('bkForm').dispatchEvent(new Event('submit', {cancelable:true, bubbles:true}));
     });
   }
+
   $('bkForm').addEventListener('submit', function(e){
     e.preventDefault();
     if(!state.intent) state.intent = 'book';
@@ -1674,10 +2259,10 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
     if(!$('f_name').value.trim()){ showErr('name',true); ok=false; } else showErr('name',false);
     var em = $('f_email').value.trim();
     if(!em || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){ showErr('email',true); ok=false; } else showErr('email',false);
+    
     var ph = $('f_phone').value.replace(/\D/g,'');
-    if(ph.length===12 && ph.indexOf('63')===0) ph = '0'+ph.slice(2);
-    if(ph.length===10 && ph.charAt(0)==='9') ph = '0'+ph;
-    if(ph.length<11){ showErr('phone',true); ok=false; } else showErr('phone',false);
+    if(ph.length < 12 || !ph.startsWith('63')){ showErr('phone',true); ok=false; } else showErr('phone',false);
+
     if(!ok){
       goToStep(3);
       var firstErr = document.querySelector('.err-msg.show');
@@ -1687,162 +2272,203 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
     saveLocal();
     var btn = $('submitBtn');
     btn.disabled = true; btn.textContent = 'Preparing…';
+    
     try {
-    var svc = $('f_service').value, parts = svc.split('|');
-    var svcName = parts[1]||'Custom', svcType = parts[2]||'';
-    var vname = state.selectedVehicle ? VEHICLES[state.selectedVehicle].name : 'To be assigned';
-    var rateText = 'See quotation';
-    if(state.lastFare && state.lastFare.total){
-      if(state.lastFare.dayRentalMulti) rateText = 'Estimated ₱'+state.lastFare.total.toLocaleString()+' ('+state.lastFare.days+'-day site visit, excess billed separately)';
-      else if(state.lastFare.dayRental) rateText = 'Estimated ₱'+state.lastFare.total.toLocaleString()+' (full-day, excess billed separately)';
-      else rateText = 'Estimated ₱'+state.lastFare.total.toLocaleString()+' (computed from distance)';
-    }
-    var fareTotalNum = (state.lastFare && state.lastFare.total) ? state.lastFare.total : null;
-    var fareLinesArr = (state.lastFare && state.lastFare.lines) ? state.lastFare.lines : null;
-    var ref = 'GC'+Date.now().toString().slice(-10);
-    var flight = $('f_flight').value.trim();
-    var fareDetail = '';
-    if(fareLinesArr && fareLinesArr.length && !(state.lastFare && state.lastFare.custom)){
-      fareDetail = 'Fare Breakdown:\n';
-      fareLinesArr.forEach(function(l){ fareDetail += '  '+l.label+': '+(l.val<0?'-₱':'₱')+Math.abs(Math.round(l.val)).toLocaleString()+'\n'; });
-      if(fareTotalNum) fareDetail += '  ESTIMATED TOTAL: ₱'+fareTotalNum.toLocaleString()+'\n';
-    }
-    if(state.lastFare && state.lastFare.dayRentalMulti){
-      fareDetail += '  Note: Multi-day site visit — '+state.lastFare.days+' consecutive days, 8 hrs / 100 km per day, returned to pickup daily; 2-way toll × days & parking at actual.\n';
-    } else if(state.lastFare && state.lastFare.dayRental){
-      fareDetail += '  Note: 8 hrs / 100 km included; 2-way toll & parking charged at actual cost.\n';
-    }
-    var intent = state.intent || 'book';
-    var corpLine = state.corporate ? 'Account: CORPORATE (loyalty rates & consolidated invoicing)\n' : '';
-    var company = ($('f_company') && $('f_company').value.trim()) || '';
-    var billEmail = ($('f_bill_email') && $('f_bill_email').value.trim()) || '';
-    var tin = ($('f_tin') && $('f_tin').value.trim()) || '';
-    var companyBlock = '';
-    if(company) companyBlock += 'Company: '+company+'\n';
-    if(billEmail) companyBlock += 'Billing email: '+billEmail+'\n';
-    if(tin) companyBlock += 'TIN: '+tin+'\n';
-    var msgHead = (intent==='quote') ? 'QUOTATION REQUEST — REF: '+ref : 'NEW BOOKING — REF: '+ref;
-    var msg = msgHead+'\n' +
-      '══════════════════════\n' + corpLine +
-      'Client: '+$('f_name').value.trim()+'\n' +
-      'Email: '+em+'\n' +
-      'Phone: '+$('f_phone').value.trim()+'\n' +
-      companyBlock +
-      'Passengers: '+$('f_pax').value+' · Bags: '+($('f_luggage').value||'0')+'\n' +
-      'Vehicle: '+vname+'\n' +
-      partnerDispatchLine()+'\n' +
-      'Rate: '+rateText+'\n' +
-      fareDetail +
-      'Service: '+svcName+'\n' +
-      ((state.lastFare && state.lastFare.dayRentalMulti) ? ('Duration: '+state.lastFare.days+' consecutive days (same route daily)\n') : '') +
-      'Date: '+$('f_date').value+' · Time: '+$('f_time').value+((state.lastFare && state.lastFare.dayRentalMulti)?' (start / daily pickup)':'')+'\n' +
-      (flight?'Flight: '+flight+'\n':'') +
-      'From: '+$('f_pickup').value.trim()+'\n' +
-      'To: '+$('f_dropoff').value.trim()+'\n' +
-      'Payment: '+$('f_payment').value+'\n' +
-      'Terms: '+getPayTerms(svcType, state.corporate)+'\n' +
-      'Notes: '+($('f_notes').value.trim()||'None')+'\n' +
-      'Sent via: '+state.sendMethod+'\n' +
-      '══════════════════════\n' +
-      'GoCav Transport Services\n0976-046-5134 / 0995-435-5514\ngocav.transport@gmail.com';
-    var subject = (intent==='quote'?'Quotation ':'Booking ')+ref+' — '+$('f_name').value.trim();
-    var emLink = 'mailto:'+EM+'?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(msg);
-    var waLink = 'https://wa.me/'+WA+'?text='+encodeURIComponent(msg);
-    var vbLink = 'viber://chat?number='+VB;
-    state.lastBooking = {
-      ref: ref, date: new Date().toLocaleDateString('en-PH'),
-      name: $('f_name').value.trim(), email: em, phone: $('f_phone').value.trim(),
-      company: company, billEmail: billEmail, tin: tin,
-      intent: intent,
-      corporate: state.corporate,
-      service: svcName, vehicle: vname, partnerLine: partnerDispatchLine(),
-      datetime: $('f_date').value+' '+$('f_time').value,
-      from: $('f_pickup').value.trim(), to: $('f_dropoff').value.trim(), flight: flight,
-      pax: $('f_pax').value, bags: $('f_luggage').value||'0',
-      payment: $('f_payment').value, rateText: rateText,
-      payTerms: getPayTerms(svcType, state.corporate),
-      svcType: svcType,
-      dayRental: !!(state.lastFare && state.lastFare.dayRental),
-      dayRentalMulti: !!(state.lastFare && state.lastFare.dayRentalMulti),
-      days: (state.lastFare && state.lastFare.days) ? state.lastFare.days : null,
-      fareLines: fareLinesArr, fareTotal: fareTotalNum
-    };
-    $('refNo').textContent = ref;
-    if(intent==='quote'){
-      $('followUpNote').textContent = 'Quotation request received — this is not a dispatch yet. Download the PDF and send proof only after you confirm the trip.';
-    } else if(state.corporate){
-      $('followUpNote').textContent = 'Corporate booking received — expect consolidated invoicing. Driver and plate will be sent on Viber/WhatsApp the day before. Tap below for your PDF.';
-    } else {
-      $('followUpNote').textContent = 'Thank you! Driver and plate will be confirmed on Viber/WhatsApp the day before pickup. Tap below to download your PDF.';
-    }
-    var sheetRow = {
-      timestamp: new Date().toISOString(),
-      ref: ref,
-      type: intent==='quote' ? 'Quotation' : 'Booking',
-      service: svcName,
-      vehicle: vname,
-      pickup: $('f_pickup').value.trim(),
-      dropoff: $('f_dropoff').value.trim(),
-      date: $('f_date').value,
-      time: $('f_time').value,
-      days: (state.lastFare && state.lastFare.days) ? state.lastFare.days : '',
-      pax: $('f_pax').value,
-      bags: $('f_luggage').value||'0',
-      flight: flight,
-      fare: fareTotalNum || '',
-      corporate: state.corporate ? 'Yes' : 'No',
-      company: company,
-      billEmail: billEmail,
-      tin: tin,
-      name: $('f_name').value.trim(),
-      phone: $('f_phone').value.trim(),
-      email: em,
-      payment: $('f_payment').value,
-      terms: getPayTerms(svcType, state.corporate),
-      partner: partnerDispatchLine(),
-      preferred: ($('f_pref_partner') && $('f_pref_partner').selectedIndex>0) ? $('f_pref_partner').options[$('f_pref_partner').selectedIndex].text : '',
-      channel: state.sendMethod,
-      notes: $('f_notes').value.trim(),
-      gocav20: fareTotalNum ? Math.round(fareTotalNum*0.20) : '',
-      partner80: fareTotalNum ? Math.round(fareTotalNum*0.80) : ''
-    };
-    postBookingToSheet(sheetRow);
-    if($('saveSheetBtn')) $('saveSheetBtn').href = sheetLogUrl(sheetRow);
-    $('resendEm').href = emLink;
-    $('resendWa').href = waLink;
-    $('resendVb').href = vbLink;
-    $('booking').style.display='none';
-    $('successScreen').style.display='block';
-    $('successScreen').scrollIntoView({behavior:'smooth'});
-    setTimeout(function(){
+      var svc = $('f_service').value, parts = svc.split('|');
+      var svcName = parts[1]||'Custom', svcType = parts[2]||'';
+      var vname = state.selectedVehicle ? VEHICLES[state.selectedVehicle].name : 'To be assigned';
+      var rateText = 'See quotation';
+      if(state.lastFare && state.lastFare.total){
+        if(state.lastFare.dayRentalMulti) rateText = 'Estimated ₱'+state.lastFare.total.toLocaleString()+' ('+state.lastFare.days+'-day site visit, excess billed separately)';
+        else if(state.lastFare.dayRental) rateText = 'Estimated ₱'+state.lastFare.total.toLocaleString()+' (full-day, excess billed separately)';
+        else rateText = 'Estimated ₱'+state.lastFare.total.toLocaleString()+' (computed from distance)';
+      }
+      var fareTotalNum = (state.lastFare && state.lastFare.total) ? state.lastFare.total : null;
+      var fareLinesArr = (state.lastFare && state.lastFare.lines) ? state.lastFare.lines : null;
+      var ref = 'GC'+Date.now().toString().slice(-10);
+      var flight = $('f_flight').value.trim();
+      var fareDetail = '';
+      if(fareLinesArr && fareLinesArr.length && !(state.lastFare && state.lastFare.custom)){
+        fareDetail = 'Fare Breakdown:\n';
+        fareLinesArr.forEach(function(l){
+          var valFormatted = (l.val === 0 && l.zeroToll) ? '₱0 (Toll-Free)' : ((l.val<0?'-₱':'₱')+Math.abs(Math.round(l.val)).toLocaleString());
+          fareDetail += '  '+l.label+': '+valFormatted+'\n';
+        });
+        if(fareTotalNum) fareDetail += '  ESTIMATED TOTAL: ₱'+fareTotalNum.toLocaleString()+'\n';
+      }
+      var intent = state.intent || 'book';
+      var corpLine = state.corporate ? 'Account: CORPORATE (loyalty rates & consolidated invoicing)\n' : '';
+      var company = ($('f_company') && $('f_company').value.trim()) || '';
+      var billEmail = ($('f_bill_email') && $('f_bill_email').value.trim()) || '';
+      var tin = ($('f_tin') && $('f_tin').value.trim()) || '';
+      var companyBlock = '';
+      if(company) companyBlock += 'Company: '+company+'\n';
+      if(billEmail) companyBlock += 'Billing email: '+billEmail+'\n';
+      if(tin) companyBlock += 'TIN: '+tin+'\n';
+
+      var routeLabels = {
+        fastest: 'Elevated / Fastest (SLEX / Skyway / NAIAX)',
+        standard: 'Standard Expressway (At-grade SLEX / CAVITEX)',
+        budget: 'Economical (Zero Toll Bypass)'
+      };
+      var routeTxt = routeLabels[state.routePref] || 'Elevated / Fastest';
+
+      var isSplitTrip = (svcType==='TRANSFER_ROUND_SPLIT' || svcType==='TRANSFER_ROUND_MULTIDAY');
+      var splitSchedule = '';
+      if(isSplitTrip){
+        splitSchedule = 'Trip 1 Departure: '+$('f_date').value+' @ '+$('f_time').value+' ('+$('f_pickup').value+' → '+$('f_dropoff').value+')\n' +
+                        'Trip 2 Return: '+($('f_return_date').value||$('f_date').value)+' @ '+$('f_return_time').value+' ('+$('f_dropoff').value+' → '+$('f_pickup').value+')\n' +
+                        ($('f_return_flight').value.trim() ? ('Return Flight: '+$('f_return_flight').value.trim()+'\n') : '');
+      }
+      
+      var standbyDuration = '';
+      if(svcType==='TRANSFER_ROUND_SAMEDAY') {
+        var wHrs = $('f_wait_hrs') ? ($('f_wait_hrs').value || '2') : '2';
+        standbyDuration = 'Est. Wait Time: ' + wHrs + ' hours\n';
+      }
+
+      var msgHead = (intent==='quote') ? 'QUOTATION REQUEST — REF: '+ref : 'NEW BOOKING — REF: '+ref;
+      var msg = msgHead+'\n' +
+        '══════════════════════\n' + corpLine +
+        'Client: '+$('f_name').value.trim()+'\n' +
+        'Email: '+em+'\n' +
+        'Phone: '+$('f_phone').value.trim()+'\n' +
+        companyBlock +
+        'Passengers: '+$('f_pax').value+' · Bags: '+($('f_luggage').value||'0')+'\n' +
+        'Vehicle: '+vname+'\n' +
+        'Route: '+routeTxt+'\n' +
+        partnerDispatchLine()+'\n' +
+        'Rate: '+rateText+'\n' +
+        fareDetail +
+        'Service: '+svcName+'\n' +
+        (isSplitTrip ? splitSchedule : (
+          ((state.lastFare && (state.lastFare.dayRentalMulti || svcType==='DAYRENTAL_OOT')) ? ('Duration: '+state.lastFare.days+' consecutive days\n') : '') +
+          standbyDuration +
+          'Date: '+$('f_date').value+' · Time: '+$('f_time').value+((state.lastFare && (state.lastFare.dayRentalMulti || svcType==='DAYRENTAL_OOT'))?' (start / daily pickup)':'')+'\n' +
+          (flight?'Flight: '+flight+'\n':'') +
+          'From: '+$('f_pickup').value.trim()+'\n' +
+          'To: '+$('f_dropoff').value.trim()+'\n'
+        )) +
+        'Payment: '+$('f_payment').value+'\n' +
+        'Terms: '+getPayTerms(svcType, state.corporate)+'\n' +
+        'Notes: '+($('f_notes').value.trim()||'None')+'\n' +
+        'Sent via: '+state.sendMethod+'\n' +
+        '══════════════════════\n' +
+        'GoCav Transport Services\n63976-046-5134 / 63955-435-5514\ngocav.transport@gmail.com';
+
+      var subject = (intent==='quote'?'Quotation ':'Booking ')+ref+' — '+$('f_name').value.trim();
+      var emLink = 'mailto:'+EM+'?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(msg);
+      var waLink = 'https://wa.me/'+WA+'?text='+encodeURIComponent(msg);
+      var vbLink = 'viber://chat?number='+VB;
+
+      state.lastBooking = {
+        ref: ref, date: new Date().toLocaleDateString('en-PH'),
+        name: $('f_name').value.trim(), email: em, phone: $('f_phone').value.trim(),
+        company: company, billEmail: billEmail, tin: tin,
+        intent: intent,
+        corporate: state.corporate,
+        service: svcName, vehicle: vname, partnerLine: partnerDispatchLine(),
+        route: routeTxt,
+        datetime: $('f_date').value+' '+$('f_time').value,
+        from: $('f_pickup').value.trim(), to: $('f_dropoff').value.trim(), flight: flight,
+        isSplit: isSplitTrip,
+        depDate: $('f_date').value,
+        depTime: $('f_time').value,
+        returnDate: $('f_return_date').value || $('f_date').value,
+        returnTime: $('f_return_time').value || '',
+        returnFlight: $('f_return_flight').value.trim() || '',
+        pax: $('f_pax').value, bags: $('f_luggage').value||'0',
+        payment: $('f_payment').value, rateText: rateText,
+        payTerms: getPayTerms(svcType, state.corporate),
+        svcType: svcType,
+        dayRental: !!(state.lastFare && state.lastFare.dayRental),
+        dayRentalMulti: !!(state.lastFare && state.lastFare.dayRentalMulti),
+        dayRentalOOT: (svcType==='DAYRENTAL_OOT'),
+        days: (state.lastFare && state.lastFare.days) ? state.lastFare.days : null,
+        waitHrs: $('f_wait_hrs') ? $('f_wait_hrs').value : null,
+        fareLines: fareLinesArr, fareTotal: fareTotalNum
+      };
+
+      $('refNo').textContent = ref;
+      if(intent==='quote'){
+        $('followUpNote').textContent = 'Quotation request received — this is not a dispatch yet. Download the PDF and send proof only after you confirm the trip.';
+      } else if(state.corporate){
+        $('followUpNote').textContent = 'Corporate booking received — expect consolidated invoicing. Driver and plate will be sent on Viber/WhatsApp the day before. Tap below for your PDF.';
+      } else {
+        $('followUpNote').textContent = 'Thank you! Driver and plate will be confirmed on Viber/WhatsApp the day before pickup. Tap below to download your PDF.';
+      }
+
+      var sheetRow = {
+        timestamp: new Date().toISOString(),
+        ref: ref,
+        type: intent==='quote' ? 'Quotation' : 'Booking',
+        service: svcName,
+        vehicle: vname,
+        pickup: $('f_pickup').value.trim(),
+        dropoff: $('f_dropoff').value.trim(),
+        date: $('f_date').value,
+        time: $('f_time').value,
+        days: (state.lastFare && state.lastFare.days) ? state.lastFare.days : '',
+        pax: $('f_pax').value,
+        bags: $('f_luggage').value||'0',
+        flight: flight,
+        fare: fareTotalNum || '',
+        corporate: state.corporate ? 'Yes' : 'No',
+        company: company,
+        billEmail: billEmail,
+        tin: tin,
+        name: $('f_name').value.trim(),
+        phone: $('f_phone').value.trim(),
+        email: em,
+        payment: $('f_payment').value,
+        terms: getPayTerms(svcType, state.corporate),
+        partner: partnerDispatchLine(),
+        preferred: 'Auto-coordinated by GoCav',
+        channel: state.sendMethod,
+        notes: $('f_notes').value.trim(),
+        gocav20: fareTotalNum ? Math.round(fareTotalNum*0.20) : '',
+        partner80: fareTotalNum ? Math.round(fareTotalNum*0.80) : ''
+      };
+      
       try {
-        if(state.sendMethod==='Email'){
-          var a = document.createElement('a');
-          a.href = emLink; a.target = '_blank'; a.rel = 'noopener noreferrer';
-          document.body.appendChild(a); a.click(); a.remove();
-        } else if(state.sendMethod==='WhatsApp'){
+        if(typeof postBookingToSheet === 'function') postBookingToSheet(sheetRow);
+        if($('saveSheetBtn') && typeof sheetLogUrl === 'function') $('saveSheetBtn').href = sheetLogUrl(sheetRow);
+      } catch(sheetErr) {
+        console.warn("Sheet logging skipped", sheetErr);
+      }
+
+      $('resendEm').href = emLink;
+      $('resendWa').href = waLink;
+      $('resendVb').href = vbLink;
+      $('booking').style.display='none';
+      $('successScreen').style.display='block';
+      $('successScreen').scrollIntoView({behavior:'smooth'});
+
+      try {
+        if(state.sendMethod === 'Email'){
+          window.location.href = emLink; 
+        } else if(state.sendMethod === 'WhatsApp'){
           var a2 = document.createElement('a');
-          a2.href = waLink; a2.target = '_blank'; a2.rel = 'noopener noreferrer';
+          a2.href = waLink; a2.target = '_blank'; a2.rel = 'noopener';
           document.body.appendChild(a2); a2.click(); a2.remove();
         } else {
-          var a3 = document.createElement('a');
-          a3.href = vbLink;
-          document.body.appendChild(a3); a3.click(); a3.remove();
+          window.location.href = vbLink;
         }
       } catch(navErr){}
-    }, 500);
+
     } catch(err){
       console.error('Booking submit error', err);
       btn.disabled = false; btn.textContent = 'Confirm & Send Booking';
-      alert('Something went wrong preparing your booking. Please check all fields and try again, or message us on WhatsApp.');
+      alert('Something went wrong preparing your booking. Please check all fields and try again.');
     }
   });
+
   $('dlQuote').addEventListener('click', generatePDF);
   $('newBooking').addEventListener('click', function(){
     $('successScreen').style.display='none';
     $('booking').style.display='block';
     $('bkForm').reset();
-    state.selectedVehicle=null; state.sendMethod='Email'; state.step=1; state.lastFare=null; state.lastBooking=null; state.corporate=false; state.intent='book';
+    state.selectedVehicle=null; state.sendMethod='Email'; state.step=1; state.lastFare=null; state.lastBooking=null; state.corporate=false; state.intent='book'; state.routePref='fastest';
     document.querySelectorAll('.send-opt').forEach(function(o,i){ o.classList.toggle('selected', i===0); });
     document.querySelectorAll('.service-card').forEach(function(c){ c.classList.remove('selected'); });
     $('vehicleOptions').innerHTML='';
@@ -1885,8 +2511,14 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
     { name:'Biñan', match:['biñan','binan'] },
     { name:'San Pedro', match:['san pedro'] },
     { name:'Cabuyao', match:['cabuyao'] },
-    { name:'Calamba', match:['calamba'] }
+    { name:'Calamba', match:['calamba'] },
+    { name:'Baguio', match:['baguio'] },
+    { name:'Subic', match:['subic'] },
+    { name:'Clark / Angeles', match:['angeles','clark'] },
+    { name:'Batangas City', match:['batangas'] },
+    { name:'Lucena', match:['lucena'] }
   ];
+
   function partnerCountForCity(city){
     var ms = city.match || [];
     var n = 0;
@@ -1898,55 +2530,64 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
   }
 
   var PARTNER_UNITS = [
-    { id:'tom-accent', driver:'Tom', phone:'0995-435-55114', plate:'NGF 5260', unit:'Hyundai Accent', cls:'accent', base:'General Trias', keys:['general trias','gentri','le rica','imus','dasmari','kawit','bacoor','paranaque','parañaque','las pinas','las piñas','trece','trace','alabang','muntinlupa'] },
-    { id:'tom-montero', driver:'Tom', phone:'0995-435-55114', plate:'WIX 453', unit:'Mitsubishi Montero', cls:'montero', base:'Las Piñas', keys:['las pinas','las piñas','bacoor','molino','paranaque','parañaque','imus','dasmari','alabang','muntinlupa'] },
-    { id:'ramon-mirage', driver:'Ramon', phone:'0927-417-6683', plate:'NFN 1971', unit:'Mitsubishi Mirage G4', cls:'accent', base:'Dasmariñas', keys:['dasmari','gma','carmona','imus','general trias','gentri'] },
-    { id:'heman-avanza', driver:'Heman', phone:'0956-187-9849', plate:'DBS 3479', unit:'Toyota Avanza', cls:'avanza', base:'Las Piñas', keys:['las pinas','las piñas','muntinlupa','imus','bacoor','paranaque','parañaque','alabang'] },
-    { id:'rommel-mirage', driver:'Rommel', phone:'0977-791-2003', plate:'NIL 7317', unit:'Mitsubishi Mirage', cls:'accent', base:'Tanza', keys:['tanza','kawit','trece','trace','dasmari'] },
-    { id:'jessie-mirage', driver:'Jessie', phone:'0999-486-7533', plate:'NKH 7122', unit:'Mitsubishi Mirage', cls:'accent', base:'Las Piñas', keys:['las pinas','las piñas','paranaque','parañaque','muntinlupa','alabang'] },
-    { id:'jose-expander', driver:'Jose Michael', phone:'0995-580-8288', plate:'DAS 3211', unit:'Mitsubishi Xpander', cls:'avanza', base:'Muntinlupa', keys:['muntinlupa','san pedro','las pinas','las piñas','alabang'] }
+    { id:'tom-accent', driver:'Tom', phone:'63955-435-5514', plate:'NGF 5260', unit:'Hyundai Accent', cls:'accent', base:'General Trias', keys:['general trias','gentri','le rica','imus','dasmari','kawit','bacoor','paranaque','parañaque','las pinas','las piñas','trece','trace','alabang','muntinlupa'] },
+    { id:'tom-montero', driver:'Tom', phone:'63955-435-5514', plate:'WIX 453', unit:'Mitsubishi Montero', cls:'montero', base:'Las Piñas', keys:['las pinas','las piñas','bacoor','molino','paranaque','parañaque','imus','dasmari','alabang','muntinlupa'] },
+    { id:'ramon-mirage', driver:'Ramon', phone:'63927-417-6683', plate:'NFN 1971', unit:'Mitsubishi Mirage G4', cls:'accent', base:'Dasmariñas', keys:['dasmari','gma','carmona','imus','general trias','gentri'] },
+    { id:'heman-avanza', driver:'Heman', phone:'63956-187-9849', plate:'DBS 3479', unit:'Toyota Avanza', cls:'avanza', base:'Las Piñas', keys:['las pinas','las piñas','muntinlupa','imus','bacoor','paranaque','parañaque','alabang'] },
+    { id:'rommel-mirage', driver:'Rommel', phone:'63977-791-2003', plate:'NIL 7317', unit:'Mitsubishi Mirage', cls:'accent', base:'Tanza', keys:['tanza','kawit','trece','trace','dasmari'] },
+    { id:'jessie-mirage', driver:'Jessie', phone:'63999-486-7533', plate:'NKH 7122', unit:'Mitsubishi Mirage', cls:'accent', base:'Las Piñas', keys:['las pinas','las piñas','paranaque','parañaque','muntinlupa','alabang'] },
+    { id:'jose-expander', driver:'Jose Michael', phone:'63995-580-8288', plate:'DAS 3211', unit:'Mitsubishi Xpander', cls:'avanza', base:'Muntinlupa', keys:['muntinlupa','san pedro','las pinas','las piñas','alabang'] }
   ];
+
   function matchPartnerUnits(){
     var pickup = (($('f_pickup')&&$('f_pickup').value)||'').toLowerCase();
     var drop = (($('f_dropoff')&&$('f_dropoff').value)||'').toLowerCase();
     var blob = pickup+' '+drop;
     var want = state.selectedVehicle || '';
-    var scored = PARTNER_UNITS.map(function(u){
+    var pax = parseInt($('f_pax') ? $('f_pax').value : 0) || 0;
+    var scored = [];
+    
+    PARTNER_UNITS.forEach(function(u){
+      if(pax > 4 && u.cls === 'accent') return;
       var loc = 0;
       (u.keys||[]).forEach(function(k){ if(blob.indexOf(k)!==-1) loc += 2; });
       var veh = 0;
       if(!want) veh = 1;
       else if(want===u.cls) veh = 3;
       else veh = 0;
-      return { u:u, score: loc*2 + veh, loc:loc, veh:veh };
-    }).filter(function(x){ return x.loc>0; }).sort(function(a,b){ return b.score-a.score; });
-    return scored;
+      scored.push({ u:u, score: loc*2 + veh, loc:loc, veh:veh });
+    });
+    return scored.sort(function(a,b){ return b.score-a.score; });
   }
+
   function renderPartnerSuggest(){
-    var box = $('partnerSuggestBox'), list = $('partnerSuggestList'), sel = $('f_pref_partner');
-    if(!box||!list||!sel) return;
+    var box = $('partnerSuggestBox'), list = $('partnerSuggestList');
+    if(!box||!list) return;
     var pickupOn = $('f_pickup') && $('f_pickup').value.trim().length>=3;
     if(!pickupOn){ box.style.display='none'; return; }
     var hits = matchPartnerUnits();
-    if(sel){ sel.value=''; sel.style.display='none'; }
     box.style.display = 'block';
     if(!hits.length){
-      list.innerHTML = '<p style="margin:0;color:var(--text)">We are looking for the nearest available driver in your area. The unit will be confirmed the day before pickup.</p>';
-      return;
+      hits = PARTNER_UNITS.map(function(u){ return { u:u, score:1 }; });
     }
     var className = { accent:'Sedan', avanza:'6-Seater', montero:'SUV' };
-    var u = hits[0].u;
-    var cls = className[u.cls] || u.cls;
-    var fit = hits[0].veh>=3 ? ' · fits your selected class' : '';
-    list.innerHTML = '<p style="margin:0 0 6px;color:var(--muted);font-size:13px">Nearest available based on your pickup:</p><div style="margin:4px 0"><strong>'+u.driver+'</strong> · '+cls+' · '+u.unit+fit+'</div>';
+    var topUnits = hits.slice(0, 4);
+    list.innerHTML = '<p style="margin:0 0 6px;color:var(--muted);font-size:13px">Available Driver Units:</p>' + topUnits.map(function(x, idx){
+      var u = x.u;
+      var cls = className[u.cls] || u.cls;
+      var role = idx === 0 ? '<strong style="color:var(--gold-light)">[Nearest Match]</strong>' : '<span style="color:var(--muted)">[Alternative #' + idx + ']</span>';
+      return '<div style="margin:4px 0">' + role + ' <strong>' + u.driver + '</strong> · ' + cls + ' (' + u.unit + ')</div>';
+    }).join('');
   }
+
   function partnerDispatchLine(){
-    var u = null;
     var hits = matchPartnerUnits();
-    if(hits.length) u = hits[0].u;
-    if(!u) return 'Partner unit: to be assigned';
-    return 'Suggested partner: '+u.driver+(u.phone?' '+u.phone:'')+' · '+u.unit+' '+u.plate+' · base '+u.base;
+    if(!hits.length) return 'Partner unit: Auto-assigned from nearest base';
+    var primary = hits[0].u;
+    var backups = hits.slice(1, 4).map(function(x){ return x.u.driver + ' (' + x.u.base + ')'; }).join(', ');
+    return 'Assigned Driver: ' + primary.driver + ' (' + primary.unit + ' ' + primary.plate + ', Base: ' + primary.base + ')' + (backups ? ' | Alternates: ' + backups : '');
   }
+
   var PARTNER_SLOTS = 2;
   function renderPartnerCities(){
     var grid = $('partnerCityGrid'), sel = $('p_city');
@@ -1976,17 +2617,22 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
       }
     });
   }
+
   function showPErr(id, on){ var el=$('err_'+id); if(el) el.classList.toggle('show', !!on); }
   function partnerPayload(){
     var name = ($('p_name').value||'').trim();
     var phone = ($('p_phone').value||'').replace(/\D/g,'');
-    if(phone.length===12 && phone.indexOf('63')===0) phone = '0'+phone.slice(2);
-    if(phone.length===10 && phone.charAt(0)==='9') phone = '0'+phone;
+    if(phone.length < 12 || !phone.startsWith('63')){
+      showPErr('pphone', true);
+      return null;
+    } else {
+      showPErr('pphone', false);
+    }
+    
     var city = $('p_city').value;
     var veh = $('p_vehicle').value;
     var ok = true;
     showPErr('pname', !name); if(!name) ok=false;
-    showPErr('pphone', phone.length<11); if(phone.length<11) ok=false;
     showPErr('pcity', !city); if(!city) ok=false;
     showPErr('pvehicle', !veh); if(!veh) ok=false;
     if(!ok) return null;
@@ -2046,7 +2692,6 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
     restart();
   })();
 
-
   function updateFleetCounts(){
     var map={accent:0,avanza:0,montero:0};
     (PARTNER_UNITS||[]).forEach(function(u){ if(map[u.cls]!=null) map[u.cls]++; });
@@ -2059,39 +2704,11 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
     });
   }
   updateFleetCounts();
-
-  (function(){
-    var deferred = null;
-    var bar = $('pwaInstallBar'), btn = $('pwaInstallBtn'), hide = $('pwaInstallHide');
-    var standalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
-    function showBar(){ if(bar && !standalone && !localStorage.getItem('gocav_hide_pwa')) bar.style.display = 'flex'; }
-    showBar();
-    window.addEventListener('beforeinstallprompt', function(e){
-      e.preventDefault();
-      deferred = e;
-      showBar();
-    });
-    if(btn) btn.addEventListener('click', function(){
-      if(!deferred){
-        alert('On Android Chrome: tap the menu (⋮) then Add to Home screen / Install app.');
-        return;
-      }
-      deferred.prompt();
-      deferred.userChoice.finally(function(){ deferred=null; if(bar) bar.style.display='none'; });
-    });
-    if(hide) hide.addEventListener('click', function(){
-      if(bar) bar.style.display='none';
-      try { localStorage.setItem('gocav_hide_pwa','1'); } catch(e){}
-    });
-    if('serviceWorker' in navigator){
-      navigator.serviceWorker.register('./sw.js').catch(function(){});
-    }
-  })();
-
   renderPartnerCities();
   if($('p_send_wa')) $('p_send_wa').addEventListener('click', function(){ sendPartner('wa'); });
   if($('p_send_vb')) $('p_send_vb').addEventListener('click', function(){ sendPartner('vb'); });
   if($('p_send_em')) $('p_send_em').addEventListener('click', function(){ sendPartner('em'); });
+
   onServiceChange();
   renderVehicles();
   updateSummary();
