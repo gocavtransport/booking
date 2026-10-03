@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GoCav Transport — Premium Chauffeur Service | Cavite · NCR · Luzon</title>
 <meta name="description" content="Professional chauffeur service from Cavite to NAIA, Metro Manila, Northern & Southern Luzon. Live fare estimates, instant PDF quotation.">
+<link rel="manifest" href="manifest.json">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Public+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -20,7 +21,7 @@
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{font-family:'Public Sans',sans-serif;background:var(--bg);color:var(--text);margin:0;line-height:1.6;font-size:15px}
+body{font-family:'Public Sans',sans-serif;background:var(--bg);color:var(--text);margin:0;line-height:1.6;font-size:15px;padding-bottom:env(safe-area-inset-bottom)}
 h1,h2,h3,.serif{font-family:'Cormorant Garamond',serif;letter-spacing:-.01em}
 .reveal{opacity:1;transform:none}
 .reveal.in{opacity:1;transform:translateY(0)}
@@ -145,17 +146,22 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
 .fare-calc{font-size:11px;color:#6a6c82;font-style:italic}
 .pdf-btn{display:inline-flex;align-items:center;gap:8px;background:var(--card2);border:1px solid var(--gold);color:var(--gold-light);padding:12px 20px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;margin-top:14px}
 .pdf-btn:hover{background:var(--gold-soft);transform:translateY(-1px)}
-@media (max-width:640px){
+@media (max-width:768px){
   body{font-size:16px}
+  input,select,textarea{font-size:16px!important}
   .nav-link{font-size:15px}
   .faq-q{font-size:16px}
   .summary-row{font-size:15px}
   .err-msg{font-size:14px}
   .step-label{font-size:13px}
-  .gold-btn,.ghost-btn{font-size:16px;padding:15px 22px}
+  .gold-btn,.ghost-btn{font-size:16px;padding:15px 22px;width:100%;justify-content:center}
   label.block{font-size:15px!important}
   .testi-card p{font-size:15px}
   footer p{font-size:14px}
+  .vehicle-opt, .service-card, .send-opt{padding:18px 14px}
+}
+@media (max-width:1024px){
+  #booking > div > div:last-child{position:static!important;margin-top:20px}
 }
 </style>
 </head>
@@ -273,28 +279,28 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
     <span style="font-size:13px;color:var(--muted)">Full-Day &amp; Multi-Day Site Visits — <strong style="color:var(--text)">8 hrs / 100 km per day</strong> · Flat day rate by zone · 2-way toll · Corporate multi-day loyalty</span>
   </div>
   <div class="svc-slider reveal" id="svcSlider">
-    <div class="svc-slide on" data-service="DAYRENTAL|Full-Day Rental / Site Visit|DAYRENTAL"><img src="https://i.imgur.com/FFXAIo9.jpeg" alt="Full-Day Rental / Site Visit"></div>
-    <div class="svc-slide" data-service="DAYRENTAL_MULTI|Multi-Day Site Visit - Same Route Daily|DAYRENTAL_MULTI"><img src="https://i.imgur.com/4goIJsc.jpeg" alt="Multi-Day Site Visit"></div>
-    <div class="svc-slide" data-service="ROUND_SPLIT|Same-Day Split Transfer (AM Drop-off + PM Return)|TRANSFER_ROUND_SPLIT"><img src="https://i.imgur.com/iPuV1j2.jpeg" alt="Split Transfer"></div>
+    <div class="svc-slide on" data-service="DAYRENTAL|Full-Day Rental / Site Visit|DAYRENTAL"><img src="https://i.imgur.com/925sk4j.jpeg" alt="Full-Day Rental / Site Visit"></div>
+    <div class="svc-slide" data-service="DAYRENTAL_MULTI|Multi-Day Site Visit - Same Route Daily|DAYRENTAL_MULTI"><img src="https://i.imgur.com/NRYLDMR.jpeg" alt="Multi-Day Site Visit"></div>
+    <div class="svc-slide" data-service="ROUND_SPLIT|Same-Day Split Transfer (AM Drop-off + PM Return)|TRANSFER_ROUND_SPLIT"><img src="https://i.imgur.com/IZUEKJe.jpeg" alt="Split Transfer"></div>
     <div class="svc-dots" id="svcDots"></div>
   </div>
   <div class="grid md:grid-cols-3 gap-5">
     <div class="card-el service-card reveal p-6 text-center" data-service="DAYRENTAL|Full-Day Rental / Site Visit|DAYRENTAL">
-      <img src="https://i.imgur.com/FFXAIo9.jpeg" alt="Full-Day Rental / Site Visit" style="width:100%;height:200px;object-fit:cover;object-position:center top;border-radius:12px;margin-bottom:14px" onerror="this.style.display='none'">
+      <img src="https://i.imgur.com/925sk4j.jpeg" alt="Full-Day Rental / Site Visit" style="width:100%;height:200px;object-fit:cover;object-position:center top;border-radius:12px;margin-bottom:14px" onerror="this.style.display='none'">
       <h3 class="serif" style="font-size:24px;font-weight:700;margin:0 0 4px">Full-Day Rental / Site Visit</h3>
       <p style="color:var(--muted);font-size:14px;margin:0 0 10px">Pickup → multiple stops → returned to original pickup point. Corporate accounts welcome.</p>
       <div style="color:var(--gold-light);font-weight:700;font-size:15px">Sedan ₱4,500 · 6-Seater ₱5,500 · SUV ₱6,000 / day</div>
       <button type="button" class="gold-btn px-4 py-2 rounded-lg text-sm" style="margin-top:14px;width:100%">Book this service</button>
     </div>
     <div class="card-el service-card reveal p-6 text-center" data-service="DAYRENTAL_MULTI|Multi-Day Site Visit - Same Route Daily|DAYRENTAL_MULTI">
-      <img src="https://i.imgur.com/4goIJsc.jpeg" alt="Multi-Day Site Visit" style="width:100%;height:200px;object-fit:cover;object-position:center top;border-radius:12px;margin-bottom:14px" onerror="this.style.display='none'">
+      <img src="https://i.imgur.com/NRYLDMR.jpeg" alt="Multi-Day Site Visit" style="width:100%;height:200px;object-fit:cover;object-position:center top;border-radius:12px;margin-bottom:14px" onerror="this.style.display='none'">
       <h3 class="serif" style="font-size:24px;font-weight:700;margin:0 0 4px">Multi-Day Site Visit</h3>
       <p style="color:var(--muted);font-size:14px;margin:0 0 10px">Same route over consecutive days (audits, plant visits). Returned to pickup daily. Corporate · 2–7 days.</p>
       <div style="color:var(--gold-light);font-weight:700;font-size:15px">From ₱4,500–₱6,000/day · 5%/8% corporate loyalty</div>
       <button type="button" class="gold-btn px-4 py-2 rounded-lg text-sm" style="margin-top:14px;width:100%">Book this service</button>
     </div>
     <div class="card-el service-card reveal p-6 text-center" data-service="ROUND_SPLIT|Same-Day Split Transfer (AM Drop-off + PM Return)|TRANSFER_ROUND_SPLIT">
-      <img src="https://i.imgur.com/iPuV1j2.jpeg" alt="Airport Round Trip" style="width:100%;height:200px;object-fit:cover;object-position:center top;border-radius:12px;margin-bottom:14px" onerror="this.style.display='none'">
+      <img src="https://i.imgur.com/IZUEKJe.jpeg" alt="Airport Round Trip" style="width:100%;height:200px;object-fit:cover;object-position:center top;border-radius:12px;margin-bottom:14px" onerror="this.style.display='none'">
       <h3 class="serif" style="font-size:24px;font-weight:700;margin:0 0 4px">Split-Day Airport Run</h3>
       <p style="color:var(--muted);font-size:14px;margin:0 0 10px">Morning drop-off, return evening pickup (same or next day). 10% off the return trip. No waiting fees.</p>
       <div style="color:var(--gold-light);font-weight:700;font-size:15px">Two Dedicated Dispatches · NAIA &amp; Clark</div>
@@ -945,6 +951,16 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
 </footer>
 </div>
 
+<!-- Install PWA Popup Banner -->
+<div id="installPopup" style="display:none;position:fixed;bottom:20px;left:20px;right:20px;max-width:400px;margin:0 auto;background:#1c1c28;border:1px solid rgba(212,175,55,0.4);padding:16px;border-radius:14px;z-index:9999;box-shadow:0 10px 30px rgba(0,0,0,0.5);text-align:center;">
+  <div style="font-weight:700;color:#f0d060;margin-bottom:6px;font-size:16px;">Install GoCav App</div>
+  <p id="installText" style="color:#8b8da3;font-size:13px;margin:0 0 14px;">Add GoCav to your home screen for quick access and instant bookings.</p>
+  <div style="display:flex;gap:10px;justify-content:center;">
+    <button type="button" id="installBtn" class="gold-btn" style="padding:10px 20px;border-radius:8px;font-size:14px;">Install App</button>
+    <button type="button" id="closeInstall" class="ghost-btn" style="padding:10px 20px;border-radius:8px;font-size:14px;">Later</button>
+  </div>
+</div>
+
 <script>
 (function(){
   var state = {
@@ -1353,11 +1369,9 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
       airportPremiumPerLeg = v.clarkFee;
     }
 
-    // Distance multiplier for standalone legs > 20 km (covers driver empty return)
     var oneWayDeadheadFactor = (oneLegKm > 20) ? 1.4 : 1.0;
 
     if(isSplit || isMulti){
-      // TRIP 1: Dedicated Outbound Dispatch (includes empty return recovery)
       var trip1Base = v.base + airportPremiumPerLeg;
       var trip1DistanceFee = Math.max(oneLegKm * v.perKm * oneWayDeadheadFactor, v.minFare);
       var trip1Sub = Math.round(trip1Base + trip1DistanceFee);
@@ -1370,7 +1384,6 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
       });
       if(trip1Night) lines.push({ label: 'Trip 1 Night Surcharge (22:00–06:00 [+15%])', val: trip1NightFee });
 
-      // TRIP 2: Dedicated Return Dispatch (10% Loyalty Discount applied to base + distance)
       var trip2Base = trip1Base * 0.90;
       var trip2DistanceFee = trip1DistanceFee * 0.90;
       var trip2Sub = Math.round(trip2Base + trip2DistanceFee);
@@ -1385,7 +1398,6 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
 
       total += (trip1Sub + trip1NightFee + trip2Sub + trip2NightFee);
 
-      // Positioning to initial pickup point
       if(!isBaseZone(pickupTxt)){
         var posKm = roadKm(HOME, pg2);
         var posFee = posKm * v.repositionKm;
@@ -1393,7 +1405,6 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
         total += posFee;
       }
 
-      // Tolls for two dedicated dispatches
       tollDataTrans.lines.forEach(function(segment){
         var dailySegVal = segment.val * 2;
         lines.push({ label: segment.label + ' (2 dispatches)', val: dailySegVal, zeroToll: segment.zeroToll });
@@ -1403,7 +1414,6 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
       note.innerHTML = '✓ Two dedicated dispatches · No waiting time fees · 10% return trip discount applied · Tolls included';
 
     } else {
-      // STANDBY / IMMEDIATE RETURN & ONE-WAY TRANSFERS
       var isRound = isSameDay;
       var isLongHaulRound = (isRound && oneLegKm > 120);
       var isLongDistanceOneWay = (!isRound && (oneLegKm > 20 || isClark(dropoffTxt) || /baguio|subic|tarlac|angeles|lucena|batangas|laguna|tagaytay/i.test(dropoffTxt)));
@@ -1440,7 +1450,6 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
       lines.push({ label: distanceLabel, val: loaded });
       total += loaded;
 
-      // --- NEW STANDBY WAITING TIME LOGIC ---
       if (isSameDay) {
         var waitHrs = parseFloat($('f_wait_hrs').value) || 2;
         if (waitHrs > 2) {
@@ -1453,7 +1462,6 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
           total += waitFee;
         }
       }
-      // --------------------------------------
 
       if(!isBaseZone(pickupTxt)){
         var posKm = roadKm(HOME, pg2);
@@ -1513,7 +1521,6 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
     var pTime = $('f_time').value;
     var rTime = $('f_return_time').value;
 
-    // Only calculate if all times and locations are filled out
     if (pTime && rTime && pt && dt) {
         var pg = findGeo(pt);
         var dg = findGeo(dt);
@@ -1526,17 +1533,11 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
         var dMins = parseInt(dParts[0], 10) * 60 + parseInt(dParts[1], 10);
         var rMins = parseInt(rParts[0], 10) * 60 + parseInt(rParts[1], 10);
         
-        // If return time is past midnight
         if (rMins < dMins) rMins += 24 * 60; 
         
-        // Estimate 1-way travel time: 1.5 mins per km (roughly 40 km/h average)
         var travelMins = km * 1.5; 
-        
-        // Waiting time = (Time between pickups) - (Travel Time)
         var calculatedWait = (rMins - dMins) - travelMins;
         var autoWaitHrs = Math.max(0, calculatedWait / 60);
-        
-        // Round to nearest half hour (e.g., 4.5 hours)
         autoWaitHrs = Math.round(autoWaitHrs * 2) / 2; 
         
         var waitInput = $('f_wait_hrs');
@@ -1597,8 +1598,8 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
           doc.setTextColor(26,20,5);
           doc.setFont('helvetica','bold'); doc.setFontSize(18);
           doc.text('GoCav Transport Services', textLeft, 26);
-          doc.setFont('helvetica','normal'); doc.setFontSize(8.5);
-          doc.text('Premium Chauffeur Service · Luzon Wide', textLeft, 40);
+          doc.setFont('helvetica','normal'); doc.setFontSize(7.5);
+          doc.text('Premium Chauffeur Service · The Pride of Cavite, Serving All of Luzon', textLeft, 40);
           doc.setFontSize(8);
           doc.text('63976-046-5134 / 63955-435-5514 · gocav.transport@gmail.com', textLeft, 54);
           doc.text('Address: Le Rica Homes, Begonia St B19 L68, Brgy. San Francisco, General Trias, Cavite', textLeft, 68);
@@ -1626,8 +1627,7 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
           doc.text('Service: '+b.service, 40, y); y+=15;
           doc.text('Vehicle: '+b.vehicle, 40, y); y+=15;
           doc.text('Route: ' + b.route, 40, y); y+=15;
-          if(b.partnerLine){ var pl = doc.splitTextToSize(b.partnerLine, W-80); doc.text(pl, 40, y); y += pl.length*15; }
-
+          
           if(b.isSplit){
             doc.text('Trip 1 Departure: '+b.depDate+' @ '+b.depTime+' ('+b.from+' → '+b.to+')', 40, y); y+=15;
             doc.text('Trip 2 Return: '+b.returnDate+' @ '+b.returnTime+' ('+b.to+' → '+b.from+')', 40, y); y+=15;
@@ -1692,7 +1692,6 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
             footNotes.push('Fuel and tolls included. Parking at actual cost. Night surcharge +15% (22:00-06:00). Valid 48 hours.');
           }
           footNotes.push('Driver and plate number will be sent on Viber or WhatsApp the day before pickup.');
-          footNotes.push('Address: Le Rica Homes, Begonia St B19 L68, Brgy. San Francisco, General Trias, Cavite');
           footNotes.push('Cancellation: free up to 24 hours before pickup. See FAQ for the full policy.');
           footNotes.forEach(function(line){
             var wrapped = doc.splitTextToSize(line, W-80);
@@ -2070,7 +2069,7 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
   ['f_date','f_time','f_return_date','f_return_time','f_pickup','f_dropoff','f_daykm','f_dayhrs','f_days','f_payment','f_flight','f_return_flight','f_wait_hrs'].forEach(function(id){
     var el = $(id); if(!el) return;
     el.addEventListener('input', function(){ 
-      if(id !== 'f_wait_hrs') autoCalcWaitTime(); // Auto-calculate before fare updates
+      if(id !== 'f_wait_hrs') autoCalcWaitTime(); 
       updateSummary(); 
       scheduleFare(); 
     });
@@ -2480,24 +2479,12 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
   });
 
   var PARTNER_CITIES = [
-    { name:'Manila', match:['manila'] },
-    { name:'Makati', match:['makati'] },
-    { name:'Taguig / BGC', match:['taguig','bgc'] },
+      
     { name:'Pasay / NAIA', match:['pasay','naia'] },
     { name:'Parañaque', match:['paranaque','parañaque'] },
     { name:'Las Piñas', match:['las pinas','las piñas'] },
     { name:'Muntinlupa', match:['muntinlupa'] },
-    { name:'Alabang', match:['alabang'] },
-    { name:'Pasig', match:['pasig'] },
-    { name:'Mandaluyong', match:['mandaluyong'] },
-    { name:'San Juan', match:['san juan'] },
-    { name:'Quezon City', match:['quezon'] },
-    { name:'Marikina', match:['marikina'] },
-    { name:'Caloocan', match:['caloocan'] },
-    { name:'Valenzuela', match:['valenzuela'] },
-    { name:'Malabon', match:['malabon'] },
-    { name:'Navotas', match:['navotas'] },
-    { name:'Pateros', match:['pateros'] },
+    { name:'Alabang', match:['alabang'] },                
     { name:'General Trias', match:['general trias','gentri'] },
     { name:'Dasmariñas', match:['dasmari'] },
     { name:'Imus', match:['imus'] },
@@ -2512,11 +2499,6 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
     { name:'San Pedro', match:['san pedro'] },
     { name:'Cabuyao', match:['cabuyao'] },
     { name:'Calamba', match:['calamba'] },
-    { name:'Baguio', match:['baguio'] },
-    { name:'Subic', match:['subic'] },
-    { name:'Clark / Angeles', match:['angeles','clark'] },
-    { name:'Batangas City', match:['batangas'] },
-    { name:'Lucena', match:['lucena'] }
   ];
 
   function partnerCountForCity(city){
@@ -2530,13 +2512,14 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
   }
 
   var PARTNER_UNITS = [
-    { id:'tom-accent', driver:'Tom', phone:'63955-435-5514', plate:'NGF 5260', unit:'Hyundai Accent', cls:'accent', base:'General Trias', keys:['general trias','gentri','le rica','imus','dasmari','kawit','bacoor','paranaque','parañaque','las pinas','las piñas','trece','trace','alabang','muntinlupa'] },
+    { id:'tom-accent', driver:'Tom', phone:'63955-435-5514', plate:'NGF 5260', unit:'Hyundai Accent', cls:'accent', base:'General Trias', keys:['general trias','pasay','gentri','le rica','imus','dasmari','kawit','bacoor','paranaque','parañaque','las pinas','las piñas','trece','trace','alabang','Pasay','muntinlupa'] },
     { id:'tom-montero', driver:'Tom', phone:'63955-435-5514', plate:'WIX 453', unit:'Mitsubishi Montero', cls:'montero', base:'Las Piñas', keys:['las pinas','las piñas','bacoor','molino','paranaque','parañaque','imus','dasmari','alabang','muntinlupa'] },
     { id:'ramon-mirage', driver:'Ramon', phone:'63927-417-6683', plate:'NFN 1971', unit:'Mitsubishi Mirage G4', cls:'accent', base:'Dasmariñas', keys:['dasmari','gma','carmona','imus','general trias','gentri'] },
-    { id:'heman-avanza', driver:'Heman', phone:'63956-187-9849', plate:'DBS 3479', unit:'Toyota Avanza', cls:'avanza', base:'Las Piñas', keys:['las pinas','las piñas','muntinlupa','imus','bacoor','paranaque','parañaque','alabang'] },
-    { id:'rommel-mirage', driver:'Rommel', phone:'63977-791-2003', plate:'NIL 7317', unit:'Mitsubishi Mirage', cls:'accent', base:'Tanza', keys:['tanza','kawit','trece','trace','dasmari'] },
-    { id:'jessie-mirage', driver:'Jessie', phone:'63999-486-7533', plate:'NKH 7122', unit:'Mitsubishi Mirage', cls:'accent', base:'Las Piñas', keys:['las pinas','las piñas','paranaque','parañaque','muntinlupa','alabang'] },
-    { id:'jose-expander', driver:'Jose Michael', phone:'63995-580-8288', plate:'DAS 3211', unit:'Mitsubishi Xpander', cls:'avanza', base:'Muntinlupa', keys:['muntinlupa','san pedro','las pinas','las piñas','alabang'] }
+    { id:'heman-avanza', driver:'Heman', phone:'63956-187-9849', plate:'DBS 3479', unit:'Toyota Avanza', cls:'avanza', base:'Las Piñas', keys:['las pinas','pasay','las piñas','muntinlupa','imus','bacoor','paranaque','parañaque','alabang'] },
+    { id:'rommel-mirage', driver:'Rommel', phone:'63977-791-2003', plate:'NIL 7317', unit:'Mitsubishi Mirage', cls:'accent', base:'Tanza', keys:['tanza','pasay','kawit','trece','trace','dasmari'] },
+    { id:'jessie-mirage', driver:'Jessie', phone:'63999-486-7533', plate:'NKH 7122', unit:'Mitsubishi Mirage', cls:'accent', base:'Las Piñas', keys:['las pinas','pasay','las piñas','paranaque','parañaque','muntinlupa','alabang'] },
+    { id:'carlo-vios', driver:'Carlo', phone:'63977-749-1816', plate:'NFE 9810', unit:'Toyota Vios', cls:'accent', base:'Bacoor', keys:['las pinas','bacoor','imus','muntinlupa','dasmari','alabang'] },
+    { id:'jose-expander', driver:'Jose Michael', phone:'63995-580-8288', plate:'DAS 3211', unit:'Mitsubishi Xpander', cls:'avanza', base:'Muntinlupa', keys:['muntinlupa','pasay','san pedro','las pinas','las piñas','alabang'] }
   ];
 
   function matchPartnerUnits(){
@@ -2716,6 +2699,49 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
   updateCorpFields();
   goToStep(1, {skipScroll:true});
 })();
+
+// PWA Install Prompt Handler
+let deferredPrompt;
+const popup = document.getElementById('installPopup');
+const installBtn = document.getElementById('installBtn');
+const closeBtn = document.getElementById('closeInstall');
+const installText = document.getElementById('installText');
+
+const isIOS = /iphone|ipad|ipod/.test(navigator.userAgent.toLowerCase());
+const isInStandalone = window.navigator.standalone === true || window.matchMedia('(display-mode: standalone)').matches;
+
+if (!isInStandalone) {
+  if (isIOS) {
+    installText.innerHTML = "Tap the <strong>Share</strong> button in Safari, then select <strong>'Add to Home Screen'</strong>.";
+    installBtn.style.display = 'none';
+    setTimeout(() => { popup.style.display = 'block'; }, 2000);
+  } else {
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      setTimeout(() => { popup.style.display = 'block'; }, 2000);
+    });
+  }
+}
+
+if (installBtn) {
+  installBtn.addEventListener('click', async () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      if (outcome === 'accepted') {
+        popup.style.display = 'none';
+      }
+      deferredPrompt = null;
+    }
+  });
+}
+
+if (closeBtn) {
+  closeBtn.addEventListener('click', () => {
+    popup.style.display = 'none';
+  });
+}
 </script>
 </body>
 </html>
