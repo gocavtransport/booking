@@ -30,7 +30,7 @@ Ride in Style. Arrive with Ease.
  
 📞 BOOK YOUR RIDE NOW!
 
-https://gocavtransport.github.io/Booking/
+https://gocavtransport.github.io/booking/
  
 📱 Phone / Viber / WhatsApp: 0976-046-5134
 📧 Email: gocav.transport@gmail.com
