@@ -2429,12 +2429,26 @@ input[type="checkbox"]{width:auto;min-height:0;margin-right:10px;transform:scale
         partner80: fareTotalNum ? Math.round(fareTotalNum*0.80) : ''
       };
       
-      try {
-        if(typeof postBookingToSheet === 'function') postBookingToSheet(sheetRow);
-        if($('saveSheetBtn') && typeof sheetLogUrl === 'function') $('saveSheetBtn').href = sheetLogUrl(sheetRow);
-      } catch(sheetErr) {
-        console.warn("Sheet logging skipped", sheetErr);
-      }
+function postBookingToSheet(data, pdfBase64Data) {
+  if (!SHEET_WEBAPP_URL) return;
+  
+  var payload = Object.assign({}, data);
+  payload.token = SHEET_TOKEN;
+  
+  if (pdfBase64Data) {
+    payload.pdfBase64 = pdfBase64Data;
+    payload.fileName = 'GoCav-Quotation-' + (data.ref || 'Booking') + '.pdf';
+  }
+
+  fetch(SHEET_WEBAPP_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify(payload)
+  })
+  .then(function(res) { return res.json(); })
+  .then(function(res) { console.log("Synced to sheet and saved PDF to Drive successfully:", res); })
+  .catch(function(e) { console.warn("Background task error", e); });
+}
 
       $('resendEm').href = emLink;
       $('resendWa').href = waLink;
